@@ -1,0 +1,852 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Chromatic\n"
+"POT-Creation-Date: 2014-02-05 10:54-0500\n"
+"PO-Revision-Date: 2014-02-05 10:55-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: 404.php:15
+msgid "Well this is somewhat embarrassing, isn&rsquo;t it?"
+msgstr ""
+
+#: 404.php:19
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching, or one of the links below, can help."
+msgstr ""
+
+#: 404.php:25
+msgid "Most Used Categories"
+msgstr ""
+
+#: archive-sell_media_item.php:25 archive.php:43 author.php:30 index.php:79
+#: page-collections.php:17 page-lightbox.php:38 page-portfolio.php:37
+#: page-sellmedia.php:12 taxonomy-collection.php:40 taxonomy-keywords.php:28
+#: taxonomy-licenses.php:28 taxonomy-pcategory.php:14 taxonomy-ptag.php:14
+msgid "Show Grid"
+msgstr ""
+
+#: archive-sell_media_item.php:26 archive.php:44 author.php:31 index.php:80
+#: page-collections.php:18 page-lightbox.php:39 page-portfolio.php:38
+#: page-sellmedia.php:13 taxonomy-collection.php:41 taxonomy-keywords.php:29
+#: taxonomy-licenses.php:29 taxonomy-pcategory.php:15 taxonomy-ptag.php:15
+msgid "Show List"
+msgstr ""
+
+#: archive-sell_media_item.php:58 content-audio.php:18 content-gallery.php:18
+#: content-image.php:18 content-portfolio.php:19 content-portfolio.php:31
+#: content-video.php:18 content.php:15 index.php:160 page-blog.php:59
+#: page-lightbox.php:82 page-lightbox.php:148 page-sellmedia.php:73
+#: single-portfolio.php:21 taxonomy-collection.php:180
+#: taxonomy-keywords.php:60 taxonomy-licenses.php:61
+#, php-format
+msgid "Permalink to %s"
+msgstr ""
+
+#: archive-sell_media_item.php:63 content-portfolio.php:36 index.php:165
+#: page-lightbox.php:87 page-lightbox.php:153 page-sellmedia.php:78
+#: taxonomy-collection.php:185 taxonomy-keywords.php:65
+#: taxonomy-licenses.php:66
+msgid "by"
+msgstr ""
+
+#: archive-sell_media_item.php:78 archive.php:75 author.php:66 index.php:99
+#: page-blog.php:74 page-portfolio.php:58 search.php:34
+#: taxonomy-collection.php:198 taxonomy-keywords.php:78
+#: taxonomy-licenses.php:79 taxonomy-pcategory.php:40 taxonomy-ptag.php:38
+msgid "Nothing Found"
+msgstr ""
+
+#: archive.php:26
+#, php-format
+msgid "Daily Archives: %s"
+msgstr ""
+
+#: archive.php:28
+#, php-format
+msgid "Monthly Archives: %s"
+msgstr ""
+
+#: archive.php:30
+#, php-format
+msgid "Yearly Archives: %s"
+msgstr ""
+
+#: archive.php:32
+#, php-format
+msgid "Category Archives: %s"
+msgstr ""
+
+#: archive.php:34 lib/custom-post-types.php:22
+msgid "Portfolio"
+msgstr ""
+
+#: archive.php:36
+#, php-format
+msgid "%s Archives"
+msgstr ""
+
+#: archive.php:38 sidebar.php:19
+msgid "Archives"
+msgstr ""
+
+#: archive.php:79 author.php:70 page-blog.php:78 taxonomy-pcategory.php:44
+#: taxonomy-ptag.php:42
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
+msgstr ""
+
+#: author.php:28
+#, php-format
+msgid "Author Archives: %s"
+msgstr ""
+
+#: comments.php:17
+msgid ""
+"This post is password protected. Enter the password to view any comments."
+msgstr ""
+
+#: comments.php:33
+#, php-format
+msgid "One thought on &ldquo;%2$s&rdquo;"
+msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
+msgstr[0] ""
+msgstr[1] ""
+
+#: comments.php:40 comments.php:60
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:41 comments.php:61
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: comments.php:42 comments.php:62
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: content-audio.php:65 content-gallery.php:39 content-image.php:43
+#: content-quote.php:23 content-video.php:31 page-blog.php:62 lib/posts.php:60
+#: lib/posts.php:63
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: content-audio.php:69 content-gallery.php:43 content-image.php:47
+#: content-page.php:27 content-quote.php:35 content-video.php:35
+#: content.php:31 image.php:88
+msgid "Pages:"
+msgstr ""
+
+#: content-page.php:29 entry-footer.php:46 image.php:34 image.php:104
+#: page-dashboard.php:22
+msgid "Edit"
+msgstr ""
+
+#: content-portfolio.php:23
+msgid "Set a Featured Image"
+msgstr ""
+
+#: content-portfolio.php:68
+msgid "Categories:"
+msgstr ""
+
+#: entry-footer.php:22
+msgid "Client:"
+msgstr ""
+
+#: entry-footer.php:28
+msgid "Date:"
+msgstr ""
+
+#: entry-footer.php:35
+msgid ", "
+msgstr ""
+
+#: entry-footer.php:53
+msgid "Leave a comment"
+msgstr ""
+
+#: entry-footer.php:53
+msgid "1"
+msgstr ""
+
+#: entry-footer.php:53
+msgid "%"
+msgstr ""
+
+#: footer.php:46
+msgid "Powered by"
+msgstr ""
+
+#: footer.php:46
+msgid "http://wordpress.org/"
+msgstr ""
+
+#: footer.php:46
+msgid "Semantic Personal Publishing Platform"
+msgstr ""
+
+#: footer.php:46
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: footer.php:48
+#, php-format
+msgid "Theme: %1$s by %2$s."
+msgstr ""
+
+#: functions.php:93
+msgid "Primary Menu"
+msgstr ""
+
+#: functions.php:94
+msgid "Footer Menu"
+msgstr ""
+
+#: header.php:44
+#, php-format
+msgid "Page %s"
+msgstr ""
+
+#: header.php:122
+msgid "Main menu"
+msgstr ""
+
+#: header.php:123
+msgid "Skip to content"
+msgstr ""
+
+#: header.php:147
+msgid "Show footer"
+msgstr ""
+
+#: image.php:24
+#, php-format
+msgid ""
+"Published <span class=\"entry-date\"><abbr class=\"published\" title=\"%1$s"
+"\">%2$s</abbr></span> at <a href=\"%3$s\" title=\"Link to full-size image\">"
+"%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel="
+"\"gallery\">%7$s</a>"
+msgstr ""
+
+#: image.php:38
+msgid "&larr; Previous"
+msgstr ""
+
+#: image.php:39
+msgid "Next &rarr;"
+msgstr ""
+
+#: image.php:96
+#, php-format
+msgid ""
+"<a class=\"comment-link\" href=\"#respond\" title=\"Post a comment\">Post a "
+"comment</a> or leave a trackback: <a class=\"trackback-link\" href=\"%s\" "
+"title=\"Trackback URL for your post\" rel=\"trackback\">Trackback URL</a>."
+msgstr ""
+
+#: image.php:98
+#, php-format
+msgid ""
+"Comments are closed, but you can leave a trackback: <a class=\"trackback-link"
+"\" href=\"%s\" title=\"Trackback URL for your post\" rel=\"trackback"
+"\">Trackback URL</a>."
+msgstr ""
+
+#: image.php:100
+msgid ""
+"Trackbacks are closed, but you can <a class=\"comment-link\" href=\"#respond"
+"\" title=\"Post a comment\">post a comment</a>."
+msgstr ""
+
+#: image.php:102
+msgid "Both comments and trackbacks are currently closed."
+msgstr ""
+
+#: index.php:53 page-slideshow.php:41
+msgid "Continue Reading"
+msgstr ""
+
+#: index.php:103
+msgid ""
+"It seems we can't find what you're looking for. Perhaps searching can help."
+msgstr ""
+
+#: index.php:132
+msgid "Buy "
+msgstr ""
+
+#: page-collections.php:119 taxonomy-collection.php:94
+#: taxonomy-collection.php:134
+msgid " images in "
+msgstr ""
+
+#: page-collections.php:119 taxonomy-collection.php:94
+#: taxonomy-collection.php:134
+msgid " collection"
+msgstr ""
+
+#: page-collections.php:122 taxonomy-collection.php:97
+#: taxonomy-collection.php:137
+msgid "Starting at "
+msgstr ""
+
+#: page-collections.php:139 page-dashboard.php:48 page-lightbox.php:178
+msgid "Please activate Sell Media plugin to use this page."
+msgstr ""
+
+#: page-dashboard.php:24
+msgid "Your Information: "
+msgstr ""
+
+#: page-dashboard.php:28
+msgid "Username: "
+msgstr ""
+
+#: page-dashboard.php:29
+msgid "Email: "
+msgstr ""
+
+#: page-dashboard.php:30
+msgid "First Name: "
+msgstr ""
+
+#: page-dashboard.php:31
+msgid "Last Name: "
+msgstr ""
+
+#: page-dashboard.php:37
+msgid "Purchase History: "
+msgstr ""
+
+#: page-dashboard.php:42
+msgid "You must be logged into the view this page."
+msgstr ""
+
+#: page-dashboard.php:44
+msgid "Lost your password?"
+msgstr ""
+
+#: page-lightbox.php:35
+msgid " Email to friend"
+msgstr ""
+
+#: page-lightbox.php:102 page-lightbox.php:168 page-lightbox.php:172
+msgid "Your lightbox is empty"
+msgstr ""
+
+#: page-lightbox.php:142
+msgid "Remove from lightbox"
+msgstr ""
+
+#: page-portfolio.php:62
+msgid ""
+"If you are trying to set Portfolio as a homepage and you are seeing this, "
+"you most likely do not have any Portfolio posts. Please go to Portfolios -> "
+"Add New in your wp-admin and start creating your portfolios."
+msgstr ""
+
+#: search.php:17
+#, php-format
+msgid "Search Results for: %s"
+msgstr ""
+
+#: search.php:38
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
+msgstr ""
+
+#: sidebar.php:26
+msgid "Meta"
+msgstr ""
+
+#: single-sell_media_item.php:42
+msgid "Starting at"
+msgstr ""
+
+#: single-sell_media_item.php:46
+msgid "Save to lightbox"
+msgstr ""
+
+#: single-sell_media_item.php:46
+msgid "Saved to lightbox"
+msgstr ""
+
+#: single-sell_media_item.php:50
+msgid " people like this"
+msgstr ""
+
+#: single-sell_media_item.php:53
+msgid "File ID"
+msgstr ""
+
+#: single-sell_media_item.php:54
+msgid "Creator"
+msgstr ""
+
+#: single-sell_media_item.php:57
+msgid "Collections"
+msgstr ""
+
+#: single-sell_media_item.php:61
+msgid "Licenses"
+msgstr ""
+
+#: single-sell_media_item.php:72
+msgid "Keywords"
+msgstr ""
+
+#: taxonomy-collection.php:19 taxonomy-keywords.php:15
+#: taxonomy-licenses.php:15
+msgid "This collection is hidden."
+msgstr ""
+
+#: taxonomy-keywords.php:25
+msgid "Keyword Archives"
+msgstr ""
+
+#: taxonomy-licenses.php:25
+msgid "License Archives"
+msgstr ""
+
+#: taxonomy-pcategory.php:11 taxonomy-ptag.php:11
+#, php-format
+msgid "Archives: %s"
+msgstr ""
+
+#: theme-options.php:13 theme-options.php:17
+msgid "General"
+msgstr ""
+
+#: theme-options.php:27 theme-options.php:31 theme-options.php:45
+msgid "Colors"
+msgstr ""
+
+#: theme-options.php:41
+msgid "Layout"
+msgstr ""
+
+#: theme-options.php:55 theme-options.php:59
+msgid "Slideshow"
+msgstr ""
+
+#: theme-options.php:75
+msgid "Use a transparent png or jpg image"
+msgstr ""
+
+#: theme-options.php:87
+msgid "Use a transparent png or ico image"
+msgstr ""
+
+#: theme-options.php:99 theme-options.php:112
+msgid "<a href=\""
+msgstr ""
+
+#: theme-options.php:124
+msgid "Select a color palette"
+msgstr ""
+
+#: theme-options.php:133
+msgid "Default"
+msgstr ""
+
+#: theme-options.php:137
+msgid "Dark"
+msgstr ""
+
+#: theme-options.php:141
+msgid "Spring"
+msgstr ""
+
+#: theme-options.php:145
+msgid "Summer"
+msgstr ""
+
+#: theme-options.php:149
+msgid "Fall"
+msgstr ""
+
+#: theme-options.php:158
+msgid "Add some custom CSS to your theme."
+msgstr ""
+
+#: theme-options.php:171
+msgid "A short message to introduce your site to visitors."
+msgstr ""
+
+#: theme-options.php:183
+msgid "Sidebar"
+msgstr ""
+
+#: theme-options.php:184
+msgid "Keep sidebar open at all times"
+msgstr ""
+
+#: theme-options.php:193 theme-options.php:215
+msgid "Keep open at all times"
+msgstr ""
+
+#: theme-options.php:197 theme-options.php:219
+msgid "Open on click"
+msgstr ""
+
+#: theme-options.php:205
+msgid "Footer"
+msgstr ""
+
+#: theme-options.php:206
+msgid "Show footer at all times."
+msgstr ""
+
+#: theme-options.php:228
+msgid "Select an image orientation layout."
+msgstr ""
+
+#: theme-options.php:237
+msgid "Horizontal"
+msgstr ""
+
+#: theme-options.php:241
+msgid "Square"
+msgstr ""
+
+#: theme-options.php:245
+msgid "Vertical"
+msgstr ""
+
+#: theme-options.php:254
+msgid "Select number of columns."
+msgstr ""
+
+#: theme-options.php:263
+msgid "Two"
+msgstr ""
+
+#: theme-options.php:267
+msgid "Three"
+msgstr ""
+
+#: theme-options.php:271
+msgid "Four"
+msgstr ""
+
+#: theme-options.php:280
+msgid "Choose what you want to show on Archive pages."
+msgstr ""
+
+#: theme-options.php:289
+msgid "Hide Excerpts and Content"
+msgstr ""
+
+#: theme-options.php:293
+msgid "The Excerpt"
+msgstr ""
+
+#: theme-options.php:297
+msgid "The Content"
+msgstr ""
+
+#: theme-options.php:305
+msgid "Blog Categories"
+msgstr ""
+
+#: theme-options.php:306
+msgid "Choose Categories for blog page."
+msgstr ""
+
+#: theme-options.php:319
+msgid "Enable homepage slideshow."
+msgstr ""
+
+#: theme-options.php:328
+msgid "Yes"
+msgstr ""
+
+#: theme-options.php:332
+msgid "No"
+msgstr ""
+
+#: theme-options.php:341
+msgid "Select or create a gallery of images to use in the homepage slideshow."
+msgstr ""
+
+#: lib/comments.php:24
+#, php-format
+msgid "%s <span class=\"says\">says:</span>"
+msgstr ""
+
+#: lib/comments.php:27
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: lib/comments.php:35
+#, php-format
+msgid "%1$s at %2$s"
+msgstr ""
+
+#: lib/comments.php:37 lib/comments.php:55
+msgid "(Edit)"
+msgstr ""
+
+#: lib/comments.php:55
+msgid "Pingback:"
+msgstr ""
+
+#: lib/custom-post-type-extra-info.php:87
+msgctxt "column name"
+msgid "Title"
+msgstr ""
+
+#: lib/custom-post-type-extra-info.php:88 lib/custom-taxonomies.php:29
+msgid "Categories"
+msgstr ""
+
+#: lib/custom-post-type-extra-info.php:89 lib/custom-taxonomies.php:45
+msgid "Tags"
+msgstr ""
+
+#: lib/custom-post-type-extra-info.php:90
+msgctxt "column name"
+msgid "Date"
+msgstr ""
+
+#: lib/custom-post-types.php:21
+msgid "Portfolios"
+msgstr ""
+
+#: lib/custom-post-types.php:23
+msgid "Add New"
+msgstr ""
+
+#: lib/custom-post-types.php:24 lib/custom-post-types.php:25
+msgid "Add Portfolio"
+msgstr ""
+
+#: lib/custom-post-types.php:26
+msgid "View Portfolio"
+msgstr ""
+
+#: lib/custom-post-types.php:27
+msgid "Search Portfolios"
+msgstr ""
+
+#: lib/custom-post-types.php:28
+msgid "Edit Portfolio"
+msgstr ""
+
+#: lib/custom-post-types.php:29
+msgid "All Portfolios"
+msgstr ""
+
+#: lib/custom-post-types.php:30
+msgid "No Portfolio found"
+msgstr ""
+
+#: lib/custom-post-types.php:31
+msgid "No Portfolio found in Trash"
+msgstr ""
+
+#: lib/custom-taxonomies.php:19
+msgctxt "taxonomy general name"
+msgid "Categories"
+msgstr ""
+
+#: lib/custom-taxonomies.php:20
+msgctxt "taxonomy singular name"
+msgid "Category"
+msgstr ""
+
+#: lib/custom-taxonomies.php:21
+msgid "Search Categories"
+msgstr ""
+
+#: lib/custom-taxonomies.php:22
+msgid "All Categories"
+msgstr ""
+
+#: lib/custom-taxonomies.php:23
+msgid "Parent Category"
+msgstr ""
+
+#: lib/custom-taxonomies.php:24
+msgid "Parent Category:"
+msgstr ""
+
+#: lib/custom-taxonomies.php:25
+msgid "Edit Category"
+msgstr ""
+
+#: lib/custom-taxonomies.php:26
+msgid "Update Category"
+msgstr ""
+
+#: lib/custom-taxonomies.php:27
+msgid "Add New Category"
+msgstr ""
+
+#: lib/custom-taxonomies.php:28
+msgid "New Category Name"
+msgstr ""
+
+#: lib/postnav.php:16
+msgid "Post navigation"
+msgstr ""
+
+#: lib/postnav.php:23
+msgctxt "Previous post link"
+msgid "&larr;"
+msgstr ""
+
+#: lib/postnav.php:24
+msgctxt "Next post link"
+msgid "&rarr;"
+msgstr ""
+
+#: lib/postnav.php:34
+msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
+msgstr ""
+
+#: lib/postnav.php:38
+msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: lib/posts.php:17
+#, php-format
+msgid ""
+"<span class=\"sep\">Posted on </span><a href=\"%1$s\" title=\"%2$s\" rel="
+"\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" >%4$s</time></"
+"a><span class=\"byline\"> <span class=\"sep\"> by </span> <span class="
+"\"author vcard\"><a class=\"url fn n\" href=\"%5$s\" title=\"%6$s\" rel="
+"\"author\">%7$s</a></span></span>"
+msgstr ""
+
+#: lib/posts.php:23
+#, php-format
+msgid "View all posts by %s"
+msgstr ""
+
+#: lib/posts.php:37
+#, php-format
+msgid ""
+"<a href=\"%1$s\" title=\"%2$s\" rel=\"bookmark\"><time class=\"entry-date\" "
+"datetime=\"%3$s\" >%4$s</time></a>"
+msgstr ""
+
+#: lib/widgets.php:20
+msgid "Sidebar (Sell Media Single Items)"
+msgstr ""
+
+#: lib/widgets.php:30
+msgid "Home"
+msgstr ""
+
+#: lib/widgets/sell-media-exif.php:27
+msgid "Camera "
+msgstr ""
+
+#: lib/widgets/sell-media-exif.php:32
+msgid "Apperture "
+msgstr ""
+
+#: lib/widgets/sell-media-exif.php:37
+msgid "Focal Length "
+msgstr ""
+
+#: lib/widgets/sell-media-exif.php:42
+msgid "Shutter Speed "
+msgstr ""
+
+#: lib/widgets/sell-media-exif.php:60
+msgid "ISO "
+msgstr ""
+
+#: lib/widgets/sell-media-exif.php:64
+msgid "Credit "
+msgstr ""
+
+#: lib/widgets/sell-media-exif.php:69
+msgid "Date "
+msgstr ""
+
+#: lib/widgets/sell-media-exif.php:74 lib/widgets/sell-media-exif.php:76
+msgid "Copyright "
+msgstr ""
+
+#: lib/widgets/sell-media-exif.php:76
+msgid "by "
+msgstr ""
+
+#: options/options.php:128 options/options.php:131
+#: options/library/theme-customizer.php:49
+msgid "Theme Options"
+msgstr ""
+
+#: options/options.php:166
+msgid " settings updated successfully."
+msgstr ""
+
+#: options/options.php:177
+msgid "Save Settings"
+msgstr ""
+
+#: options/options.php:178
+msgid "Reset Defaults"
+msgstr ""
+
+#: options/options.php:366 options/options.php:386 options/options.php:405
+msgid ""
+"This option has no valid options. Please create valid options as an array "
+"inside the GPP Framework."
+msgstr ""
+
+#: options/options.php:488
+msgid "Upload or Select Image"
+msgstr ""
+
+#: options/options.php:489 options/options.php:584
+msgid "Remove"
+msgstr ""
+
+#: options/options.php:583
+msgid "Upload or Select Images"
+msgstr ""
+
+#: options/options.php:679
+msgid "Version: "
+msgstr ""
+
+#: options/options.php:680
+msgid "Support"
+msgstr ""
+
+#: options/options.php:681
+msgid "Theme Instructions"
+msgstr ""
+
+#: options/options.php:681
+msgid "Instructions"
+msgstr ""
+
+#: options/options.php:693
+msgid "URL"
+msgstr ""
+
+#: options/library/helpers.php:15
+msgid "-- Choose One --"
+msgstr ""

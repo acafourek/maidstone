@@ -1,0 +1,58 @@
+== Changelog ==
+
+= Version 1.2 (May. 22, 2014) =
+	* Integration with Sell Media 1.9.4
+	* Moved lightbox into core Sell Media
+
+= Version 1.1.3 (March. 14, 2014) =
+	* Checkout float bug on Firefox fix
+	* Checkout styling
+
+= Version 1.1.2 (March. 11, 2014) =
+	* Added support for SellMedia 1.8
+
+= Version 1.1.1 (March 3, 2014) =
+	* Footer blocking bottom of page bug fix
+	* Item description floating in large screen fix
+	* Fullscreen FF issue fix
+	* Option added for Cover/Contain image for slideshow
+	* List view hover effect bug fix
+	* Slideshow template now shows own images
+	* Sell Media Creator issue fix
+	* Twitter embed issue fix
+	* Removed unused codes
+
+= Version 1.0.9 (Feb. 5, 2014) =
+	* Added en_US translation files
+
+= Version 1.0.8 (Jan 15, 2014) =
+	* Fixed sub collection details overlay
+
+= Version 1.0.7 (Jan 3, 2014) =
+	* Fixed image alignment in fullscreen slideshow
+
+= Version 1.0.6 (Jan 3, 2014) =
+	* Fixing menu name for lightbox class when used in a submenu
+	* Fixing lightbox menu when placed in the middle
+
+= Version 1.0.5 (Dec 27, 2013) =
+    * Fixing issue when collections did not link to child collections when present.
+    * Fixing issue when lightbox link was used in a sub-menu
+
+= Version 1.0.4 (Dec 25, 2013) =
+	* Flexslider height set to auto
+
+= Version 1.0.3 (Dec 13, 2013) =
+	* 4 column layout bug fix
+
+= Version 1.0.2 (Nov 29, 2013) =
+	* Added option to hide/show sidebar
+	* Added option to hide/show footer
+	* Mobile devices css update
+
+= Version 1.0.1 (Nov 26, 2013) =
+	* Added breadcrumbs navigation menu for portfolio and sell media items
+	* UI/UX improvements
+
+= Version 1.0 (Nov 18, 2013) =
+	* Initial release

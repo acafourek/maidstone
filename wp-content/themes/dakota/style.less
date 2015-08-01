@@ -1,0 +1,275 @@
+/*
+Theme Name: Dakota
+Theme URI: http://graphpaperpress.com/themes/chromatic/
+Author: Andrew // Graph Paper Press
+Template: chromatic
+Author URI: http://graphpaperpress.com
+Description: Showcase your images in this clean, responsive portfolio theme packed with color and layout options.
+Version: 1.2
+License: GNU General Public License
+License URI: license.txt
+Tags: black, white, light, dark, one-column, left-sidebar, flexible-width, custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready, photoblogging
+*/
+
+
+article p a {
+	color: #39CCCC;
+	font-weight: bold;
+}
+a:visted {
+	opacity: 1;
+}
+
+.flex-direction-nav{
+	.flex-prev,.flex-next {
+		opacity: 1;
+	}
+	a {
+		height: auto !important;
+		top: 35% !important;
+		font-size: 45px !important;
+		opacity: 1 !important;
+		color: #fff !important;
+		
+		&.flex-next{
+			right: 10px !important;
+			&::before {
+				content: "\f105" !important;
+			}
+		}
+		&.flex-prev{
+			left: 10px !important;
+			&::before {
+				content: "\f104" !important;
+			}
+		}
+		&::before {
+			font-family: FontAwesome !important;
+		}	
+	}
+}
+.slide-button-wrap.container {
+	padding: 10px 10px 0 10px;
+	p {
+		margin-bottom: 0;
+	}
+}
+h2.home-slide-title {
+	margin-bottom: .3em;
+}
+.home #controls {
+	margin-top: 0;
+}
+	
+@media only screen and (min-width : 500px){
+	.portfolios.list {
+		a.thumb {
+			width: 30%;
+		}
+	}
+}
+
+ul.recent-posts-list {
+	list-style-type: none;
+	float: left;
+	@media only screen and (min-width : 500px){
+		width: 60%;
+	}
+	
+	li {
+		margin-bottom: 1.5em;
+		
+		@media only screen and (min-width : 500px){
+			float: left;
+		}
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+		
+		@media only screen and (min-width : 500px){
+			img {
+				width: 20%;
+				display: inline-block;
+				float: left;
+			}
+		}
+		.post-info {
+			margin: 0 0 0 1em;
+			@media only screen and (min-width : 500px){
+				display: inline-block;
+				width: 75%;
+			}
+			
+			h4 {
+				font-size: 1.5em;
+				margin-bottom: .5em;
+				@media only screen and (max-width : 500px){
+					font-size: 2em;
+					margin: 1em 0 .5em 0;
+					width: 100%;
+					text-align: center;
+				}
+			}
+			p {
+				margin: 0;
+			}
+		}
+	}
+}
+
+header#branding {
+	background: #39CCCC !important;
+	
+	a {
+		color: #001F3F !important;
+	}
+}
+
+/*
+.flex-caption {
+	top: inherit !important;
+	bottom: 0;
+    background-color: rgb(170,170,170);
+    background-color: rgba(170,170,170, 0.85) !important;
+    filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#aaaaaa00, endColorstr=#aaaaaa00)";
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+    
+    h2 {
+		color: #fff;
+	}
+	.flex-caption p a {
+		color: #fff;
+	}
+}
+*/
+
+.portfolios.grid {
+	.entry-content {
+		img {
+			float: left;
+		}
+	}
+}
+.portfolio {
+	.entry-content {
+		p.entry-meta {
+			color: #fff !important;
+			font-weight: normal;
+			font-size: .85em;
+			margin-bottom: 0;
+			margin: 0 0 1.5em 0;
+			
+			a {
+				color: #fff !important;
+				font-weight: normal;
+			}
+		}
+		.entry-title {
+			padding-top: .5em;
+			a {
+				font-weight: normal;
+			}
+		}
+		.entry-header {
+			span.banner-bg{
+				background: #000;
+				opacity: .75;
+				-moz-opacity: 0.75;
+				filter:alpha(opacity=75);
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				left: 0;
+			}
+			h2 {
+				color: #fff;
+				opacity: 1;
+				position: relative;
+			}
+			p.entry-meta {
+				position: relative;
+			}
+		}
+		/*
+a.thumb {
+			background-color: #000;
+			img {
+				opacity: .5;
+				-moz-opacity: 0.50;
+				filter:alpha(opacity=50);
+			}
+		}
+*/
+	}
+}
+.list .portfolio .entry-text{
+	a.thumb img {
+		float: left;
+	}
+	header.entry-header {
+	    position: absolute;
+	    top: 15%;
+	    left: 0;
+	    width: 28.5%;
+		text-align:center;
+		float: inherit;
+		padding: 0 .5em;
+	}	
+	h2.entry-title a {
+		color: #fff;
+	}
+}
+
+ul.social-profiles {
+	list-style-type: none;
+	margin: 2em auto;
+	height: auto;
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+	
+	@media screen and (min-width: 768px) {
+		padding: 0 2em;	
+	}
+	
+	@media screen and (max-width: 768px) {
+		padding: 0 30%;
+	}
+
+	span.stretcher {
+		width: 100%;
+	    display: inline-block;
+	    font-size: 0;
+	    line-height: 0;
+	}
+	li {
+		background-image: url(inc/hs-social-media-buttons/images/social-icons.png);  //this is from the hs-social-media plugin in /inc
+		height: 20px;
+		clear: none !important;
+		width: 20px !important;
+	    vertical-align: top;
+	    display: inline-block;
+	    *display: inline;
+	    zoom: 1;
+		
+		a {
+			width: 100%;
+			height: 100%;
+			float: left;
+		}
+		
+		&.facebook-like {
+			background-position: 0px -5px;	
+		}
+		&.twitter-follow {
+			background-position: 0px -52px;
+		}
+		&.pintrest-follow {
+			background-position: 0px -189px;
+		}
+		&.instagram-follow {
+			background-position: 0px -313px;
+		}
+	}
+}
