@@ -3,3 +3,16 @@ Theme Name: Maidstone
 Author: Andrew // Automattic
 Template: sela
 */
+h3.widget-title {
+  min-height: 4em;
+}
+a.read-more {
+  clear: both;
+  float: left;
+}
+.front-widget-area p {
+  margin-bottom: 0;
+}
+.main-navigation {
+  background-color: #39CCCC;
+}
