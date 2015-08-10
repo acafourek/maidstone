@@ -74,7 +74,7 @@
 	add_filter( 'excerpt_length', 'mb_custom_excerpt_length', 999 );
 	
 	function mb_new_excerpt_more( $more ) {
-		return ' <a class="read-more" href="' . get_permalink( get_the_ID() ) . '">' . __( 'Read More &rarr;', 'maidstone' ) . '</a>';
+		return '... <a class="read-more" href="' . get_permalink( get_the_ID() ) . '">' . __( 'Read More &rarr;', 'maidstone' ) . '</a>';
 	}
 	add_filter( 'excerpt_more', 'mb_new_excerpt_more' );
 

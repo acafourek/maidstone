@@ -16,7 +16,7 @@ get_header(); ?>
 					<?php 
 						get_the_image(array(
 							'size' => has_image_size( 'sela-hero-thumbnail' ) ? 'sela-hero-thumbnail' : 'thumbnail',
-							
+							'scan' => true
 						));
 					?>											
 					<div class="hero-content-overlayer">
