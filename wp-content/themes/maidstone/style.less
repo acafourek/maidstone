@@ -4,6 +4,8 @@ Author: Andrew // Automattic
 Template: sela
 */
 
+@turq: #39CCCC;
+
 /// Homepage overrides
 	h3.widget-title {
 		min-height: 4em;
@@ -18,7 +20,23 @@ Template: sela
 		margin-bottom: 0;
 	}
 	
+	.map-embed iframe {
+		margin: 0 auto;
+		width: 100%;
+	}
+	
+	.current-location {
+		text-align: center;
+		h4 {
+			color: @turq;
+			font-size: 2.5em;
+			margin: 0;
+		}
+		p {
+			width: 100%;
+		}
+	}
 //Color overrides
 	.main-navigation {
-		background-color: #39CCCC;
+		background-color: @turq;
 	}
