@@ -10,6 +10,9 @@ a.read-more {
   clear: both;
   float: left;
 }
+.front-widget-area h3 a {
+  color: #4f4f4f;
+}
 .front-widget-area p {
   margin-bottom: 0;
 }

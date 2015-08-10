@@ -17,10 +17,15 @@
 		<?php while ( $recent->have_posts() ) : $recent->the_post(); ?>
 		<div class="widget-area">
 			<aside class="widget widget_text">
-				<h3 class="widget-title"><?php the_title();?></h3>
+				<h3 class="widget-title"><a href="<?php the_permalink();?>"><?php the_title();?></a></h3>
 				<div class="textwidget">
 					<a href="<?php the_permalink();?>">
-						<?php the_post_thumbnail('medium');?>
+						<?php 
+						get_the_image(array(
+							'size' => has_image_size( 'medium' ) ? 'medium' : 'thumbnail',
+							'scan' => true
+						));
+					?>	
 					</a>
 					<?php 
 						if(has_excerpt()){ //manually defined excerpts doen have "read more" tags

@@ -11,14 +11,9 @@ get_header(); ?>
 		<?php while ( have_posts() ) : the_post(); ?>
 			<div class="hero">
 
-
+				<?php if ( has_post_thumbnail() ) : ?>
 				<figure class="hero-content">
-					<?php 
-						get_the_image(array(
-							'size' => has_image_size( 'sela-hero-thumbnail' ) ? 'sela-hero-thumbnail' : 'thumbnail',
-							'scan' => true
-						));
-					?>											
+					<?php the_post_thumbnail( 'sela-hero-thumbnail' ); ?>
 					<div class="hero-content-overlayer">
 						<div class="hero-container-outer">
 							<div class="hero-container-inner">
@@ -36,6 +31,10 @@ get_header(); ?>
 						</div><!-- .hero-container-outer -->
 					</div><!-- .hero-content-overlayer -->
 				</figure><!-- .hero-content -->
+
+				<?php else : ?>
+					<?php get_template_part( 'content', 'page' ); ?>
+				<?php endif; ?>
 
 			</div><!-- .hero -->
 		<?php endwhile; ?>

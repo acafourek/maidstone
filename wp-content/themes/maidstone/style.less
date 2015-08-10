@@ -5,6 +5,7 @@ Template: sela
 */
 
 @turq: #39CCCC;
+@head-gray: #4f4f4f;
 
 /// Homepage overrides
 	h3.widget-title {
@@ -16,8 +17,13 @@ Template: sela
 		float: left;
 	}
 
-	.front-widget-area p {
-		margin-bottom: 0;
+	.front-widget-area {
+		h3 a {
+			color: @head-gray;
+		}
+		p {
+			margin-bottom: 0;
+		}
 	}
 	
 	.map-embed iframe {
