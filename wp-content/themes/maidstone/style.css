@@ -3,9 +3,6 @@ Theme Name: Maidstone
 Author: Andrew // Automattic
 Template: sela
 */
-.front-widget-area h3.widget-title {
-  min-height: 4em;
-}
 a {
   color: #39cccc;
 }
@@ -54,4 +51,22 @@ form#mc-embedded-subscribe-form input[type="submit"] {
 }
 ul#menu-main-menu li.standout a {
   color: #333;
+}
+body.archive section#primary {
+  width: 100%;
+}
+body.archive section#primary .entry-thumbnail {
+  background: none;
+}
+body.archive .page-header {
+  margin-bottom: 2em;
+}
+body.archive .page-header .page-title {
+  margin-bottom: 0;
+}
+body.archive .page-header p {
+  font-size: 1.5em;
+}
+body.archive .hentry::after {
+  background: none;
 }

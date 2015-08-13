@@ -17,7 +17,6 @@
 		<?php while ( $recent->have_posts() ) : $recent->the_post(); ?>
 		<div class="widget-area">
 			<aside class="widget widget_text">
-				<h3 class="widget-title"><a href="<?php the_permalink();?>"><?php the_title();?></a></h3>
 				<div class="textwidget">
 					<a href="<?php the_permalink();?>">
 						<?php 
@@ -27,6 +26,7 @@
 						));
 					?>	
 					</a>
+					<h3 class="widget-title"><a href="<?php the_permalink();?>"><?php the_title();?></a></h3>
 					<?php 
 						echo da_custom_excerpt($post);
 						?>

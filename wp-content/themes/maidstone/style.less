@@ -8,9 +8,6 @@ Template: sela
 @head-gray: #4f4f4f;
 
 /// Homepage overrides
-	.front-widget-area h3.widget-title {
-		min-height: 4em;
-	}
 	
 	a {
 		color: @turq;
@@ -73,5 +70,29 @@ Template: sela
 					color: #333;
 				}
 			}
+		}
+	}
+	
+//Archive pages
+	body.archive {
+		section#primary {
+			width: 100%;
+			
+			.entry-thumbnail {
+				background: none;
+			}
+		}
+		.page-header {
+			margin-bottom: 2em;
+			
+			.page-title {
+				margin-bottom: 0;
+			}
+			p {
+				font-size: 1.5em;
+			}
+		}
+		.hentry::after {
+			background: none;
 		}
 	}
