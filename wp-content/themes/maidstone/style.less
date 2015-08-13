@@ -8,13 +8,17 @@ Template: sela
 @head-gray: #4f4f4f;
 
 /// Homepage overrides
-	h3.widget-title {
+	.front-widget-area h3.widget-title {
 		min-height: 4em;
 	}
 	
-	a.read-more {
-		clear: both;
-		float: left;
+	a {
+		color: @turq;
+		
+		&.read-more {
+			clear: both;
+			float: left;
+		}
 	}
 
 	.front-widget-area {
@@ -45,4 +49,29 @@ Template: sela
 //Color overrides
 	.main-navigation {
 		background-color: @turq;
+	}
+	.social-links ul a:before {
+		background: @turq;
+	}
+	
+//Newsletter
+	form#mc-embedded-subscribe-form {
+		input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="url"] {
+			width: 50%;
+			margin-bottom: 1.25em;
+		}
+		input[type="button"],input[type="submit"] {
+			width: 54%;
+		}
+	}
+	
+//Menu
+	ul#menu-main-menu{
+		li {
+			&.standout {
+				a {
+					color: #333;
+				}
+			}
+		}
 	}

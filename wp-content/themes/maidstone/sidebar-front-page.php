@@ -22,18 +22,13 @@
 					<a href="<?php the_permalink();?>">
 						<?php 
 						get_the_image(array(
-							'size' => has_image_size( 'medium' ) ? 'medium' : 'thumbnail',
+							'size' => 'medium',
 							'scan' => true
 						));
 					?>	
 					</a>
 					<?php 
-						if(has_excerpt()){ //manually defined excerpts doen have "read more" tags
-							the_excerpt();
-							echo '<a class="read-more" href="' . get_the_permalink() . '">' . __( 'Read More &rarr;', 'maidstone' ) . '</a>';
-						} else {
-							the_excerpt();
-						}
+						echo da_custom_excerpt($post);
 						?>
 				</div>
 			</aside>

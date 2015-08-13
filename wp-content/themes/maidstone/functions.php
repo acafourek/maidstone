@@ -60,9 +60,9 @@
 	
 	function da_custom_excerpt($post,$length = 75) { 
 	    if( strlen($post->post_excerpt) > 0 )
-	        $excerpt = '<p>'.$post->post_excerpt.'<a class="read-more" href="'. get_permalink( $post->ID ) . '">' . '... read more' . '</a></p>';
+	        $excerpt = '<p>'.$post->post_excerpt.'... <a class="read-more" href="'. get_permalink( $post->ID ) . '">' . 'Read More &rarr;' . '</a></p>';
 	    else
-	        $excerpt = '<p>'.wp_trim_words( $post->post_content , $length, '<a class="read-more" href="'. get_permalink( $post->ID ) . '">' . '... read more' . '</a>' ).'</p>';
+	        $excerpt = '<p>'.wp_trim_words( $post->post_content , $length, '... <a class="read-more" href="'. get_permalink( $post->ID ) . '">' . 'Read More &rarr;' . '</a>' ).'</p>';
 	
 	    return $excerpt;
 	}
@@ -72,12 +72,6 @@
 		return 60;
 	}
 	add_filter( 'excerpt_length', 'mb_custom_excerpt_length', 999 );
-	
-	function mb_new_excerpt_more( $more ) {
-		return '... <a class="read-more" href="' . get_permalink( get_the_ID() ) . '">' . __( 'Read More &rarr;', 'maidstone' ) . '</a>';
-	}
-	add_filter( 'excerpt_more', 'mb_new_excerpt_more' );
-
 
 /// SCRIPTS
 	function da_scripts() {
@@ -110,6 +104,22 @@
 					'name'          => __( 'Post Location', 'maidstone' ),
 					'type'          => 'map',
 					'address_field' => $prefix.'loc_address',
+				),
+	        )
+	    );
+	    
+	    $meta_boxes[] = array(
+	        'id'       => 'external',
+	        'title'    => '<span class="dashicons dashicons-admin-links"></span> External Link',
+	        'pages'    => array( 'page'),
+	        'context'  => 'normal',
+	        'priority' => 'high',
+	        'fields' => array(
+	            array(
+					'id'   => $prefix.'external_link',
+					'name' => __( 'Link', 'maidstone' ),
+					'type' => 'url',
+					'desc' => 'URL for this page to link to from the Work page.'
 				),
 	        )
 	    );
