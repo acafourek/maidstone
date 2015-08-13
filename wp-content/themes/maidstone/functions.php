@@ -175,3 +175,43 @@
 		
 		return $location;
 	}
+	
+/// HEADER
+	function mb_ga_code(){
+		echo "
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		
+		  ga('create', 'UA-16122526-26', 'auto');
+		  ga('send', 'pageview');
+		
+		</script>
+		";
+	}
+	add_action('wp_head','mb_ga_code');
+	
+////SOCIAL
+include_once('inc/hs-social-media-buttons/hs-social-buttons.php');
+	function mb_social_share(){ 
+	    $social_links = get_option('hssocial_badges');
+		if($social_links):
+    ?>
+	        <ul class="social-profiles clearfix">
+		        <?php if ($social_links['hssocial_facebook'])?>
+			        <li class="facebook-like"><a href="<?php echo $social_links['hssocial_facebook'];?>" title="Like <?php echo get_bloginfo('name');?> on Facebook"></a></li>
+			    <?php if ($social_links['hssocial_twitter'])?>
+		        	<li class="twitter-follow"><a href="https://twitter.com/intent/follow?screen_name=<?php echo $social_links['hssocial_twitter'];?>"></a></li>
+		       <?php if ($social_links['hssocial_instagram'])?>
+		        	<li class="instagram-follow"><a target="_blank" href="<?php echo $social_links['hssocial_instagram'];?>"></a></li>
+		        <?php if ($social_links['hssocial_pintrest'])?>
+		        	<li class="pintrest-follow"><a target="_blank" href="<?php echo $social_links['hssocial_pintrest'];?>"></a></li>
+
+		        <span class="stretcher"></span>
+	        </ul>
+	<?php
+		endif;
+	}	
+	add_action('wp_footer','mb_social_share');
