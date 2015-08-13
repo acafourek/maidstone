@@ -12,8 +12,9 @@
 <div id="tertiary" class="widget-area footer-widget-area" role="complementary">
 	<div id="widget-area-2" class="widget-area current-location">
 		<h3 class="widget-title">Last Seen</h3>
-		<?php 
-			if($loc = get_option('mb_current_location')){
+		<?php
+			$loc = mb_get_latest_foursquare_location();
+			if($loc){
 		?>
 				<h4><i class="fa fa-map"></i></h4>
 				<p><?php echo $loc; ?></p>

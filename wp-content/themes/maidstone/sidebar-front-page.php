@@ -34,14 +34,6 @@
 			</aside>
 		</div>
 		<?php 
-			//check, calculate and update current location from most recently geo encoded post
-			if(!$loc && $curr_loc = get_post_meta(get_the_ID(), 'meta_loc', true)){
-				$place = mb_get_placename($curr_loc);
-				if($place)
-					update_option('mb_current_location', $place);
-				$loc = true;
-			}
-			
 			endwhile; ?>
 	
 		<?php wp_reset_postdata(); ?>

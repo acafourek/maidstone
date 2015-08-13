@@ -129,6 +129,7 @@
 /// LOCATION DATA
 
 	function mb_get_placename($latlong=false){
+		//was originally inteded to fetch "latest location" but now we're using foursquare. Left this for future use to get latlong placenames
 		//expects lat/long and returns placename from Google Maps API
 		if(!$latlong)
 			return false;
@@ -146,4 +147,31 @@
 					return $addr->formatted_address;
 			}
 		}	
+	}
+	
+	function mb_get_latest_foursquare_location(){
+		require_once 'inc/FoursquareApi.php';
+		$foursquare = new FoursquareApi(FOURSQUARE_ACCESS, FOURSQUARE_SECRET);
+		$foursquare->SetAccessToken(FOURSQUARE_USER_TOKEN);
+		
+		$user = $foursquare->GetPrivate("users/self/checkins");
+		$data = json_decode($user);
+		
+		if($data->meta->code !== 200)
+			return false;
+		
+		$city = $data->response->checkins->items[0]->venue->location->city;
+		$state = $data->response->checkins->items[0]->venue->location->state; 
+		$country = $data->response->checkins->items[0]->venue->location->country; 
+		
+		$location = "";
+		if($city)
+			$location .= $city;
+		if($state)
+			$location .= ', '.$state;
+			
+		if($country && ($country !== "United States"))
+		 	$location .= $country;
+		
+		return $location;
 	}
