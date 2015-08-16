@@ -6,7 +6,6 @@
  *
  * @package Sela
  */
-
 ?>
 
 <div id="tertiary" class="widget-area footer-widget-area" role="complementary">
