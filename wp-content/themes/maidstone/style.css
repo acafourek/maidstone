@@ -85,3 +85,7 @@ body.page .child-page {
 .search .page-header {
   margin: 0;
 }
+.entry-thumbnail,
+.post-thumbnail {
+  background: none !important;
+}
