@@ -8,7 +8,7 @@ a {
 }
 a.read-more {
   clear: both;
-  float: left;
+  margin-left: .5em;
 }
 .front-widget-area h3 a {
   color: #4f4f4f;
