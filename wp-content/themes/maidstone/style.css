@@ -71,7 +71,7 @@ body.archive .hentry::after {
   background: none;
 }
 /* Grid Page */
-.child-page {
+body.archive .child-page {
   width: 45%;
   max-width: 100%;
   margin: 0 55px 0 0;
