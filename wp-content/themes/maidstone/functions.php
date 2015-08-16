@@ -194,9 +194,11 @@
 	add_action('wp_head','mb_ga_code');
 	
 ////SOCIAL
-/*
-include_once('inc/hs-social-media-buttons/hs-social-buttons.php');
 	function mb_social_share(){ 
+		if(!is_single())
+			return false;
+			
+		include_once('inc/hs-social-media-buttons/hs-social-buttons.php');
 	    $social_links = get_option('hssocial_badges');
 		if($social_links):
     ?>
@@ -216,4 +218,3 @@ include_once('inc/hs-social-media-buttons/hs-social-buttons.php');
 		endif;
 	}	
 	add_action('wp_footer','mb_social_share');
-*/
