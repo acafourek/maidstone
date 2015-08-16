@@ -14,6 +14,13 @@
 		unregister_sidebar( 'sidebar-7' );
 		unregister_sidebar( 'sidebar-2' );
 	}
+	
+	function da_exclude_widget_categories($args){
+		$exclude = "1,5"; // The IDs of the excluding categories
+		$args["exclude"] = $exclude;
+		return $args;
+	}
+	add_filter("widget_categories_args","da_exclude_widget_categories");
 
 //CUSTOMIZE ADMIN
 	function da_add_remove_contactmethods( $contactmethods ) {

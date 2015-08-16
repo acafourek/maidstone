@@ -19,7 +19,9 @@ get_header(); ?>
 				?>
 			</header><!-- .page-header -->
 
-			<?php /* Start the Loop */ ?>
+			<?php /* Start the Loop */ 
+			$counter = 1;
+			?>
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<?php
@@ -28,6 +30,9 @@ get_header(); ?>
 					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
 					 */
 					get_template_part( 'content', 'grid');
+					if($counter%2 === 0)
+						echo '<div class="clearfix"></div>';
+				$counter++;
 				?>
 
 			<?php endwhile; ?>

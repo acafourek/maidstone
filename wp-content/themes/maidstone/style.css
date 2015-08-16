@@ -78,6 +78,9 @@ body.archive .hentry::after {
     padding: 1em;
   }
 }
+body.page .child-page {
+  width: 100%;
+}
 .archive .page-header,
 .search .page-header {
   margin: 0;
