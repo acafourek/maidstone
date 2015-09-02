@@ -1,13 +1,10 @@
 <?php
 
 /**
-	Based on this plugin however, Andre wcustomized it to be more awesome
-	
-	
  * Plugin Name: HS Social Media Buttons
  * Plugin URI: http://heliossolutions.in/
  * Description: HS Social Media Buttons plugin adds social media buttons to your site.
- * Version: 2.0.4
+ * Version: 2.0.5
  * Author: Helios Solutions
  * Author URI: http://heliossolutions.in/
  */
@@ -58,6 +55,7 @@ function hssocial_badges_options_page() {
             $hssocial_pintrest = esc_html($_POST['hssocial_pintrest']);
 			$hssocial_ur_web = esc_html($_POST['hssocial_ur_web']);
 			$hssocial_mail = esc_html($_POST['hssocial_mail']);
+			$hssocial_skype = esc_html($_POST['hssocial_skype']);
 			$hssocial_instagram = esc_html($_POST['hssocial_instagram']);
 			$hssocial_flickr = esc_html($_POST['hssocial_flickr']);
                         $mobile = $_POST['mobile'];
@@ -74,6 +72,7 @@ function hssocial_badges_options_page() {
             $options['hssocial_google'] = $hssocial_google;
 			$options['hssocial_ur_web'] = $hssocial_ur_web;
 			$options['hssocial_mail'] = $hssocial_mail;
+			$options['hssocial_skype'] = $hssocial_skype;
 			$options['hssocial_instagram'] = $hssocial_instagram;
 			$options['hssocial_flickr'] = $hssocial_flickr;
 			$options['hssocial_xing'] = $hssocial_xing;
@@ -100,6 +99,7 @@ function hssocial_badges_options_page() {
         $hssocial_youtube = $options['hssocial_youtube'];
 		$hssocial_ur_web = $options['hssocial_ur_web'];
 		$hssocial_mail = $options['hssocial_mail'];
+		$hssocial_skype = $options['hssocial_skype'];
 		$hssocial_instagram = $options['hssocial_instagram'];
 		$hssocial_flickr = $options['hssocial_flickr'];
 		$hssocial_xing = $options['hssocial_xing'];
@@ -115,13 +115,14 @@ function hssocial_badges_options_page() {
 /* Load Style-sheet for plugin */
 
 function hssocial_badges_backend_styles() {
-    wp_enqueue_style('hssocial_badges_backend_css', get_stylesheet_directory_uri().'/inc/hs-social-media-buttons/hssocial-badges.css');
+
+    wp_enqueue_style('hssocial_badges_backend_css', plugins_url('hs-social-media-buttons/hssocial-badges.css'));
     $options = get_option('hssocial_badges');
     $options['pos_lr'];
     if ($options['pos_lr'] == 'l') {
-        wp_enqueue_style('general-left', get_stylesheet_directory_uri().'/inc/hs-social-media-buttons/inc/css/general-left.css');
+        wp_enqueue_style('general-left', plugins_url('hs-social-media-buttons/inc/css/general-left.css'));
     } else {
-        wp_enqueue_style('general', get_stylesheet_directory_uri().'/inc/hs-social-media-buttons/inc/css/general.css');
+        wp_enqueue_style('general', plugins_url('hs-social-media-buttons/inc/css/general.css'));
     }
 }
 
@@ -131,15 +132,15 @@ add_action('admin_head', 'hssocial_badges_backend_styles');
 
 function hssocial_badges_frontend_scripts_and_styles() {
 
-    wp_enqueue_style('hssocial_badges_frontend_css', get_stylesheet_directory_uri().'/inc/hs-social-media-buttons/hssocial-badges.css');
+    wp_enqueue_style('hssocial_badges_frontend_css', plugins_url('hs-social-media-buttons/hssocial-badges.css'));
     $options = get_option('hssocial_badges');
     $options['pos_lr'];
     if ($options['pos_lr'] == 'l') {
-        wp_enqueue_style('general-left', get_stylesheet_directory_uri().'/inc/hs-social-media-buttons/inc/css/general-left.css');
+        wp_enqueue_style('general-left', plugins_url('hs-social-media-buttons/inc/css/general-left.css'));
     } else {
-        wp_enqueue_style('general', get_stylesheet_directory_uri().'/inc/hs-social-media-buttons/inc/css/general.css');
+        wp_enqueue_style('general', plugins_url('hs-social-media-buttons/inc/css/general.css'));
     }
-    wp_enqueue_script('hssocial', get_stylesheet_directory_uri().'/inc/hs-social-media-buttons/inc/js/hssocial.js', array('jquery'), '', false);
+    wp_enqueue_script('hssocial', plugins_url('hs-social-media-buttons/inc/js/hssocial.js'), array('jquery'), '', false);
 }
 
 add_action('wp_enqueue_scripts', 'hssocial_badges_frontend_scripts_and_styles');
@@ -147,8 +148,7 @@ add_action('wp_enqueue_scripts', 'hssocial_badges_frontend_scripts_and_styles');
 /* Load Front End */
 
 function front_end_load() {
-	if(is_single())
-	    require( 'inc/front-end.php' );
+    require( 'inc/front-end.php' );
 }
 
 add_action('wp_head', 'front_end_load');

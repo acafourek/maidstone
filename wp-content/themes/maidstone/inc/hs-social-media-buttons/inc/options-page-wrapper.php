@@ -92,6 +92,14 @@
                                         </tr>
 										<tr>
                                             <td>
+                                                <label for="hssocial_skype">Skype ID</label>
+                                            </td>
+                                            <td>
+                                                <input name="hssocial_skype" id="hssocial_skype" type="text" value="" class="regular-text" />
+                                            </td>
+                                        </tr>
+										<tr>
+                                            <td>
                                                 <label for="hssocial_instagram">Instagram URL</label>
                                             </td>
                                             <td>
@@ -121,7 +129,7 @@
                                             <td>
                                                 <input name="hssocial_tumblr" id="hssocial_tumblr" type="text" value="" class="regular-text" />
                                             </td>
-                                        </tr>
+                                        </tr>										
                                     </table>
                                     <table cellpadding="5" cellspacing="5">
                                         <tr>
@@ -249,6 +257,14 @@
                                         </tr>
 										<tr>
                                             <td>
+                                                <label for="hssocial_skype">Skype ID</label>
+                                            </td>
+                                            <td>
+                                                <input name="hssocial_skype" id="hssocial_skype" type="text" value="<?php echo $hssocial_skype; ?>" class="regular-text" />
+                                            </td>
+                                        </tr>
+										<tr>
+                                            <td>
                                                 <label for="hssocial_instagram">Instagram URL</label>
                                             </td>
                                             <td>
@@ -338,7 +354,15 @@
 
                 <div class="meta-box-sortables">
 
-                   
+                    <div class="postbox">
+
+                        <h3><span>About Company</span></h3>
+                        <div class="inside">
+                            <a href="http://heliossolutions.in/" target="_blank"><img src="<?php echo $plugin_url ?>/images/cmp_logo.png"></a>
+                            <p >Helios Solution is an Indian IT outsourcing company who works on many IT technologies such as wordpress, magento, joomla, drupal, opencart, cakephp, .NET etc </p>
+                        </div> <!-- .inside -->
+
+                    </div> <!-- .postbox -->
 
                 </div> <!-- .meta-box-sortables -->
 
