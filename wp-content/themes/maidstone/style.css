@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css?family=Abel);
 /*
 Theme Name: Maidstone
 Author: Andrew // Automattic
@@ -20,7 +21,7 @@ a.read-more {
   margin-bottom: 0;
 }
 h1.site-title {
-  display: none;
+  font-family: 'Abel', sans-serif;
 }
 .map-embed iframe {
   margin: 0 auto;
