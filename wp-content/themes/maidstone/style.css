@@ -22,6 +22,8 @@ a.read-more {
 }
 h1.site-title {
   font-family: 'Abel', sans-serif;
+  text-transform: none;
+  margin-top: .25em;
 }
 .map-embed iframe {
   margin: 0 auto;
