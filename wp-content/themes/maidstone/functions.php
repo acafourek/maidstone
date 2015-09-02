@@ -225,3 +225,12 @@
 		endif;
 	}	
 	add_action('wp_footer','mb_social_share');
+	
+	function mb_social_share_config(){
+		include_once('inc/hs-social-media-buttons/hs-social-buttons.php');
+	}
+
+	add_action('admin_init','mb_social_share_config');
+
+//disable jetpack open graph
+add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );
