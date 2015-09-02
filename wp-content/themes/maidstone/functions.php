@@ -201,7 +201,8 @@
 	add_action('wp_head','mb_ga_code');
 	
 ////SOCIAL
-	function mb_social_share(){ 
+	/*
+function mb_social_share(){ 
 		if(!is_single())
 			return false;
 			
@@ -231,6 +232,7 @@
 	}
 
 	add_action('admin_init','mb_social_share_config');
+*/
 
 //disable jetpack open graph
 add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );
