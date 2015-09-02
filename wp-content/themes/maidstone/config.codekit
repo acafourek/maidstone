@@ -172,17 +172,6 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/screenshot.png": {
-		"fileType": 32768,
-		"ignore": 0,
-		"ignoreWasSetByUser": 0,
-		"initialSize": 27831,
-		"inputAbbreviatedPath": "\/screenshot.png",
-		"outputAbbreviatedPath": "\/screenshot.png",
-		"outputPathIsOutsideProject": 0,
-		"outputPathIsSetByUser": 0,
-		"processed": 0
-		},
 	"\/sidebar-footer.php": {
 		"fileType": 8192,
 		"ignore": 0,
