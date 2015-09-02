@@ -232,7 +232,7 @@
 			include_once('inc/hs-social-media-buttons/hs-social-buttons.php');
 	}
 
-	add_action('muplugins_loaded','mb_social_share_config');
+	add_action('init','mb_social_share_config');
 
 //disable jetpack open graph
 add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );
