@@ -227,11 +227,12 @@
 	add_action('wp_footer','mb_social_share');
 	
 	function mb_social_share_config(){
+		error_log('loaded social config');
 		if(is_admin())
 			include_once('inc/hs-social-media-buttons/hs-social-buttons.php');
 	}
 
-	add_action('plugins_loaded','mb_social_share_config');
+	add_action('muplugins_loaded','mb_social_share_config');
 
 //disable jetpack open graph
 add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );
