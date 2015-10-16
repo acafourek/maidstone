@@ -124,20 +124,136 @@ Linking to any of the following sites will automatically display its icon in you
 
 == Changelog ==
 
-= 1.0.5 - June 15 2015 =
-* Scroll overflowed content of front-page template.
-* Implement Infinite Scroll for testimonials.
-* Fix PHP error in template-tags file.
+= 22 September 2015 =
+* Adjust spacing around individual menu items, so menu does not display slightly off-center.
 
-= 1.0.4 - Apr 30 2015 =
-* Added styling for Jetpack's testimonials shortcode
+= 7 September 2015 =
+* Add jQuery dependency when loading sela.js.
 
-= 1.0.3 - Apr 08 2015 =
-* Fixed language filenames
+= 31 August 2015 =
+* check if `$jetpack_options['featured-image']` exists before checking its value to prevent undefined index notice
 
-= 1.0.1 - Feb 18 2015 =
-* Fixed mixed text domains.
-* Switched to admin_enqueue_scripts to enqueue custom fonts on header customization screen.
+= 20 August 2015 =
+* Add text domain and/or remove domain path. (O-S)
 
-= 1.0 - Jan 13 2015 =
-* Initial release.
+= 14 August 2015 =
+* Update readme to reflect changes; update version number
+* Fix additional undefined error with Jetpack testimonials
+
+= 5 August 2015 =
+* version bumps
+
+= 31 July 2015 =
+* Remove `.screen-reader-text:hover` and `.screen-reader-text:active` style rules.
+
+= 17 July 2015 =
+* Use Latin extended character subset in order to provide support for more languages.
+
+= 15 July 2015 =
+* Always use https when loading Google Fonts.
+
+= 12 June 2015 =
+* Use overflow: auto instead of overflow: scroll on frontpage hero image.
+
+= 11 June 2015 =
+* Scroll content of front-page hero image if text overflows.
+* Properly implement IS behaviour for testimonials.
+* Fix missing argument error for template-tags.php.
+
+= 30 April 2015 =
+* Style tweaks for Testimonials shortcode;
+
+= 3 April 2015 =
+* Add missing italics for the 300 font weight.
+
+= 3 March 2015 =
+* Add styling for Fieldset/Legend elements to better match the theme
+* Update widget area names for clarification; they're not "sidebars" they're "widget areas".
+
+= 18 February 2015 =
+* Fixed textdomain issues; Switched to admin_enqueue_scripts to enqueue custom fonts on header customization screen; Bumped version number.
+
+= 18 January 2015 =
+* Fixed required Theme Check items:
+
+= 14 January 2015 =
+* Added sela.pot file
+* Delete file motif.pot
+
+= 13 January 2015 =
+* Added readme.txt
+
+= 8 January 2015 =
+* Fixed no results page
+* Minor CSS adjustments for mobile view
+* Minor CSS adjustments
+
+= 7 January 2015 =
+* Changed widget titles to <h3>
+* Color adjustments for better contrast
+
+= 6 January 2015 =
+* Sela: backward comatibility for archive title and description
+
+= 5 January 2015 =
+* Added styling for single Jetpack Testimonial view
+* Switched to CSS grid in grid-page.php
+* Added esc_url() around instances of get_permalink()
+
+= 19 December 2014 =
+* Removed date from featured posts, minor CSS adjustments
+
+= 18 December 2014 =
+* Minor color adjustemnts
+* Color adjustments
+* Background color adjustments
+* Allow tablets to access submenu items in the site navigation.
+* Genericons update
+
+= 17 December 2014 =
+* update one URL to HTTPS.
+* Code error fix in full-eidth page template
+* Inifinite Scroll styling and code adjustments
+* WPCOM widgets styling
+* Abstracted additional class for jetpack testimonials to a function
+* iix SVN properties.
+
+= 9 December 2014 =
+* Replaced sela_wp_title() with core title handling
+
+= 2 November 2014 =
+* Add a max-height to the Site Logo.
+* Add Jetpack prefixing to Site Logo template tags.
+
+= 1 September 2014 =
+* - switch to proper  screenshot
+
+= 27 August 2014 =
+* - editor.css - list style changed to match frontend
+
+= 25 August 2014 =
+* Fixed tab width issue in style.css, added placeholder for small featured images
+
+= 22 August 2014 =
+* Jetpack Testimonial Archive Page with featured image styling
+
+= 21 August 2014 =
+* Jetpack Testimonials Archive Page fix to make featured image full-width and overlayed with title
+* Switched link color in footer for consistency, fixed Full-width page witout image layout, fixed visual issues with Jetpack Testimonials Archive Page
+* Overriding default page styles for Jetpack Testimonials Archive Page
+* Jetpack Testimonials Archive Page Template
+* Jetpack Testimonials Archive Template, changed squares to discs in lists for consistent look
+
+= 20 August 2014 =
+* Footer color changes from pink to gray, adjustments to menu - better contrast for hover, front page hero unit opacity adjustment
+* Gravatar Profile widget adjustments, footer widget link color change
+* Added Social Menu, fixed home page spacing issues, switched sidebar link colors, added custom styling for Gravatar Profile widget
+
+= 19 August 2014 =
+* <hr> margin adjustment, .wp-caption remove marign bottom, fixed gap between posts with featured image in blog view, fixed margin below milestone widget
+* Adjustments to milestone widget styling, mobile Safari button style fix, widgets overflow adjustment
+* Styling for Milestone widget, Comments styling adjustments
+* Updated theme description and tags
+
+= 18 August 2014 =
+* Move from /dev to /pub

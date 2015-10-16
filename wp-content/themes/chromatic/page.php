@@ -1,31 +1,55 @@
-<?php
-/**
- * The template for displaying all pages.
- *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site will use a
- * different template.
- *
- * @package Chromatic
- * @since Chromatic 1.0
- */
+<?php get_header(); // Loads the header.php template. ?>
 
-get_header(); ?>
+<?php get_template_part( 'template-parts/loop-meta' ); // Loads the template-parts/loop-meta.php template to display Title Area with Meta Info (of the loop) ?>
 
-<div id="primary">
+<div class="grid">
 
-	<div id="content" role="main">
+	<div class="grid-row">
 
-		<?php while ( have_posts() ) : the_post(); ?>
+		<main <?php chromaticfw_attr( 'content' ); ?>>
 
-			<?php get_template_part( 'content', 'page' ); ?>
+			<?php
+			// Checks if any posts were found.
+			if ( have_posts() ) :
+			?>
 
-			<?php comments_template( '', true ); ?>
+				<div id="content-wrap">
 
-		<?php endwhile; // end of the loop. ?>
+					<?php
+					// Begins the loop through found posts, and load the post data.
+					while ( have_posts() ) : the_post();
 
-	</div><!-- #content -->
-</div><!-- #primary -->
+						// Loads the template-parts/content-{$post_type}.php template.
+						chromaticfw_get_content_template();
 
-<?php get_footer(); ?>
+					// End found posts loop.
+					endwhile;
+					?>
+
+				</div><!-- #content-wrap -->
+
+				<?php
+				// Loads the comments.php template if this page is not being displayed as frontpage or a custom 404 page
+				if ( !is_front_page() && !chromaticfw_is_404() ) :
+					comments_template( '', true );
+				endif;
+
+			// If no posts were found.
+			else :
+
+				// Loads the template-parts/error.php template.
+				get_template_part( 'template-parts/error' );
+
+			// End check for posts.
+			endif;
+			?>
+
+		</main><!-- #content -->
+
+		<?php chromaticfw_get_sidebar( 'primary' ); // Loads the template-parts/sidebar-primary.php template. ?>
+
+	</div><!-- .grid-row -->
+
+</div><!-- .grid -->
+
+<?php get_footer(); // Loads the footer.php template. ?>

@@ -7,7 +7,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Sela\n"
 
 #: functions.php:161
@@ -58,11 +58,6 @@ msgstr "Page d’Accueil"
 #: wp-content/themes/pub/sela/style.css
 msgid "Sela is not your typical business theme. Vibrant, bold, and clean, with lots of space for large images, this theme will look great on all devices, from desktop to mobile."
 msgstr "Sela n’est pas un thème commercial comme les autres. Vibrant, audacieux et organisé, avec beaucoup d’espace pour de grandes images, ce thème aura fière allure partout – des ordinateurs de bureau jusqu’aux appareils mobiles."
-
-#. Author of the plugin/theme
-#: wp-content/themes/pub/sela/style.css
-msgid "Automattic"
-msgstr ""
 
 #: search.php:16
 msgid "Search Results for: %s"

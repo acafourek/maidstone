@@ -7,16 +7,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Sela\n"
 
 #: functions.php:161
 msgid "Second Front Page Widget Area"
 msgstr "Segunda area de widgets de página principal"
-
-#: functions.php:169
-msgid "Third Front Page Widget Area"
-msgstr ""
 
 #: functions.php:153
 msgid "First Front Page Widget Area"
@@ -35,29 +31,14 @@ msgid "First Footer Widget Area"
 msgstr "Primera área de widgets del pie"
 
 #. Template Name of the plugin/theme
-#: wp-content/themes/pub/sela/page-templates/grid-page.php
-msgid "Grid Page"
-msgstr ""
-
-#. Template Name of the plugin/theme
 #: wp-content/themes/pub/sela/page-templates/full-width-page.php
 msgid "Full Width Page"
 msgstr "Página de ancho completo"
-
-#. Author URI of the plugin/theme
-#: wp-content/themes/pub/sela/style.css
-msgid "https://wordpress.com/themes/"
-msgstr ""
 
 #. Template Name of the plugin/theme
 #: wp-content/themes/pub/sela/page-templates/front-page.php
 msgid "Front Page"
 msgstr "Portada"
-
-#. Description of the plugin/theme
-#: wp-content/themes/pub/sela/style.css
-msgid "Sela is not your typical business theme. Vibrant, bold, and clean, with lots of space for large images, this theme will look great on all devices, from desktop to mobile."
-msgstr ""
 
 #. Author of the plugin/theme
 #: wp-content/themes/pub/sela/style.css
@@ -82,14 +63,14 @@ msgctxt "post format archive title"
 msgid "Audio"
 msgstr "Audio"
 
+#: inc/template-tags.php:415
+msgid "Archives: %s"
+msgstr "Archivos: %s"
+
 #: inc/template-tags.php:412
 msgctxt "post format archive title"
 msgid "Chats"
 msgstr "Chats"
-
-#: inc/template-tags.php:415
-msgid "Archives: %s"
-msgstr "Archivos: %s"
 
 #: inc/template-tags.php:406
 msgctxt "post format archive title"
@@ -106,15 +87,20 @@ msgctxt "post format archive title"
 msgid "Images"
 msgstr "Imágenes"
 
+#: inc/template-tags.php:404
+msgctxt "post format archive title"
+msgid "Quotes"
+msgstr "Citas"
+
 #: inc/template-tags.php:402
 msgctxt "post format archive title"
 msgid "Videos"
 msgstr "Vídeos"
 
-#: inc/template-tags.php:404
+#: inc/template-tags.php:398
 msgctxt "post format archive title"
-msgid "Quotes"
-msgstr "Citas"
+msgid "Galleries"
+msgstr "Galerías"
 
 #: inc/template-tags.php:393
 msgctxt "daily archives date format"
@@ -125,11 +111,6 @@ msgstr "j F, Y"
 msgctxt "post format archive title"
 msgid "Asides"
 msgstr "Asides"
-
-#: inc/template-tags.php:398
-msgctxt "post format archive title"
-msgid "Galleries"
-msgstr "Galerías"
 
 #: inc/template-tags.php:393
 msgid "Day: %s"
@@ -168,10 +149,6 @@ msgstr "Etiqueta: %s"
 #: inc/template-tags.php:325
 msgid "<a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">Permalink</a>."
 msgstr "<a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">Enlace permanente</a>."
-
-#: inc/template-tags.php:331
-msgid "Posted in: %1$s | Tagged: %2$s"
-msgstr ""
 
 #: inc/template-tags.php:333
 msgid "Posted in: %1$s"
@@ -216,16 +193,6 @@ msgstr "%1$s a las %2$s"
 msgid "%s <span class=\"says\">says:</span>"
 msgstr "%s <span class=\"says\">dijo:</span>"
 
-#: inc/template-tags.php:53
-msgctxt "Previous post link"
-msgid "<span class=\"meta-nav\"></span>&nbsp;%title"
-msgstr ""
-
-#: inc/template-tags.php:54
-msgctxt "Next post link"
-msgid "%title&nbsp;<span class=\"meta-nav\"></span>"
-msgstr ""
-
 #: inc/template-tags.php:75
 msgid "Pingback:"
 msgstr "Pingback:"
@@ -246,14 +213,6 @@ msgstr "Navegador de artículos"
 msgid "Posts navigation"
 msgstr "Ir a las entradas"
 
-#: image.php:20
-msgid "<span class=\"meta-nav\"></span> Previous"
-msgstr ""
-
-#: image.php:21
-msgid "Next <span class=\"meta-nav\"></span>"
-msgstr ""
-
 #: image.php:30
 msgid "Published <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\">%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%8$s</a>"
 msgstr "Publicado <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\">%2$s</time></span> en <a href=\"%3$s\" title=\"Enlace a la imagen en tamaño real\">%4$s &times; %5$s</a> en <a href=\"%6$s\" title=\"Regresar a %7$s\" rel=\"galería\">%8$s</a>"
@@ -269,14 +228,6 @@ msgstr "Menu"
 #: header.php:23
 msgid "Skip to content"
 msgstr "Saltar al contenido."
-
-#. translators: If there are characters in your language that are not supported
-#. * by Oswald, translate this to 'off'. Do not translate into your own
-#. language.
-#: functions.php:92
-msgctxt "Oswald font: on or off"
-msgid "on"
-msgstr ""
 
 #: functions.php:121
 msgid "Main Sidebar"

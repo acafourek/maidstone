@@ -1,37 +1,39 @@
 <?php
-/**
- * The Sidebar containing the main widget areas.
- *
- * @package Chromatic
- * @since Chromatic 1.0
- */
+// Dispay Sidebar if not a one-column layout
+$sidebar_size = chromaticfw_main_layout( 'primary-sidebar' );
+if ( !empty( $sidebar_size ) ) :
 ?>
-<?php  do_action( 'chromatic_before_sidebar' ); ?>
 
-<section id="secondary" class="widget-area" role="complementary">
-	<?php if ( ! dynamic_sidebar( 'sidebar-1' ) ) : ?>
+	<aside <?php chromaticfw_attr( 'sidebar', 'primary' ); ?>>
 
-		<aside id="search" class="widget widget_search">
-			<?php get_search_form(); ?>
-		</aside>
+		<?php
+		if ( is_active_sidebar( 'primary-sidebar' ) ) : // If the sidebar has widgets.
 
-		<aside id="archives" class="widget">
-			<h1 class="widget-title"><?php _e( 'Archives', 'chromatic' ); ?></h1>
-			<ul>
-				<?php wp_get_archives( array( 'type' => 'monthly' ) ); ?>
-			</ul>
-		</aside>
+			dynamic_sidebar( 'primary-sidebar' ); // Displays the primary sidebar.
 
-		<aside id="meta" class="widget">
-			<h1 class="widget-title"><?php _e( 'Meta', 'chromatic' ); ?></h1>
-			<ul>
-				<?php wp_register(); ?>
-				<li><?php wp_loginout(); ?></li>
-				<?php wp_meta(); ?>
-			</ul>
-		</aside>
+		else : // If the sidebar has no widgets.
 
-	<?php endif; // end sidebar widget area ?>
-</section><!-- #secondary .widget-area -->
+			the_widget(
+				'WP_Widget_Text',
+				array(
+					'title'  => __( 'Example Widget', 'chromatic' ),
+					/* Translators: The %s are placeholders for HTML, so the order can't be changed. */
+					'text'   => sprintf( __( 'This is an example widget to show how the Primary sidebar looks by default. You can add custom widgets from the %swidgets screen%s in the admin.', 'chromatic' ), current_user_can( 'edit_theme_options' ) ? '<a href="' . admin_url( 'widgets.php' ) . '">' : '', current_user_can( 'edit_theme_options' ) ? '</a>' : '' ),
+					'filter' => true,
+				),
+				array(
+					'before_widget' => '<section class="widget widget_text">',
+					'after_widget'  => '</section>',
+					'before_title'  => '<h3 class="widget-title">',
+					'after_title'   => '</h3>'
+				)
+			);
 
-<?php do_action( 'chromatic_after_sidebar' ); ?>
+		endif; // End widgets check.
+		?>
+
+	</aside><!-- #sidebar-primary -->
+
+<?php
+endif; // End layout check.
+?>

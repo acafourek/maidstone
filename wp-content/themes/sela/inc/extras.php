@@ -63,7 +63,7 @@ function sela_additional_class() {
 
 	$jetpack_options = get_theme_mod( 'jetpack_testimonials' );
 
-	if ( is_post_type_archive() && ! $jetpack_options['featured-image'] ) {
+	if ( is_post_type_archive() && ( ! isset( $jetpack_options['featured-image'] ) || ! $jetpack_options['featured-image'] ) ) {
 		$additional_class =  'without-featured-image';
 	} else if ( is_page() && ! has_post_thumbnail() ) {
 		$additional_class =  'without-featured-image';

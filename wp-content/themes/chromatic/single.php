@@ -1,27 +1,59 @@
-<?php
-/**
- * The Template for displaying all single posts.
- *
- * @package Chromatic
- * @since Chromatic 1.0
- */
+<?php get_header(); // Loads the header.php template. ?>
 
-get_header(); ?>
+<?php get_template_part( 'template-parts/loop-meta' ); // Loads the template-parts/loop-meta.php template to display Title Area with Meta Info (of the loop) ?>
 
-		<section id="primary">
+<div class="grid">
 
-			<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
+	<div class="grid-row">
 
-				<?php // chromatic_content_nav( 'nav-above' ); ?>
+		<main <?php chromaticfw_attr( 'content' ); ?>>
 
-				<?php  get_template_part( 'content', get_post_format() ); ?>
+			<?php
+			// Checks if any posts were found.
+			if ( have_posts() ) :
+			?>
 
-				<?php chromatic_content_nav( 'nav-below' ); ?>
+				<div id="content-wrap">
 
-				<?php comments_template( '', true ); ?>
+					<?php
+					// Begins the loop through found posts, and load the post data.
+					while ( have_posts() ) : the_post();
 
-			<?php endwhile; // end of the loop. ?>
+						// Loads the template-parts/content-{$post_type}.php template.
+						chromaticfw_get_content_template();
 
-		</section><!-- #primary -->
+					// End found posts loop.
+					endwhile;
+					?>
 
-<?php get_footer(); ?>
+				</div><!-- #content-wrap -->
+
+				<?php
+				// Loads the template-parts/loop-nav.php template.
+				if ( chromaticfw_get_option( 'post_prev_next_links' ) )
+					get_template_part( 'template-parts/loop-nav' );
+
+				// Loads the comments.php template
+				if ( !is_attachment() ) {
+					comments_template( '', true );
+				};
+
+			// If no posts were found.
+			else :
+
+				// Loads the template-parts/error.php template.
+				get_template_part( 'template-parts/error' );
+
+			// End check for posts.
+			endif;
+			?>
+
+		</main><!-- #content -->
+
+		<?php chromaticfw_get_sidebar( 'primary' ); // Loads the template-parts/sidebar-primary.php template. ?>
+
+	</div><!-- .grid-row -->
+
+</div><!-- .grid -->
+
+<?php get_footer(); // Loads the footer.php template. ?>

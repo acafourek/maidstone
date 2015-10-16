@@ -7,20 +7,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Sela\n"
-
-#: functions.php:161
-msgid "Second Front Page Widget Area"
-msgstr ""
-
-#: functions.php:169
-msgid "Third Front Page Widget Area"
-msgstr ""
-
-#: functions.php:153
-msgid "First Front Page Widget Area"
-msgstr ""
 
 #: functions.php:145
 msgid "Third Footer Widget Area"
@@ -53,11 +41,6 @@ msgstr "https://wordpress.com/themes/"
 #: wp-content/themes/pub/sela/page-templates/front-page.php
 msgid "Front Page"
 msgstr "برگهٔ نخست"
-
-#. Description of the plugin/theme
-#: wp-content/themes/pub/sela/style.css
-msgid "Sela is not your typical business theme. Vibrant, bold, and clean, with lots of space for large images, this theme will look great on all devices, from desktop to mobile."
-msgstr ""
 
 #. Author of the plugin/theme
 #: wp-content/themes/pub/sela/style.css
@@ -169,10 +152,6 @@ msgstr "برچسب‌ها: %s"
 msgid "<a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">Permalink</a>."
 msgstr "<a href=\"%3$s\" title=\"پایاپیوند به %4$s\" rel=\"bookmark\">پایاپیوند</a>."
 
-#: inc/template-tags.php:331
-msgid "Posted in: %1$s | Tagged: %2$s"
-msgstr ""
-
 #: inc/template-tags.php:333
 msgid "Posted in: %1$s"
 msgstr "نوشته‌شده در: %1$s"
@@ -216,16 +195,6 @@ msgstr "%1$s در %2$s"
 msgid "%s <span class=\"says\">says:</span>"
 msgstr "%s <span class=\"says\">می‌گوید:</span>"
 
-#: inc/template-tags.php:53
-msgctxt "Previous post link"
-msgid "<span class=\"meta-nav\"></span>&nbsp;%title"
-msgstr ""
-
-#: inc/template-tags.php:54
-msgctxt "Next post link"
-msgid "%title&nbsp;<span class=\"meta-nav\"></span>"
-msgstr ""
-
 #: inc/template-tags.php:75
 msgid "Pingback:"
 msgstr "بازتاب: "
@@ -245,14 +214,6 @@ msgstr "ناوبری نوشته"
 #: inc/template-tags.php:19
 msgid "Posts navigation"
 msgstr "ناوبری نوشته‌ها"
-
-#: image.php:20
-msgid "<span class=\"meta-nav\"></span> Previous"
-msgstr ""
-
-#: image.php:21
-msgid "Next <span class=\"meta-nav\"></span>"
-msgstr ""
 
 #: image.php:30
 msgid "Published <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\">%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%8$s</a>"

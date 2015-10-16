@@ -7,16 +7,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Sela\n"
 
 #: functions.php:161
 msgid "Second Front Page Widget Area"
 msgstr "İkinci ön sayfa bileşen alanı"
-
-#: functions.php:169
-msgid "Third Front Page Widget Area"
-msgstr ""
 
 #: functions.php:153
 msgid "First Front Page Widget Area"
@@ -35,29 +31,14 @@ msgid "First Footer Widget Area"
 msgstr "Birinci Alt Bölüm Bileşen Alanı"
 
 #. Template Name of the plugin/theme
-#: wp-content/themes/pub/sela/page-templates/grid-page.php
-msgid "Grid Page"
-msgstr ""
-
-#. Template Name of the plugin/theme
 #: wp-content/themes/pub/sela/page-templates/full-width-page.php
 msgid "Full Width Page"
 msgstr "Tam sayfa genişlik"
-
-#. Author URI of the plugin/theme
-#: wp-content/themes/pub/sela/style.css
-msgid "https://wordpress.com/themes/"
-msgstr ""
 
 #. Template Name of the plugin/theme
 #: wp-content/themes/pub/sela/page-templates/front-page.php
 msgid "Front Page"
 msgstr "Ana Sayfa"
-
-#. Description of the plugin/theme
-#: wp-content/themes/pub/sela/style.css
-msgid "Sela is not your typical business theme. Vibrant, bold, and clean, with lots of space for large images, this theme will look great on all devices, from desktop to mobile."
-msgstr ""
 
 #. Author of the plugin/theme
 #: wp-content/themes/pub/sela/style.css
@@ -68,28 +49,28 @@ msgstr "Automattic"
 msgid "Search Results for: %s"
 msgstr "Arama sonuçları: %s"
 
+#: inc/template-tags.php:421
+msgid "Archives"
+msgstr "Arşivler"
+
 #. translators: 1: Taxonomy singular name, 2: Current taxonomy term
 #: inc/template-tags.php:419
 msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
-
-#: inc/template-tags.php:421
-msgid "Archives"
-msgstr "Arşivler"
 
 #: inc/template-tags.php:410
 msgctxt "post format archive title"
 msgid "Audio"
 msgstr "Ses"
 
+#: inc/template-tags.php:415
+msgid "Archives: %s"
+msgstr "Arşivler: %s"
+
 #: inc/template-tags.php:412
 msgctxt "post format archive title"
 msgid "Chats"
 msgstr "Sohbetler"
-
-#: inc/template-tags.php:415
-msgid "Archives: %s"
-msgstr "Arşivler: %s"
 
 #: inc/template-tags.php:406
 msgctxt "post format archive title"
@@ -106,15 +87,15 @@ msgctxt "post format archive title"
 msgid "Images"
 msgstr "Görseller"
 
-#: inc/template-tags.php:402
-msgctxt "post format archive title"
-msgid "Videos"
-msgstr "Videolar"
-
 #: inc/template-tags.php:404
 msgctxt "post format archive title"
 msgid "Quotes"
 msgstr "Alıntılar"
+
+#: inc/template-tags.php:402
+msgctxt "post format archive title"
+msgid "Videos"
+msgstr "Videolar"
 
 #: inc/template-tags.php:393
 msgctxt "daily archives date format"
@@ -157,10 +138,6 @@ msgstr "Yıl: %s"
 msgid "Author: %s"
 msgstr "Yazar: %s"
 
-#: inc/template-tags.php:383
-msgid "Category: %s"
-msgstr ""
-
 #: inc/template-tags.php:385
 msgid "Tag: %s"
 msgstr "Etiket: %s"
@@ -168,10 +145,6 @@ msgstr "Etiket: %s"
 #: inc/template-tags.php:325
 msgid "<a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">Permalink</a>."
 msgstr "<a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">Kalıcı Bağlantı</a>."
-
-#: inc/template-tags.php:331
-msgid "Posted in: %1$s | Tagged: %2$s"
-msgstr ""
 
 #: inc/template-tags.php:333
 msgid "Posted in: %1$s"
@@ -216,27 +189,9 @@ msgstr "%1$s %2$s"
 msgid "%s <span class=\"says\">says:</span>"
 msgstr "%s <span class=\"says\">dedi ki:</span>"
 
-#: inc/template-tags.php:53
-msgctxt "Previous post link"
-msgid "<span class=\"meta-nav\"></span>&nbsp;%title"
-msgstr ""
-
-#: inc/template-tags.php:54
-msgctxt "Next post link"
-msgid "%title&nbsp;<span class=\"meta-nav\"></span>"
-msgstr ""
-
 #: inc/template-tags.php:75
 msgid "Pingback:"
 msgstr "Geri bildirim: "
-
-#: inc/template-tags.php:23
-msgid "<span class=\"meta-nav\"></span> Older posts"
-msgstr ""
-
-#: inc/template-tags.php:27
-msgid "Newer posts <span class=\"meta-nav\"></span>"
-msgstr ""
 
 #: inc/template-tags.php:50
 msgid "Post navigation"
@@ -245,14 +200,6 @@ msgstr "Yazı dolaşımı"
 #: inc/template-tags.php:19
 msgid "Posts navigation"
 msgstr "Yazı dolaşımı"
-
-#: image.php:20
-msgid "<span class=\"meta-nav\"></span> Previous"
-msgstr ""
-
-#: image.php:21
-msgid "Next <span class=\"meta-nav\"></span>"
-msgstr ""
 
 #: image.php:30
 msgid "Published <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\">%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%8$s</a>"

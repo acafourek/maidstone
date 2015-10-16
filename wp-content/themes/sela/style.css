@@ -2,13 +2,12 @@
 Theme Name: Sela
 Theme URI: https://wordpress.com/themes/sela/
 Description: Sela is not your typical business theme. Vibrant, bold, and clean, with lots of space for large images, this theme will look great on all devices, from desktop to mobile.
-Version: 1.0.5
+Version: 1.0.10
 Author: Automattic
 Author URI: https://wordpress.com/themes/
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: sela
-Domain Path: /languages/
 Tags: light, pink, white, two-columns, right-sidebar, responsive-layout, custom-background, custom-header, custom-menu, featured-images,  full-width-template, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready
 
 This theme, like WordPress, is licensed under the GPL.
@@ -717,8 +716,6 @@ textarea {
 	overflow: hidden;
 }
 
-.screen-reader-text:hover,
-.screen-reader-text:active,
 .screen-reader-text:focus {
 	background-color: #f1f1f1;
 	border-radius: 3px;
@@ -1787,8 +1784,11 @@ video {
 		content: " \2022";
 		margin-left: 1em;
 	}
+	.nav-menu > li:last-child {
+		padding-right: 0;
+	}
 	.nav-menu > li:last-child > a:after {
-		content: "";
+		display: none;
 	}
 	.main-navigation ul ul {
 		background-color: #fff;

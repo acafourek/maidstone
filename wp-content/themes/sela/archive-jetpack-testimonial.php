@@ -9,7 +9,7 @@ get_header(); ?>
 
 	<?php $jetpack_options = get_theme_mod( 'jetpack_testimonials' ); ?>
 
-	<?php if ( '' != $jetpack_options['featured-image'] ) : ?>
+	<?php if ( isset( $jetpack_options['featured-image'] ) && '' != $jetpack_options['featured-image'] ) : ?>
 		<div class="entry-thumbnail">
 			<?php echo wp_get_attachment_image( (int)$jetpack_options['featured-image'], 'sela-page-thumbnail' ); ?>
 		</div><!-- .thumbnail -->
@@ -23,7 +23,7 @@ get_header(); ?>
 					<header class="entry-header">
 						<h1 class="entry-title">
 							<?php
-							if ( '' != $jetpack_options['page-title'] )
+							if ( isset( $jetpack_options['page-title'] ) && '' != $jetpack_options['page-title'] )
 								echo esc_html( $jetpack_options['page-title'] );
 							else
 								_e( 'Testimonials', 'sela' );

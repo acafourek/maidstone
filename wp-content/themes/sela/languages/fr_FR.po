@@ -7,16 +7,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: GlotPress/1.0-alpha-1000\n"
+"X-Generator: GlotPress/1.0-alpha-1100\n"
 "Project-Id-Version: Sela\n"
 
 #: functions.php:161
 msgid "Second Front Page Widget Area"
 msgstr "Seconde zone de la Page d&rsquo;Accueil"
-
-#: functions.php:169
-msgid "Third Front Page Widget Area"
-msgstr ""
 
 #: functions.php:153
 msgid "First Front Page Widget Area"
@@ -35,11 +31,6 @@ msgid "First Footer Widget Area"
 msgstr "1ère zone de pied de page"
 
 #. Template Name of the plugin/theme
-#: wp-content/themes/pub/sela/page-templates/grid-page.php
-msgid "Grid Page"
-msgstr ""
-
-#. Template Name of the plugin/theme
 #: wp-content/themes/pub/sela/page-templates/full-width-page.php
 msgid "Full Width Page"
 msgstr "Page plein écran"
@@ -53,11 +44,6 @@ msgstr "https://wordpress.com/themes/"
 #: wp-content/themes/pub/sela/page-templates/front-page.php
 msgid "Front Page"
 msgstr "Page d'Accueil"
-
-#. Description of the plugin/theme
-#: wp-content/themes/pub/sela/style.css
-msgid "Sela is not your typical business theme. Vibrant, bold, and clean, with lots of space for large images, this theme will look great on all devices, from desktop to mobile."
-msgstr ""
 
 #. Author of the plugin/theme
 #: wp-content/themes/pub/sela/style.css
@@ -169,10 +155,6 @@ msgstr "Tag: %s"
 msgid "<a href=\"%3$s\" title=\"Permalink to %4$s\" rel=\"bookmark\">Permalink</a>."
 msgstr "<a href=\"%3$s\" title=\"Permalien vers %4$s\" rel=\"bookmark\">Permalien</a>."
 
-#: inc/template-tags.php:331
-msgid "Posted in: %1$s | Tagged: %2$s"
-msgstr ""
-
 #: inc/template-tags.php:333
 msgid "Posted in: %1$s"
 msgstr "Publié dans: %1$s"
@@ -216,16 +198,6 @@ msgstr "%1$s à %2$s"
 msgid "%s <span class=\"says\">says:</span>"
 msgstr "%s <span class=\"says\">dit&nbsp;:</span>"
 
-#: inc/template-tags.php:53
-msgctxt "Previous post link"
-msgid "<span class=\"meta-nav\"></span>&nbsp;%title"
-msgstr ""
-
-#: inc/template-tags.php:54
-msgctxt "Next post link"
-msgid "%title&nbsp;<span class=\"meta-nav\"></span>"
-msgstr ""
-
 #: inc/template-tags.php:75
 msgid "Pingback:"
 msgstr "Pingback: "
@@ -245,14 +217,6 @@ msgstr "Navigation des articles"
 #: inc/template-tags.php:19
 msgid "Posts navigation"
 msgstr "Navigation des articles"
-
-#: image.php:20
-msgid "<span class=\"meta-nav\"></span> Previous"
-msgstr ""
-
-#: image.php:21
-msgid "Next <span class=\"meta-nav\"></span>"
-msgstr ""
 
 #: image.php:30
 msgid "Published <span class=\"entry-date\"><time class=\"entry-date\" datetime=\"%1$s\">%2$s</time></span> at <a href=\"%3$s\" title=\"Link to full-size image\">%4$s &times; %5$s</a> in <a href=\"%6$s\" title=\"Return to %7$s\" rel=\"gallery\">%8$s</a>"

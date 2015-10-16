@@ -359,7 +359,7 @@ add_action( 'wp_enqueue_scripts', 'sela_header_background', 11 );
 function sela_jp_testimonials_content() {
 	$jetpack_options = get_theme_mod( 'jetpack_testimonials' );
 
-	if ( '' != $jetpack_options['page-content'] ) :
+	if ( isset( $jetpack_options['page-content'] ) && '' != $jetpack_options['page-content'] ) :
 	?>
 
 	<div class="entry-content">
