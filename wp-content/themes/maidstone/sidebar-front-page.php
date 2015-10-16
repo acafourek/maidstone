@@ -38,4 +38,7 @@
 	
 		<?php wp_reset_postdata(); ?>
 	</div>
+	<div id="secondary" class="widget-area front-widget-area" role="complementary">
+		<?php echo do_shortcode('[instagram-feed]');?>
+	</div>
 <?php endif; ?>

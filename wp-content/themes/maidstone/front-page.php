@@ -24,8 +24,12 @@ get_header(); ?>
 
 									<div class="entry-content">
 										<?php the_content(); ?>
+										<br />
+										<?php 
+											if ( has_nav_menu ( 'social' ) )
+												wp_nav_menu( array( 'theme_location' => 'social', 'depth' => 1, 'link_before' => '<span class="screen-reader-text">', 'link_after' => '</span>', 'container_class' => 'social-links', ) );
+										?>
 									</div><!-- .entry-content -->
-									<?php edit_post_link( __( 'Edit', 'sela' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer>' ); ?>
 								</article><!-- #post-## -->
 							</div><!-- .hero-container-inner -->
 						</div><!-- .hero-container-outer -->
@@ -42,35 +46,10 @@ get_header(); ?>
 
 	<?php get_sidebar( 'front-page' ); ?>
 
-	<?php
-		$testimonials = new WP_Query( array(
-			'post_type'      => 'jetpack-testimonial',
-			'order'          => 'ASC',
-			'orderby'        => 'menu_order',
-			'posts_per_page' => 2,
-			'no_found_rows'  => true,
-		) );
-	?>
-
 	<div id="front-page-testimonials" class="front-testimonials testimonials">
 		<div class="map-embed">
 			<a id="embed-8353153" href="https://roadtrippers.com/map?a2=t%218353153&lat=36.43690&lng=-96.55704&utm_campaign=trip&utm_medium=share&utm_source=embed&z=4">The Great American Tour of 2015 on Roadtrippers</a><br><script>!function(d,l,h,w,id){var a = d.getElementById(id);var ifr = d.createElement("iframe");ifr.src = l;ifr.height = h;ifr.width = w;a.parentNode.insertBefore(ifr, a);a.parentNode.removeChild(a);}(document,"https://roadtrippers.com/embedded/trips/8353153",500,600,"embed-8353153");</script>
 		</div>
 	</div>
-<!--  removed in favor of showing roadtrippers map
-	<?php if ( $testimonials->have_posts() ) : ?>
-	<div id="front-page-testimonials" class="front-testimonials testimonials">
-		<div class="grid-row">
-		<?php
-			while ( $testimonials->have_posts() ) : $testimonials->the_post();
-				 get_template_part( 'content', 'testimonial' );
-			endwhile;
-			wp_reset_postdata();
-		?>
-		</div>
-	</div><!-- .testimonials -->
-	<?php endif; ?>
--->
-
 <?php get_sidebar( 'footer' ); ?>
 <?php get_footer(); ?>

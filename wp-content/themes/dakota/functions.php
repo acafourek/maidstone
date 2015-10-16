@@ -1,5 +1,5 @@
 <?php
-include_once('inc/hs-social-media-buttons/hs-social-buttons.php');
+require_once('/inc/hs-social-media-buttons/hs-social-buttons.php');
 
 
 add_action('after_setup_theme','da_add_image_size');

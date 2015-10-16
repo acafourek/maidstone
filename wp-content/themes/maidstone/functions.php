@@ -67,9 +67,9 @@
 	
 	function da_custom_excerpt($post,$length = 75) { 
 	    if( strlen($post->post_excerpt) > 0 )
-	        $excerpt = '<p>'.$post->post_excerpt.'... <a class="read-more" href="'. get_permalink( $post->ID ) . '">' . 'Read More &rarr;' . '</a></p>';
+	        $excerpt = '<p>'.strip_shortcodes($post->post_excerpt).'... <a class="read-more" href="'. get_permalink( $post->ID ) . '">' . 'Read More &rarr;' . '</a></p>';
 	    else
-	        $excerpt = '<p>'.wp_trim_words( $post->post_content , $length, '... <a class="read-more" href="'. get_permalink( $post->ID ) . '">' . 'Read More &rarr;' . '</a>' ).'</p>';
+	        $excerpt = '<p>'.wp_trim_words( strip_shortcodes($post->post_content) , $length, '... <a class="read-more" href="'. get_permalink( $post->ID ) . '">' . 'Read More &rarr;' . '</a>' ).'</p>';
 	
 	    return $excerpt;
 	}
@@ -199,37 +199,6 @@
 		";
 	}
 	add_action('wp_head','mb_ga_code');
-	
-////SOCIAL
-	function mb_social_share(){ 
-		if(!is_single())
-			return false;
-	    $social_links = get_option('hssocial_badges');
-		if($social_links):
-    ?>
-	        <ul class="social-profiles clearfix">
-		        <?php if ($social_links['hssocial_facebook'])?>
-			        <li class="facebook-like"><a href="<?php echo $social_links['hssocial_facebook'];?>" title="Like <?php echo get_bloginfo('name');?> on Facebook"></a></li>
-			    <?php if ($social_links['hssocial_twitter'])?>
-		        	<li class="twitter-follow"><a href="https://twitter.com/intent/follow?screen_name=<?php echo $social_links['hssocial_twitter'];?>"></a></li>
-		       <?php if ($social_links['hssocial_instagram'])?>
-		        	<li class="instagram-follow"><a target="_blank" href="<?php echo $social_links['hssocial_instagram'];?>"></a></li>
-		        <?php if ($social_links['hssocial_pintrest'])?>
-		        	<li class="pintrest-follow"><a target="_blank" href="<?php echo $social_links['hssocial_pintrest'];?>"></a></li>
-
-		        <span class="stretcher"></span>
-	        </ul>
-	<?php
-		endif;
-	}	
-	add_action('wp_footer','mb_social_share');
-	
-	function mb_social_share_config(){
-		if(is_admin() || is_single())
-			include_once('inc/hs-social-media-buttons/hs-social-buttons.php');
-	}
-
-	add_action('init','mb_social_share_config');
 
 //disable jetpack open graph
 add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );
