@@ -113,7 +113,6 @@ function hssocial_badges_options_page() {
 }
 
 /* Load Style-sheet for plugin */
-error_log('happening');
 function hssocial_badges_backend_styles() {
     wp_enqueue_style('hssocial_badges_backend_css', get_stylesheet_directory_uri().'/inc/hs-social-media-buttons/hssocial-badges.css');
     $options = get_option('hssocial_badges');
