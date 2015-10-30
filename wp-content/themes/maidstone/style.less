@@ -54,6 +54,10 @@ Template: sela
 			width: 100%;
 		}
 	}
+	
+	.sbi_bio {
+		display: none; //hide instagram desc
+	}
 //Color overrides
 	.main-navigation {
 		background-color: @turq;
@@ -114,6 +118,11 @@ Template: sela
 			max-width: 100%;
 			padding: 1em;
 		}
+		.archive-list article {
+			&:nth-of-type(odd){
+				clear: left;
+			}
+		}
 	}
 	body.page .child-page{
 		width: 100%;
@@ -124,3 +133,11 @@ Template: sela
 	.entry-thumbnail, .post-thumbnail {
 		background: none !important;
 	}
+	
+////Post pages
+.entry-content {
+	
+	.rp4wp-related-posts {
+		display: none; //hide plugin related posts in post content area
+	}
+}

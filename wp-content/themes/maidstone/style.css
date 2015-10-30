@@ -40,6 +40,9 @@ h1.site-title {
 .current-location p {
   width: 100%;
 }
+.sbi_bio {
+  display: none;
+}
 .main-navigation {
   background-color: #39cccc;
 }
@@ -86,6 +89,9 @@ body.archive .hentry::after {
     max-width: 100%;
     padding: 1em;
   }
+  .archive-list article:nth-of-type(odd) {
+    clear: left;
+  }
 }
 body.page .child-page {
   width: 100%;
@@ -97,4 +103,7 @@ body.page .child-page {
 .entry-thumbnail,
 .post-thumbnail {
   background: none !important;
+}
+.entry-content .rp4wp-related-posts {
+  display: none;
 }

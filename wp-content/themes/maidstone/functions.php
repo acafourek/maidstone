@@ -1,5 +1,7 @@
 <?php
 
+add_filter('widget_text', 'do_shortcode'); //render shortcodes if placed into sidebar widgets
+
 /// IMAGES
 	add_action('after_setup_theme','da_add_image_size');
 	function da_add_image_size(){
@@ -184,6 +186,7 @@
 	}
 	
 /// HEADER
+/* removed in favor of analyticator plugin
 	function mb_ga_code(){
 		echo "
 		<script>
@@ -199,6 +202,7 @@
 		";
 	}
 	add_action('wp_head','mb_ga_code');
+*/
 
 //disable jetpack open graph
 add_filter( 'jetpack_enable_opengraph', '__return_false', 99 );
