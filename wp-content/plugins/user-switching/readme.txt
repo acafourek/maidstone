@@ -4,7 +4,7 @@ Contributors: johnbillion
 Tags: users, profiles, user switching, fast user switching, multisite, buddypress, bbpress, become, user management, developer  
 Requires at least: 3.1  
 Tested up to: 4.3  
-Stable tag: 1.0.7  
+Stable tag: 1.0.8  
 License: GPL v2 or later  
 
 Instant switching between user accounts in WordPress.
@@ -37,36 +37,38 @@ This plugin allows you to quickly swap between user accounts in WordPress at the
 
 See the [FAQ](https://wordpress.org/plugins/user-switching/faq/) for information about the *Switch Off* feature.
 
-= Translations Included =
+= Translations Available =
 
- * العربية (Arabic)
- * Azərbaycan dili (Azerbaijani)
- * Bosanski (Bosnian)
- * Български (Bulgarian)
- * 中文 (Chinese Simplified)
- * Hrvatski (Croatian)
- * Dansk (Danish)
- * Nederlands (Dutch)
- * Suomi (Finnish)
- * Français (French)
- * Deutsch (German)
- * Ελληνικά (Greek)
- * עִבְרִית (Hebrew)
- * Bahasa Indonesia (Indonesian)
- * Italiano (Italian)
- * 日本語 (Japanese)
- * Lietuvių kalba (Lithuanian)
- * Norsk bokmål (Norwegian)
- * فارسی (Persian)
- * Polski (Polish)
- * Português do Brasil (Brazilian Portuguese)
- * Română (Romanian)
- * Русский (Russian)
- * Slovenčina (Slovak)
- * Español (Spanish)
- * Türkçe (Turkish)
-
-Thanks to translations by Hassan Hisham, Tunghsiao Liu, Francois-Xavier Bénard, Ralph Stenzel, Rami Y, Yusuke Hayasaki, Tommixoft, Amin Ab, Bartosz Arendt, Raphael Mendonça, R J, Max Samael, Eko Ikhyar, Marcelo Pedra, Abdullah Pazarbasi, ArianServ, SilverXp, Evi Giannakou, Petya Raykovska, Martin Sauter, Yaser Tallo, Enrique Errando, Sami Keijonen, Kalina Michocka, Alessandro Curci, Alessandro Tesoro, Ante Sepic, Per Søderlind, Mushviq Abdulla, Kenan Dervisevic, and Joachim Jensen!
+ * العربية
+ * Azərbaycan dili
+ * Bosanski
+ * Български
+ * Català
+ * 中文
+ * 繁體中文
+ * Hrvatski
+ * Čeština‎
+ * Dansk
+ * Nederlands
+ * Suomi
+ * Français
+ * Deutsch
+ * Ελληνικά
+ * עִבְרִית
+ * Bahasa Indonesia
+ * Italiano
+ * 日本語
+ * Lietuvių kalba
+ * Norsk bokmål
+ * فارسی
+ * Polski
+ * Português do Brasil
+ * Română
+ * Русский
+ * Slovenčina
+ * Español
+ * Türkçe
+ * Українська
 
 == Screenshots ==
 
@@ -134,12 +136,20 @@ See the plugin source code for complete hook documentation.
 
 == Upgrade Notice ==
 
-= 1.0.7 =
+= 1.0.8 =
 
-* Azerbaijani, Danish, and Bosnian translations.
-* Add back the 'User Switching' heading on the user profile screen, and correct the values passed to the `switch_back_user` hook when a user has been switched off.
+* Chinese (Taiwan) and Czech translations.
+* Updated Dutch, Spanish, Hebrew, and German translations.
+* Add an ID attribute to the links on the WordPress login screen, BuddyPress screens, and bbPress screens.
 
 == Changelog ==
+
+= 1.0.8 =
+
+* Chinese (Taiwan) and Czech translations.
+* Updated Dutch, Spanish, Hebrew, and German translations.
+* Add an ID attribute to the links that User Switching outputs on the WordPress login screen, BuddyPress screens, and bbPress screens.
+* Avoid a deprecated argument notice when the `user-actions` admin toolbar node has been removed.
 
 = 1.0.7 =
 
