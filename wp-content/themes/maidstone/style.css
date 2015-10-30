@@ -40,6 +40,9 @@ h1.site-title {
 .current-location p {
   width: 100%;
 }
+.sbi_bio {
+  display: none;
+}
 .main-navigation {
   background-color: #39cccc;
 }
