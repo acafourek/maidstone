@@ -86,7 +86,7 @@ body.archive .hentry::after {
     max-width: 100%;
     padding: 1em;
   }
-  .archive-list:nth-child(odd) {
+  .archive-list article:nth-of-type(odd) {
     clear: left;
   }
 }
