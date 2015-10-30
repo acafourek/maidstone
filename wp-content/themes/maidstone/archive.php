@@ -30,9 +30,6 @@ get_header(); ?>
 					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
 					 */
 					get_template_part( 'content', 'grid');
-					echo '<span class="count">'.$counter.'</span>';
-					if($counter%2 === 0)
-						echo '<div class="clearfix"></div>';
 				$counter++;
 				?>
 
