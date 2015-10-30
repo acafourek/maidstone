@@ -10,10 +10,12 @@
 		<?php dynamic_sidebar( 'sidebar-1' ); ?>
 	</div><!-- #secondary -->
 <?php endif; 
+/* notquite there
 	if(is_single()){
 		rewind_posts();
 		while ( have_posts() ) : the_post();
 			echo do_shortcode('[jetpack-related-posts]');
 		endwhile;
 	}
+*/
 ?>

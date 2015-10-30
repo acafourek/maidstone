@@ -104,3 +104,6 @@ body.page .child-page {
 .post-thumbnail {
   background: none !important;
 }
+.entry-content .rp4wp-related-posts {
+  display: none;
+}
