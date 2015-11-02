@@ -107,6 +107,9 @@ body.page .child-page {
 .entry-content .rp4wp-related-posts {
   display: none;
 }
+.published .child-pages {
+  clear: both;
+}
 .published .child-page {
   color: #f25f70;
   font-weight: bold;
