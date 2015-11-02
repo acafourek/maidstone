@@ -107,3 +107,8 @@ body.page .child-page {
 .entry-content .rp4wp-related-posts {
   display: none;
 }
+.published .child-page {
+  width: 45%;
+  color: #f25f70;
+  font-weight: bold;
+}
