@@ -110,12 +110,12 @@ body.page .child-page {
 .published .child-pages {
   clear: both;
 }
-.published .child-page {
+.published .published-work {
   color: #f25f70;
   font-weight: bold;
 }
 @media screen and (min-width: 600px) {
-  .published .child-page {
+  .published .published-work {
     width: 45% !important;
   }
 }

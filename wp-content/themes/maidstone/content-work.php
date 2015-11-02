@@ -6,7 +6,7 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'child-page' ); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class( 'child-page published-work' ); ?>>
 	<?php if ( '' != get_the_post_thumbnail() ) : ?>
 	<div class="entry-thumbnail">
 		<?php
