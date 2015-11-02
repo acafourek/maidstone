@@ -17,7 +17,7 @@ get_header(); ?>
 
 	<div class="content-wrapper full-width <?php echo sela_additional_class(); ?>">
 		<div id="primary" class="content-area grid-page-content-area ">
-			<div id="content" class="site-content" role="main">
+			<div id="content" class="site-content published" role="main">
 
 				<?php while ( have_posts() ) : the_post(); ?>
 
