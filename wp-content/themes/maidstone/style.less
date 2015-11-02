@@ -141,9 +141,12 @@ Template: sela
 		display: none; //hide plugin related posts in post content area
 	}
 }
-
 .published .child-page {
-	width: 45%;
     color: #f25f70;
     font-weight: bold;
+}
+@media screen and (min-width: 600px) {
+	.published .child-page {
+		width: 45% !important;
+	}
 }

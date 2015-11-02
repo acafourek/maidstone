@@ -108,7 +108,11 @@ body.page .child-page {
   display: none;
 }
 .published .child-page {
-  width: 45%;
   color: #f25f70;
   font-weight: bold;
+}
+@media screen and (min-width: 600px) {
+  .published .child-page {
+    width: 45% !important;
+  }
 }
