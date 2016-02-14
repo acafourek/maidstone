@@ -5,7 +5,7 @@ Author: Andrew // Automattic
 Template: sela
 */
 a {
-  color: #39cccc;
+  color: #39CCCC;
 }
 a.read-more {
   clear: both;
@@ -33,7 +33,7 @@ h1.site-title {
   text-align: center;
 }
 .current-location h4 {
-  color: #39cccc;
+  color: #39CCCC;
   font-size: 2.5em;
   margin: 0;
 }
@@ -44,10 +44,11 @@ h1.site-title {
   display: none;
 }
 .main-navigation {
-  background-color: #39cccc;
+  background-color: #39CCCC;
+  margin-bottom: 2em;
 }
 .social-links ul a:before {
-  background: #39cccc;
+  background: #39CCCC;
 }
 form#mc-embedded-subscribe-form input[type="text"],
 form#mc-embedded-subscribe-form input[type="email"],

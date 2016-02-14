@@ -85,8 +85,15 @@ add_filter('widget_text', 'do_shortcode'); //render shortcodes if placed into si
 /// SCRIPTS
 	function da_scripts() {
 		wp_enqueue_script( 'jquery' );		
-		wp_enqueue_style( 'maidstone', get_template_directory_uri() . '/style.css' );
+		wp_enqueue_style( 'sela', get_template_directory_uri() . '/style.css' );
 		wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+		
+		if(is_front_page()){
+			wp_enqueue_style( 'owl', get_stylesheet_directory_uri() . '/inc/owl-carousel/owl.carousel.css');
+			wp_enqueue_style( 'owl-theme', get_stylesheet_directory_uri() . '/inc/owl-carousel/owl.theme.css'); 
+			
+			wp_enqueue_script( 'owl-carousel', get_stylesheet_directory_uri() . '/inc/owl-carousel/owl.carousel.min.js', array( 'jquery' ),'1.3.3', true );		
+		}
 	}
 	
 	add_action( 'wp_enqueue_scripts', 'da_scripts' );
