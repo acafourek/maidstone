@@ -2,115 +2,156 @@
 /**
  * Add custom css to frontend.
  *
- * @package chromaticfw
+ * @package hoot
  * @subpackage chromatic
  * @since chromatic 1.0
  */
 
-// Hook into 'wp_enqueue_scripts' as 'wp_add_inline_style()' requires stylesheet $handle to be already registered.
-// Main stylesheet with handle 'style' is registered by the framework via 'wp_enqueue_scripts' hook at priority 0
-add_action( 'wp_enqueue_scripts', 'chromaticfw_custom_css', 99 );
+// Add action at 5 for adding css rules (premium hooks in at 6-9).
+// Child themes can hook in at priority 10.
+add_action( 'hoot_dynamic_cssrules', 'hoot_dynamic_cssrules', 5 );
 
 /**
  * Custom CSS built from user theme options
- * For proper sanitization, always use functions from hoot/functions/css-styles.php
+ * For proper sanitization, always use functions from hoot/includes/sanitization.php
+ * and hoot/customizer/sanitization.php
  *
  * @since 1.0
  * @access public
  */
-function chromaticfw_custom_css() {
-	$css = '';
-	$accent_color = chromaticfw_get_option( 'accent_color' );
-	$accent_color_dark = chromaticfw_color_increase( $accent_color, 20, 20 );
-	$accent_font = chromaticfw_get_option( 'accent_font' );
+function hoot_dynamic_cssrules() {
 
-	$cssrules = array();
+	/*** Settings Values ***/
 
-	// ChromaticFw Grid
-	$cssrules['.grid'] = chromaticfw_css_grid_width();
+	/* Lite Settings */
 
-	// Base Typography and HTML
-	$cssrules['a'] = chromaticfw_css_rule( 'color', $accent_color ); // Overridden by chromaticfw_premium_custom_cssrules()
-	$cssrules['.invert-typo'] = array(
-		chromaticfw_css_rule( 'background', $accent_color ),
-		chromaticfw_css_rule( 'color', $accent_font ),
-		);
-	$cssrules['.invert-typo a, .invert-typo a:hover, .invert-typo h1, .invert-typo h2, .invert-typo h3, .invert-typo h4, .invert-typo h5, .invert-typo h6, .invert-typo .title'] = chromaticfw_css_rule( 'color', $accent_font );
-	$cssrules['input[type="submit"], #submit, .button'] = array(
-		chromaticfw_css_rule( 'background', $accent_color ),
-		chromaticfw_css_rule( 'color', $accent_font ),
-		);
-	$cssrules['input[type="submit"]:hover, #submit:hover, .button:hover'] = array(
-		chromaticfw_css_rule( 'background', $accent_color_dark ),
-		chromaticfw_css_rule( 'color', $accent_font ),
-		);
+	$settings = array();
+	$settings['grid_width']           = intval( hoot_get_mod( 'site_width', 1260 ) ) . 'px';
+	$settings['accent_color']         = hoot_get_mod( 'accent_color' );
+	$settings['accent_color_dark']    = hoot_color_increase( $settings['accent_color'], 20, 20 );
+	$settings['accent_font']          = hoot_get_mod( 'accent_font' );
+	$settings['site_layout']          = hoot_get_mod( 'site_layout' );
 
-	// Layout
-	$content_bg = chromaticfw_get_option( 'background' );
-	$cssrules['body'][] = chromaticfw_css_background( $content_bg );
-	if ( chromaticfw_get_option( 'site_layout' ) == 'boxed' ) {
-		$content_bg = chromaticfw_get_option( 'box_background' );
-		$cssrules['#page-wrapper'] = chromaticfw_css_background( $content_bg );
+	extract( apply_filters( 'hoot_custom_css_settings', $settings, 'lite' ) );
+
+	/*** Add Dynamic CSS ***/
+
+	/* Hoot Grid */
+
+	hoot_add_css_rule( array(
+						'selector'  => '.grid',
+						'property'  => 'max-width',
+						'value'     => $grid_width,
+						'idtag'     => 'grid_width',
+					) );
+
+	/* Base Typography and HTML */
+
+	hoot_add_css_rule( array(
+						'selector'  => 'a',
+						'property'  => 'color',
+						'value'     => $accent_color,
+						'idtag'     => 'accent_color',
+					) ); // Overridden in premium
+
+	hoot_add_css_rule( array(
+						'selector'  => '.invert-typo',
+						'property'  => array(
+							'background' => array( $accent_color, 'accent_color' ),
+							'color'      => array( $accent_font, 'accent_font' ),
+							),
+					) );
+
+	hoot_add_css_rule( array(
+						'selector'  => '.invert-typo a, .invert-typo a:hover, .invert-typo h1, .invert-typo h2, .invert-typo h3, .invert-typo h4, .invert-typo h5, .invert-typo h6, .invert-typo .title',
+						'property'  => 'color',
+						'value'     => $accent_font,
+						'idtag'     => 'accent_font',
+					) );
+
+	hoot_add_css_rule( array(
+						'selector'  => 'input[type="submit"], #submit, .button',
+						'property'  => array(
+							'background' => array( $accent_color, 'accent_color' ),
+							'color'      => array( $accent_font, 'accent_font' ),
+							),
+					) );
+
+	hoot_add_css_rule( array(
+						'selector'  => 'input[type="submit"]:hover, #submit:hover, .button:hover',
+						'property'  => array(
+							'background' => array( $accent_color_dark, 'accent_color' ),
+							'color'      => array( $accent_font, 'accent_font' ),
+							),
+					) );
+
+	/* Layout */
+
+	hoot_add_css_rule( array(
+						'selector'  => 'body',
+						'property'  => 'background',
+						'idtag'     => 'background',
+					) );
+
+	if ( $site_layout == 'boxed' ) {
+		hoot_add_css_rule( array(
+						'selector'  => '#page-wrapper',
+						'property'  => 'background',
+						'idtag'     => 'box_background',
+					) );
 	}
 
-	// Header
-	$cssrules['#site-title, #site-title a'] = chromaticfw_css_rule( 'color', $accent_color ); // Overridden by chromaticfw_premium_custom_cssrules()
+	/* Header */
 
-	// Shortcodes
-	$cssrules['#page-wrapper ul.shortcode-tabset-nav li.current'] = chromaticfw_css_rule( 'border-bottom-color', $content_bg['color'] );
+	hoot_add_css_rule( array(
+						'selector'  => '#site-title, #site-title a',
+						'property'  => 'color',
+						'value'     => $accent_color,
+						'idtag'     => 'accent_color',
+					) ); // Overridden in premium
 
-	// Sidebars and Widgets
-	$cssrules['.content-block-icon'] = array(
-		chromaticfw_css_rule( 'color', $accent_color ),
-		chromaticfw_css_rule( 'background', $accent_font ),
-		chromaticfw_css_rule( 'border-color', $accent_color ),
-		);
-	$cssrules['.content-block-icon.icon-style-square'] = array(
-		chromaticfw_css_rule( 'color', $accent_font ),
-		chromaticfw_css_rule( 'background', $accent_color ),
-		);
-	$cssrules['.content-blocks-widget .content-block:hover .content-block-icon.icon-style-circle'] = array(
-		chromaticfw_css_rule( 'color', $accent_font ),
-		chromaticfw_css_rule( 'background', $accent_color ),
-		);
-	$cssrules['.content-blocks-widget .content-block:hover .content-block-icon.icon-style-square'] = array(
-		chromaticfw_css_rule( 'color', $accent_color ),
-		chromaticfw_css_rule( 'background', $accent_font ),
-		);
+	/* Sidebars and Widgets */
 
-	// Light Slider
-	$cssrules['.lSSlideOuter .lSPager.lSpg > li:hover a, .lSSlideOuter .lSPager.lSpg > li.active a'] = chromaticfw_css_rule( 'background-color', $accent_color );
+	hoot_add_css_rule( array(
+						'selector'  => '.content-block-icon',
+						'property'  => array(
+							'color'        => array( $accent_color, 'accent_color' ),
+							'background'   => array( $accent_font, 'accent_font' ),
+							'border-color' => array( $accent_color, 'accent_color' ),
+							),
+					) );
 
-	// Allow CSS to be modified
-	$cssrules = apply_filters( 'chromaticfw_dynamic_cssrules', $cssrules );
+	hoot_add_css_rule( array(
+						'selector'  => '.content-block-icon.icon-style-square',
+						'property'  => array(
+							'color'        => array( $accent_font, 'accent_font' ),
+							'background'   => array( $accent_color, 'accent_color' ),
+							),
+					) );
 
+	hoot_add_css_rule( array(
+						'selector'  => '.content-blocks-widget .content-block:hover .content-block-icon.icon-style-circle',
+						'property'  => array(
+							'color'        => array( $accent_font, 'accent_font' ),
+							'background'   => array( $accent_color, 'accent_color' ),
+							),
+					) );
 
-	/** Print CSS Rules **/
+	hoot_add_css_rule( array(
+						'selector'  => '.content-blocks-widget .content-block:hover .content-block-icon.icon-style-square',
+						'property'  => array(
+							'color'        => array( $accent_color, 'accent_color' ),
+							'background'   => array( $accent_font, 'accent_font' ),
+							),
+					) );
 
-	foreach ( $cssrules as $selector => $rules ) {
-		if ( !empty( $selector ) ) {
-			$css .= $selector . ' {';
-			if ( is_array( $rules ) ) {
-				foreach ( $rules as $rule ) {
-					$css .= $rule . ' ';
-				}
-			} else {
-				$css .= $rules;
-			}
-			$css .= ' }' . "\n";
-		}
-	}
+	/* Light Slider */
 
-	// @todo add media queries to preceding code
-	if ( isset( $content_bg['color'] ) && !empty( $content_bg['color'] ) )
-		$css .= '@media only screen and (min-width: 800px) { .sticky-wrapper #header.stuck{ background-color: '.$content_bg['color'].'; } }' . "\n";
-
-	// Allow CSS to be modified
-	$cssrules = apply_filters( 'chromaticfw_dynamic_css', $css );
-
-	// Print CSS
-	if ( !empty( $css ) ) {
-		wp_add_inline_style( 'style', $css );
-	}
+	hoot_add_css_rule( array(
+						'selector'  => '.lSSlideOuter .lSPager.lSpg > li:hover a, .lSSlideOuter .lSPager.lSpg > li.active a',
+						'property'  => 'background-color',
+						'value'     => $accent_color,
+						'idtag'     => 'accent_color',
+					) );
 
 }

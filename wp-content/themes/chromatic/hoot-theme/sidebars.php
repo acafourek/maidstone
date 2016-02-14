@@ -4,16 +4,16 @@
  * This file is loaded via the 'after_setup_theme' hook at priority '10'
  *
  * Dynamic widget areas (like template areas, footers) are handled by the framework. To override them,
- * remove actions 'chromaticfw_footer_register_sidebars' and 'chromaticfw_widgetized_template_register_sidebars' from
- * 'widgets_init' hook, and add custom sidebars here using 'chromaticfw_register_sidebar'.
+ * remove actions 'hoot_footer_register_sidebars' and 'hoot_widgetized_template_register_sidebars' from
+ * 'widgets_init' hook, and add custom sidebars here using 'hoot_register_sidebar'.
  *
- * @package chromaticfw
+ * @package hoot
  * @subpackage chromatic
  * @since chromatic 1.0
  */
 
 /* Register sidebars. */
-add_action( 'widgets_init', 'chromaticfw_base_register_sidebars', 5 );
+add_action( 'widgets_init', 'hoot_base_register_sidebars', 5 );
 
 /**
  * Registers sidebars.
@@ -22,9 +22,9 @@ add_action( 'widgets_init', 'chromaticfw_base_register_sidebars', 5 );
  * @access public
  * @return void
  */
-function chromaticfw_base_register_sidebars() {
+function hoot_base_register_sidebars() {
 
-	chromaticfw_register_sidebar(
+	hoot_register_sidebar(
 		array(
 			'id'          => 'primary-sidebar',
 			'name'        => _x( 'Primary Sidebar', 'sidebar', 'chromatic' ),
@@ -32,7 +32,7 @@ function chromaticfw_base_register_sidebars() {
 		)
 	);
 
-	chromaticfw_register_sidebar(
+	hoot_register_sidebar(
 		array(
 			'id'          => 'topbar-left',
 			'name'        => _x( 'Topbar Left', 'sidebar', 'chromatic' ),
@@ -40,7 +40,7 @@ function chromaticfw_base_register_sidebars() {
 		)
 	);
 
-	chromaticfw_register_sidebar(
+	hoot_register_sidebar(
 		array(
 			'id'          => 'topbar-right',
 			'name'        => _x( 'Topbar Right', 'sidebar', 'chromatic' ),
@@ -48,7 +48,7 @@ function chromaticfw_base_register_sidebars() {
 		)
 	);
 
-	chromaticfw_register_sidebar(
+	hoot_register_sidebar(
 		array(
 			'id'          => 'sub-footer',
 			'name'        => _x( 'Sub Footer', 'sidebar', 'chromatic' ),

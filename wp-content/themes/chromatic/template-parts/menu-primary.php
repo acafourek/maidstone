@@ -1,7 +1,7 @@
 <?php if ( has_nav_menu( 'primary' ) ) : // Check if there's a menu assigned to the 'primary' location. ?>
 
 	<h3 class="screen-reader-text"><?php _e( 'Primary Navigation Menu', 'chromatic' ); ?></h3>
-	<nav <?php chromaticfw_attr( 'menu', 'primary' ); ?>>
+	<nav <?php hoot_attr( 'menu', 'primary' ); ?>>
 		<div class="menu-toggle"><?php _e( 'Menu', 'chromatic' ); ?> <i class="fa fa-bars"></i></div>
 
 		<?php

@@ -1,6 +1,6 @@
 <?php
-$top_class = chromaticfw_widget_border_class( $border, 0, 'topborder-');
-$bottom_class = chromaticfw_widget_border_class( $border, 1, 'bottomborder-');
+$top_class = hoot_widget_border_class( $border, 0, 'topborder-');
+$bottom_class = hoot_widget_border_class( $border, 1, 'bottomborder-');
 ?>
 
 <div class="cta-widget-wrap <?php echo sanitize_html_class( $top_class ); ?>">
@@ -10,10 +10,10 @@ $bottom_class = chromaticfw_widget_border_class( $border, 1, 'bottomborder-');
 				<h3 class="cta-headine"><?php echo do_shortcode( $headline ); ?></h3>
 			<?php } ?>
 			<?php if ( !empty( $description ) ) { ?>
-				<div class="cta-description"><?php echo do_shortcode( $description ); ?></div>
+				<div class="cta-description"><?php echo do_shortcode( wpautop( $description ) ); ?></div>
 			<?php } ?>
 			<?php if ( !empty( $url ) ) { ?>
-				<a class="cta-widget-button button button-large border-box" href="<?php echo esc_url( $url ); ?>"><?php echo $button_text; ?></a>
+				<a href="<?php echo esc_url( $url ); ?>" <?php hoot_attr( 'cta-widget-button', 'widget', 'button button-large border-box' ); ?>><?php echo $button_text; ?></a>
 			<?php } ?>
 		</div>
 	</div>

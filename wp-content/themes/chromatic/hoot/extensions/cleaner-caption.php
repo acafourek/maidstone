@@ -15,13 +15,13 @@
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @package chromaticfw
+ * @package hoot
  * @subpackage framework
- * @since chromaticfw 1.0.0
+ * @since hoot 1.0.0
  */
 
 /* Filter the caption shortcode output. */
-add_filter( 'img_caption_shortcode', 'chromaticfw_cleaner_caption', 10, 3 );
+add_filter( 'img_caption_shortcode', 'hoot_cleaner_caption', 10, 3 );
 
 /**
  * Cleans up the default WordPress [caption] shortcode.  The main purpose of this function is to remove the 
@@ -34,7 +34,7 @@ add_filter( 'img_caption_shortcode', 'chromaticfw_cleaner_caption', 10, 3 );
  * @param string $content The content placed after the opening [caption] tag and before the closing [/caption] tag.
  * @return string $output The formatted HTML for the caption.
  */
-function chromaticfw_cleaner_caption( $output, $attr, $content ) {
+function hoot_cleaner_caption( $output, $attr, $content ) {
 
 	/* We're not worried abut captions in feeds, so just return the output here. */
 	if ( is_feed() )
@@ -49,10 +49,10 @@ function chromaticfw_cleaner_caption( $output, $attr, $content ) {
 	);
 
 	/* Allow developers to override the default arguments. */
-	$defaults = apply_filters( 'chromaticfw_cleaner_caption_defaults', $defaults );
+	$defaults = apply_filters( 'hoot_cleaner_caption_defaults', $defaults );
 
 	/* Apply filters to the arguments. */
-	$attr = apply_filters( 'chromaticfw_cleaner_caption_args', $attr );
+	$attr = apply_filters( 'hoot_cleaner_caption_args', $attr );
 
 	/* Merge the defaults with user input. */
 	$attr = shortcode_atts( $defaults, $attr, 'caption' );
@@ -85,5 +85,5 @@ function chromaticfw_cleaner_caption( $output, $attr, $content ) {
 	$output .= '</figure>';
 
 	/* Return the formatted, clean caption. */
-	return apply_filters( 'chromaticfw_cleaner_caption', $output );
+	return apply_filters( 'hoot_cleaner_caption', $output );
 }

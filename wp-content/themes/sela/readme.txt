@@ -124,6 +124,16 @@ Linking to any of the following sites will automatically display its icon in you
 
 == Changelog ==
 
+= 26 November 2015 =
+* Remove duplicate closing anchor tags.
+* Update ID to avoid duplicate.
+
+= 6 November 2015 =
+* Add support for missing Genericons and update to 3.4.1.
+
+= 29 October 2015 =
+* fix SVN properties.
+
 = 22 September 2015 =
 * Adjust spacing around individual menu items, so menu does not display slightly off-center.
 

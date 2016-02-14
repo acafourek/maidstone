@@ -4,7 +4,7 @@
  * These functions are for use throughout the theme's various template files.
  * This file is loaded via the 'after_setup_theme' hook at priority '10'
  *
- * @package chromaticfw
+ * @package hoot
  * @subpackage chromatic
  * @since chromatic 1.0
  */
@@ -18,24 +18,26 @@
  * @access public
  * @return void
  */
-function chromaticfw_title_tag() {
+
+if ( !function_exists( 'hoot_title_tag' ) ):
+function hoot_title_tag() {
 	echo "\n";
 	?><title><?php wp_title(); ?></title><?php
 	echo "\n";
 }
+endif;
 
 /**
  * Outputs the favicon link.
  *
  * @since 1.0
  * @access public
+ * @deprecated 2.0.0
+ * @deprecated Use wordpress's Site Icon instead
  * @return void
  */
-function chromaticfw_favicon() {
-	$favicon = chromaticfw_get_option( 'favicon' );
-	if ( !empty( $favicon ) ) {
-		echo '<link rel="shortcut icon" href="' . esc_url( $favicon ) . '" type="image/x-icon">' . "\n";
-	}
+function hoot_favicon() {
+	_deprecated_function( __FUNCTION__, '2.0.0', 'Wordpress Site Icon' );
 }
 
 /**
@@ -45,32 +47,40 @@ function chromaticfw_favicon() {
  * @access public
  * @return void
  */
-function chromaticfw_logo() {
+if ( !function_exists( 'hoot_logo' ) ):
+function hoot_logo() {
 	$display = '';
 
-	$chromaticfw_logo = chromaticfw_get_option( 'logo' );
-	if ( 'text' == $chromaticfw_logo ) {
+	$hoot_logo = hoot_get_mod( 'logo' );
+	if ( 'text' == $hoot_logo ) {
 
-		$title_icon = chromaticfw_get_option( 'site_title_icon', NULL );
+		$title_icon = hoot_get_mod( 'site_title_icon', NULL );
 		$class = ( $title_icon ) ? ' class="site-logo-with-icon"' : '';
+
 		$display .= '<div id="site-logo-text"' . $class . '>';
 
 			if ( $title_icon )
 				$title_icon = '<i class="fa ' . sanitize_html_class( $title_icon ) . '"></i>';
 
-			$display .= chromaticfw_get_site_title( $title_icon );
+			$display .= '<h1 ' . hoot_get_attr( 'site-title' ) . '>' .
+						'<a href="' . home_url() . '" rel="home">' .
+						$title_icon;
+			$title = get_bloginfo( 'name' );
+			$display .= apply_filters( 'hoot_site_title', $title );
+			$display .= '</a></h1>';
 
-			if ( chromaticfw_get_option( 'show_tagline' ) )
-				$display .= chromaticfw_get_site_description();
+			if ( hoot_get_mod( 'show_tagline' ) )
+				$display .= hoot_get_site_description();
 
 		$display .= '</div><!--logotext-->';
 
-	} elseif ( 'image' == $chromaticfw_logo ) {
-		$display .= chromaticfw_get_logo_image();
+	} elseif ( 'image' == $hoot_logo ) {
+		$display .= hoot_get_logo_image();
 	}
 
-	echo apply_filters( 'chromaticfw_display_logo', $display );
+	echo apply_filters( 'hoot_display_logo', $display );
 }
+endif;
 
 /**
  * Returns the image logo
@@ -79,12 +89,13 @@ function chromaticfw_logo() {
  * @access public
  * @return void
  */
-function chromaticfw_get_logo_image() {
-	$logo_image = chromaticfw_get_option( 'logo_image' );
+if ( !function_exists( 'hoot_get_logo_image' ) ):
+function hoot_get_logo_image() {
+	$logo_image = hoot_get_mod( 'logo_image' );
 	$title = get_bloginfo( 'name' );
 	if ( !empty( $logo_image ) ) {
 		return '<div id="site-logo-img">'
-				. '<h1 ' . chromaticfw_get_attr( 'site-title' ) . '>'
+				. '<h1 ' . hoot_get_attr( 'site-title' ) . '>'
 				. '<a href="' . home_url() . '" rel="home">'
 				. '<span class="hide-text forcehide">' . $title . '</span>'
 				. '<img src="' . esc_url( $logo_image ) . '">'
@@ -93,6 +104,7 @@ function chromaticfw_get_logo_image() {
 				.'</div>';
 	}
 }
+endif;
 
 /**
  * Display a friendly reminder to update outdated browser
@@ -100,12 +112,14 @@ function chromaticfw_get_logo_image() {
  * @since 2.0
  * @access public
  */
-function chromaticfw_update_browser() {
+if ( !function_exists( 'hoot_update_browser' ) ):
+function hoot_update_browser() {
 	$notice = '<!--[if lte IE 8]><p class="chromeframe">' .
 			  sprintf( __( 'You are using an outdated browser (IE 8 or before). For a better user experience, we recommend %1supgrading your browser today%2s or %3sinstalling Google Chrome Frame%4s', 'chromatic' ), '<a href="http://browsehappy.com/">', '</a>', '<a href="http://www.google.com/chromeframe/?redirect=true">', '</a>' ) .
 			  '</p><![endif]-->';
-	echo apply_filters( 'chromaticfw_update_browser_notice', $notice );
+	echo apply_filters( 'hoot_update_browser_notice', $notice );
 }
+endif;
 
 /**
  * Display title area content
@@ -114,10 +128,11 @@ function chromaticfw_update_browser() {
  * @access public
  * @return void
  */
-function chromaticfw_display_loop_title_content( $context = 'pre', $vars = array( '', 0, 0 ) ) {
+if ( !function_exists( 'hoot_display_loop_title_content' ) ):
+function hoot_display_loop_title_content( $context = 'pre', $vars = array( '', 0, 0 ) ) {
 
 	// Allow manipulation by child themes
-	$vars = apply_filters( 'chromaticfw_display_loop_title_content', $vars, $context );
+	$vars = apply_filters( 'hoot_display_loop_title_content', $vars, $context );
 
 	list($pre_title_content, $pre_title_content_stretch, $pre_title_content_post) = $vars;
 
@@ -125,60 +140,53 @@ function chromaticfw_display_loop_title_content( $context = 'pre', $vars = array
 		if (
 			( $context == 'pre' && !$pre_title_content_post ) ||
 			( $context == 'post' && $pre_title_content_post )
-			) :
+			) : ?>
 
-			?><div id="custom-content-title-area" class="<?php echo $context ?>-content-title-area <?php if ($pre_title_content_stretch) echo 'content-title-area-stretch'; else echo 'content-title-area-grid'; ?>"><?php
-
-			if ( !$pre_title_content_stretch ) :
-				?>
-				<div class="grid">
-					<div class="grid-row">
-				<?php
-			endif;
-
-				echo do_shortcode( $pre_title_content );
-
-			if ( !$pre_title_content_stretch ) :
-				?>
-					</div>
+			<div id="custom-content-title-area" class="<?php
+				echo $context . '-content-title-area ';
+				echo ( ($pre_title_content_stretch) ? 'content-title-area-stretch' : 'content-title-area-grid' );
+				?>">
+				<div class="<?php echo ( ($pre_title_content_stretch) ? 'grid-stretch' : 'grid' ); ?>">
+					<?php echo do_shortcode( $pre_title_content ); ?>
 				</div>
-				<?php
-			endif;
-
-			?></div><?php
+			</div>
+			<?php
 
 		endif;
 	endif;
 }
+endif;
 
 /**
  * Display the meta information HTML for single post/page
  *
  * @since 1.0
  * @access public
- * @param array $display information to display
+ * @param string $args (comma delimited) information to display
  * @param string $context context in which meta blocks are being displayed
  * @return void
  */
-function chromaticfw_meta_info_blocks( $display = array(), $context = '' ) {
-	$default_display = array(
-		'author' => true,
-		'date' => true,
-		'cats' => true,
-		'tags' => true,
-		'comments' => true,
-	);
-	$display = wp_parse_args( $display, $default_display );
+if ( !function_exists( 'hoot_meta_info_blocks' ) ):
+function hoot_meta_info_blocks( $args = '', $context = '' ) {
 
-	$display = apply_filters( 'chromaticfw_meta_info_blocks_display', $display, $context );
+	if ( !is_array( $args ) )
+		$args = array_map( 'trim', explode( ',', $args ) );
 
-	if ( is_page() )
-		$display['cats'] = $display['tags'] = false;
+	$display = array();
+	foreach ( array( 'author', 'date', 'cats', 'tags', 'comments' ) as $key ) {
+		if ( in_array( $key, $args ) )
+			$display[ $key ] = true;
+	}
 
-	$skip = true;
-	foreach ( $display as $check )
-		$skip = ( $check ) ? false : $skip;
-	if ( $skip ) return;
+	if ( is_page() ) {
+		if ( isset( $display['cats'] ) ) unset( $display['cats'] );
+		if ( isset( $display['tags'] ) ) unset( $display['tags'] );
+	}
+
+	$display = apply_filters( 'hoot_meta_info_blocks_display', $display, $context );
+
+	if ( empty( $display ) )
+		return;
 	?>
 
 	<div class="entry-byline">
@@ -186,7 +194,7 @@ function chromaticfw_meta_info_blocks( $display = array(), $context = '' ) {
 		<?php
 		$blocks = array();
 
-		if ( !is_singular() && !empty( $display['date'] ) ) :
+		if ( !is_singular() && !empty( $display['date'] ) && ( hoot_get_mod( 'archive_type', '' ) == 'big' ) ) :
 			$blocks['intro']['label'] = '';
 			$blocks['intro']['content'] = '<span>' . get_the_time( 'd' ) . '</span> <span>' . get_the_time( 'F' ) . '</span>';
 		endif;
@@ -195,12 +203,12 @@ function chromaticfw_meta_info_blocks( $display = array(), $context = '' ) {
 			$blocks['author']['label'] = __( 'By', 'chromatic' );
 			ob_start();
 			the_author_posts_link();
-			$blocks['author']['content'] = '<span ' . chromaticfw_get_attr( 'entry-author' ) . '>' . ob_get_clean() . '</span>';
+			$blocks['author']['content'] = '<span ' . hoot_get_attr( 'entry-author' ) . '>' . ob_get_clean() . '</span>';
 		endif;
 
 		if ( !empty( $display['date'] ) ) :
 			$blocks['date']['label'] = __( 'On', 'chromatic' );
-			$blocks['date']['content'] = '<time ' . chromaticfw_get_attr( 'entry-published' ) . '>' . get_the_date() . '</time>';
+			$blocks['date']['content'] = '<time ' . hoot_get_attr( 'entry-published' ) . '>' . get_the_date() . '</time>';
 		endif;
 
 		if ( !empty( $display['cats'] ) ) :
@@ -230,7 +238,7 @@ function chromaticfw_meta_info_blocks( $display = array(), $context = '' ) {
 			$blocks['editlink']['content'] = '<a href="' . $edit_link . '">' . __( 'Edit This', 'chromatic' ) . '</a>';
 		endif;
 
-		$blocks = apply_filters( 'chromaticfw_meta_info_blocks', $blocks, $context );
+		$blocks = apply_filters( 'hoot_meta_info_blocks', $blocks, $context );
 
 		foreach ( $blocks as $key => $block ) {
 			if ( !empty( $block['content'] ) ) {
@@ -247,6 +255,7 @@ function chromaticfw_meta_info_blocks( $display = array(), $context = '' ) {
 
 	<?php
 }
+endif;
 
 /**
  * Display the post thumbnail image
@@ -258,7 +267,8 @@ function chromaticfw_meta_info_blocks( $display = array(), $context = '' ) {
  * @param bool $crop true|false|null Using null will return closest matched image irrespective of its crop setting
  * @return void
  */
-function chromaticfw_post_thumbnail( $classes = '', $size = '', $crop = NULL ) {
+if ( !function_exists( 'hoot_post_thumbnail' ) ):
+function hoot_post_thumbnail( $classes = '', $size = '', $crop = NULL ) {
 
 	/* Add custom Classes if any */
 	$custom_class = '';
@@ -272,21 +282,22 @@ function chromaticfw_post_thumbnail( $classes = '', $size = '', $crop = NULL ) {
 	/* Calculate the size to display */
 	if ( !empty( $size ) ) {
 		if ( 0 === strpos( $size, 'span-' ) || 0 === strpos( $size, 'column-' ) )
-			$thumbnail_size = chromaticfw_get_image_size_name( $size, $crop );
+			$thumbnail_size = hoot_get_image_size_name( $size, $crop );
 		else
 			$thumbnail_size = $size;
 	} else {
-		$size = 'span-' . chromaticfw_main_layout( 'content' );
-		$thumbnail_size = chromaticfw_get_image_size_name( $size, $crop );
+		$size = 'span-' . hoot_main_layout( 'content' );
+		$thumbnail_size = hoot_get_image_size_name( $size, $crop );
 	}
 
 	/* Let child themes filter the size name */
-	$thumbnail_size = apply_filters( 'chromaticfw_post_thumbnail' , $thumbnail_size );
+	$thumbnail_size = apply_filters( 'hoot_post_thumbnail' , $thumbnail_size );
 
 	/* Finally display the image */
 	the_post_thumbnail( $thumbnail_size, array( 'class' => "attachment-$thumbnail_size $custom_class", 'itemscope' => '' ) );
 
 }
+endif;
 
 /**
  * Utility function to extract border class for widget based on user option.
@@ -298,13 +309,15 @@ function chromaticfw_post_thumbnail( $classes = '', $size = '', $crop = NULL ) {
  * @prefix string $prefix prefixer for css class to return
  * @return void
  */
-function chromaticfw_widget_border_class( $val, $index=0, $prefix='' ) {
+if ( !function_exists( 'hoot_widget_border_class' ) ):
+function hoot_widget_border_class( $val, $index=0, $prefix='' ) {
 	$val = explode( " ", trim( $val ) );
 	if ( isset( $val[ $index ] ) )
 		return $prefix . trim( $val[ $index ] );
 	else
 		return '';
 }
+endif;
 
 /**
  * Utility function to map footer sidebars structure to CSS span architecture.
@@ -313,8 +326,9 @@ function chromaticfw_widget_border_class( $val, $index=0, $prefix='' ) {
  * @access public
  * @return void
  */
-function chromaticfw_footer_structure() {
-	$footers = chromaticfw_get_option( 'footer' );
+if ( !function_exists( 'hoot_footer_structure' ) ):
+function hoot_footer_structure() {
+	$footers = hoot_get_mod( 'footer' );
 	$structure = array(
 				'1-1' => array( 12, 12, 12, 12 ),
 				'2-1' => array(  6,  6, 12, 12 ),
@@ -331,6 +345,21 @@ function chromaticfw_footer_structure() {
 	else
 		return array( 12, 12, 12, 12 );
 }
+endif;
+
+/**
+ * Utility function to map 2 column widths to CSS span architecture.
+ *
+ * @since 1.0
+ * @access public
+ * @deprecated 2.0.0
+ * @deprecated Use hoot_col_width_to_span instead
+ * @return void
+ */
+function hoot_2_col_width_to_span( $col_width ) {
+	_deprecated_function( __FUNCTION__, '2.0.0', 'hoot_col_width_to_span' );
+	return hoot_col_width_to_span( $col_width );
+}
 
 /**
  * Utility function to map 2 column widths to CSS span architecture.
@@ -339,9 +368,17 @@ function chromaticfw_footer_structure() {
  * @access public
  * @return void
  */
-function chromaticfw_2_col_width_to_span( $col_width ) {
+if ( !function_exists( 'hoot_col_width_to_span' ) ):
+function hoot_col_width_to_span( $col_width ) {
 	$return = array();
 	switch( $col_width ):
+		case '100':
+			$return[0] = 'grid-span-12';
+			break;
+		case '50-50': default:
+			$return[0] = 'grid-span-6';
+			$return[1] = 'grid-span-6';
+			break;
 		case '33-66':
 			$return[0] = 'grid-span-4';
 			$return[1] = 'grid-span-8';
@@ -358,14 +395,24 @@ function chromaticfw_2_col_width_to_span( $col_width ) {
 			$return[0] = 'grid-span-9';
 			$return[1] = 'grid-span-3';
 			break;
-		case '50-50': default:
-			$return[0] = $return[1] = 'grid-span-6';
+		case '33-33-33':
+			$return[0] = 'grid-span-4';
+			$return[1] = 'grid-span-4';
+			$return[2] = 'grid-span-4';
+			break;
+		case '25-25-25-25':
+			$return[0] = 'grid-span-3';
+			$return[1] = 'grid-span-3';
+			$return[2] = 'grid-span-3';
+			$return[3] = 'grid-span-3';
+			break;
 	endswitch;
 	return $return;
 }
+endif;
 
 /**
- * Wrapper function for chromaticfw_main_layout() to get the class names for current context.
+ * Wrapper function for hoot_main_layout() to get the class names for current context.
  * Can only be used after 'posts_selection' action hook i.e. in 'wp' hook or later.
  *
  * @since 2.0
@@ -373,9 +420,11 @@ function chromaticfw_2_col_width_to_span( $col_width ) {
  * @param string $context content|primary-sidebar|sidebar|sidebar-primary
  * @return string
  */
-function chromaticfw_main_layout_class( $context ) {
-	return chromaticfw_main_layout( $context, 'class' );
+if ( !function_exists( 'hoot_main_layout_class' ) ):
+function hoot_main_layout_class( $context ) {
+	return hoot_main_layout( $context, 'class' );
 }
+endif;
 
 /**
  * Utility function to return layout size or classes for the context.
@@ -387,22 +436,24 @@ function chromaticfw_main_layout_class( $context ) {
  * @param string $return class|size return class name or just the span size integer
  * @return string
  */
-function chromaticfw_main_layout( $context, $return = 'size' ) {
+if ( !function_exists( 'hoot_main_layout' ) ):
+function hoot_main_layout( $context, $return = 'size' ) {
 
 	// Set layout
-	global $chromaticfw_theme;
-	if ( !isset( $chromaticfw_theme->currentlayout ) )
-		chromaticfw_set_main_layout();
+	global $hoot_theme;
+	if ( !isset( $hoot_theme->currentlayout ) )
+		hoot_set_main_layout();
 
-	$span_sidebar = $chromaticfw_theme->currentlayout['sidebar'];
-	$span_content = $chromaticfw_theme->currentlayout['content'];
+	$span_sidebar = $hoot_theme->currentlayout['sidebar'];
+	$span_content = $hoot_theme->currentlayout['content'];
+	$layout_class = ' layout-' . $hoot_theme->currentlayout['layout'];
 
 	// Return Class or Span Size for the Content/Sidebar
 	if ( $context == 'content' ) {
 
 		if ( $return == 'class' ) {
 			$extra_class = ( empty( $span_sidebar ) ) ? ' no-sidebar' : '';
-			return ' grid-span-' . $span_content . $extra_class . ' ';
+			return ' grid-span-' . $span_content . $extra_class . $layout_class . ' ';
 		} elseif ( $return == 'size' ) {
 			return intval( $span_content );
 		}
@@ -411,7 +462,7 @@ function chromaticfw_main_layout( $context, $return = 'size' ) {
 
 		if ( $return == 'class' ) {
 			if ( !empty( $span_sidebar ) )
-				return ' grid-span-' . $span_sidebar . ' ';
+				return ' grid-span-' . $span_sidebar . $layout_class . ' ';
 			else
 				return '';
 		} elseif ( $return == 'size' ) {
@@ -423,6 +474,7 @@ function chromaticfw_main_layout( $context, $return = 'size' ) {
 	return '';
 
 }
+endif;
 
 /**
  * Utility function to calculate and set main (content+aside) layout according to the sidebar layout
@@ -432,11 +484,12 @@ function chromaticfw_main_layout( $context, $return = 'size' ) {
  * @since 2.0
  * @access public
  */
-function chromaticfw_set_main_layout() {
+if ( !function_exists( 'hoot_set_main_layout' ) ):
+function hoot_set_main_layout() {
 
 	// Apply Sidebar Layout for Posts
 	if ( is_singular( 'post' ) ) {
-		$sidebar = chromaticfw_get_option( 'sidebar_posts' );
+		$sidebar = hoot_get_mod( 'sidebar_posts' );
 	}
 	// Check for attachment before page (to handle images attached to a page - true for is_page and is_attachment)
 	// Apply 'Full Width'
@@ -444,21 +497,38 @@ function chromaticfw_set_main_layout() {
 		$sidebar = 'none';
 	}
 	elseif ( is_page() ) {
-		if ( chromaticfw_is_404() )
+		if ( hoot_is_404() )
 			// Apply 'Full Width' if this page is being displayed as a custom 404 page
 			$sidebar = 'none';
 		else
 			// Apply Sidebar Layout for Pages
-			$sidebar = chromaticfw_get_option( 'sidebar_pages' );
+			$sidebar = hoot_get_mod( 'sidebar_pages' );
 	}
 	// Apply Sidebar Layout for Site
 	else {
-		$sidebar = chromaticfw_get_option( 'sidebar' );
+		$sidebar = hoot_get_mod( 'sidebar' );
 	}
 
-	/* Allow for custom manipulation of the layout by child themes */
-	$sidebar = apply_filters( 'chromaticfw_main_layout', $sidebar );
-	$spans = apply_filters( 'chromaticfw_main_layout_spans', array(
+	// Allow for custom manipulation of the layout by child themes
+	$sidebar = apply_filters( 'hoot_main_layout', $sidebar );
+
+	// Save the layout for current view
+	hoot_set_current_layout( $sidebar );
+
+}
+endif;
+
+/**
+ * Utility function to calculate and set main (content+aside) layout according to the sidebar layout
+ * set by user for the current view.
+ * Can only be used after 'posts_selection' action hook i.e. in 'wp' hook or later.
+ *
+ * @since 3.0
+ * @access public
+ */
+if ( !function_exists( 'hoot_set_current_layout' ) ):
+function hoot_set_current_layout( $sidebar ) {
+	$spans = apply_filters( 'hoot_main_layout_spans', array(
 		'none' => array(
 			'content' => 9,
 			'sidebar' => 0,
@@ -471,20 +541,72 @@ function chromaticfw_set_main_layout() {
 			'content' => 8,
 			'sidebar' => 4,
 		),
+		'narrow-left' => array(
+			'content' => 9,
+			'sidebar' => 3,
+		),
+		'wide-left' => array(
+			'content' => 8,
+			'sidebar' => 4,
+		),
 		'default' => array(
 			'content' => 8,
 			'sidebar' => 4,
 		),
 	) );
 
-	/* Finally, set the layout for current view */
-	global $chromaticfw_theme;
+	/* Set the layout for current view */
+	global $hoot_theme;
+	$hoot_theme->currentlayout['layout'] = $sidebar;
 	if ( isset( $spans[ $sidebar ] ) ) {
-		$chromaticfw_theme->currentlayout['content'] = $spans[ $sidebar ]['content'];
-		$chromaticfw_theme->currentlayout['sidebar'] = $spans[ $sidebar ]['sidebar'];
+		$hoot_theme->currentlayout['content'] = $spans[ $sidebar ]['content'];
+		$hoot_theme->currentlayout['sidebar'] = $spans[ $sidebar ]['sidebar'];
 	} else {
-		$chromaticfw_theme->currentlayout['content'] = $spans['default']['content'];
-		$chromaticfw_theme->currentlayout['sidebar'] = $spans['default']['sidebar'];
+		$hoot_theme->currentlayout['content'] = $spans['default']['content'];
+		$hoot_theme->currentlayout['sidebar'] = $spans['default']['sidebar'];
 	}
 
 }
+endif;
+
+/**
+ * Utility function to create slider slides array for lite version
+ *
+ * @since 2.0
+ * @access public
+ */
+if ( !function_exists( 'hoot_get_lite_slider' ) ):
+function hoot_get_lite_slider( $type ) {
+	$slides = array();
+	switch ( $type ) {
+
+		case 'html':
+			for ( $i = 1; $i <= 4;  $i++ ) { 
+				$slides[ $i ]['image'] = hoot_get_mod( "wt_html_slide_{$i}-image" );
+				$slides[ $i ]['content'] = hoot_get_mod( "wt_html_slide_{$i}-content" );
+				$slides[ $i ]['button'] = hoot_get_mod( "wt_html_slide_{$i}-button" );
+				$slides[ $i ]['url'] = hoot_get_mod( "wt_html_slide_{$i}-url" );
+				$slides[ $i ]['background']['color'] = hoot_get_mod( "wt_html_slide_{$i}-background-color" );
+				$slides[ $i ]['background']['type'] = hoot_get_mod( "wt_html_slide_{$i}-background-type" );
+				$slides[ $i ]['background']['pattern'] = hoot_get_mod( "wt_html_slide_{$i}-background-pattern" );
+				$slides[ $i ]['background']['image'] = hoot_get_mod( "wt_html_slide_{$i}-background-image" );
+				// $slides[ $i ]['background']['repeat'] = hoot_get_mod( "wt_html_slide_{$i}-background-repeat" );
+				// $slides[ $i ]['background']['position'] = hoot_get_mod( "wt_html_slide_{$i}-background-position" );
+				// $slides[ $i ]['background']['attachment'] = hoot_get_mod( "wt_html_slide_{$i}-background-attachment" );
+			}
+			break;
+
+		case 'image':
+		case 'img':
+			for ( $i = 1; $i <= 4;  $i++ ) { 
+				$slides[ $i ]['image'] = hoot_get_mod( "wt_img_slide_{$i}-image" );
+				$slides[ $i ]['caption'] = hoot_get_mod( "wt_img_slide_{$i}-caption" );
+				$slides[ $i ]['url'] = hoot_get_mod( "wt_img_slide_{$i}-url" );
+				$slides[ $i ]['button'] = hoot_get_mod( "wt_img_slide_{$i}-button" );
+			}
+			break;
+
+	}
+	return $slides;
+}
+endif;

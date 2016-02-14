@@ -1,54 +1,71 @@
-<?php get_header(); // Loads the header.php template. ?>
+<?php 
+// Loads the header.php template.
+get_header();
+?>
 
-<?php get_template_part( 'template-parts/loop-meta' ); // Loads the template-parts/loop-meta.php template to display Title Area with Meta Info (of the loop) ?>
+<?php
+// Loads the template-parts/loop-meta.php template to display Title Area with Meta Info (of the loop)
+get_template_part( 'template-parts/loop-meta' );
+
+// Template modification Hook
+do_action( 'hoot_template_before_content_grid', 'page.php' );
+?>
 
 <div class="grid">
 
-	<div class="grid-row">
+	<main <?php hoot_attr( 'content' ); ?>>
 
-		<main <?php chromaticfw_attr( 'content' ); ?>>
+		<?php
+		// Template modification Hook
+		do_action( 'hoot_template_main_start', 'page.php' );
 
-			<?php
-			// Checks if any posts were found.
-			if ( have_posts() ) :
-			?>
+		// Checks if any posts were found.
+		if ( have_posts() ) :
+		?>
 
-				<div id="content-wrap">
-
-					<?php
-					// Begins the loop through found posts, and load the post data.
-					while ( have_posts() ) : the_post();
-
-						// Loads the template-parts/content-{$post_type}.php template.
-						chromaticfw_get_content_template();
-
-					// End found posts loop.
-					endwhile;
-					?>
-
-				</div><!-- #content-wrap -->
+			<div id="content-wrap">
 
 				<?php
-				// Loads the comments.php template if this page is not being displayed as frontpage or a custom 404 page
-				if ( !is_front_page() && !chromaticfw_is_404() ) :
-					comments_template( '', true );
-				endif;
+				// Begins the loop through found posts, and load the post data.
+				while ( have_posts() ) : the_post();
 
-			// If no posts were found.
-			else :
+					// Loads the template-parts/content-{$post_type}.php template.
+					hoot_get_content_template();
 
-				// Loads the template-parts/error.php template.
-				get_template_part( 'template-parts/error' );
+				// End found posts loop.
+				endwhile;
+				?>
 
-			// End check for posts.
+			</div><!-- #content-wrap -->
+
+			<?php
+			// Template modification Hook
+			do_action( 'hoot_template_after_content_wrap', 'page.php' );
+
+			// Loads the comments.php template if this page is not being displayed as frontpage or a custom 404 page or if this is attachment page of media attached (uploaded) to a page.
+			if ( !is_front_page() && !hoot_is_404() && !is_attachment() ) :
+
+				// Loads the comments.php template
+				comments_template( '', true );
+
 			endif;
-			?>
 
-		</main><!-- #content -->
+		// If no posts were found.
+		else :
 
-		<?php chromaticfw_get_sidebar( 'primary' ); // Loads the template-parts/sidebar-primary.php template. ?>
+			// Loads the template-parts/error.php template.
+			get_template_part( 'template-parts/error' );
 
-	</div><!-- .grid-row -->
+		// End check for posts.
+		endif;
+
+		// Template modification Hook
+		do_action( 'hoot_template_main_end', 'page.php' );
+		?>
+
+	</main><!-- #content -->
+
+	<?php hoot_get_sidebar( 'primary' ); // Loads the template-parts/sidebar-primary.php template. ?>
 
 </div><!-- .grid -->
 

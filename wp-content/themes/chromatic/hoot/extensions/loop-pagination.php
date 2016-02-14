@@ -4,7 +4,7 @@
  *
  * The Loop Pagination script was designed to give theme authors a quick way to paginate archive-type 
  * (archive, search, and blog) pages without having to worry about which of the many plugins a user might 
- * possibly be using.  Instead, they can simply build pagination right into their themes.
+ * possibly be using. Instead, they can simply build pagination right into their themes.
  *
  * This program is free software; you can redistribute it and/or modify it under the terms of the GNU 
  * General Public License as published by the Free Software Foundation; either version 2 of the License, 
@@ -13,14 +13,14 @@
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @package chromaticfw
+ * @package hoot
  * @subpackage framework
- * @since chromaticfw 1.0.0
+ * @since hoot 1.0.0
  */
 
 /**
- * Loop pagination function for paginating loops with multiple posts.  This should be used on archive, blog, and 
- * search pages.  It is not for singular views.
+ * Loop pagination function for paginating loops with multiple posts. This should be used on archive,
+ * blog, and search pages. It is not for singular views.
  *
  * @since 1.0.0
  * @access public
@@ -28,25 +28,31 @@
  * @param array $args Arguments to customize how the page links are output.
  * @return string $page_links
  */
-function chromaticfw_loop_pagination( $args = array() ) {
+function hoot_loop_pagination( $args = array(), $custom_query = array(), $base_url = '' ) {
 	global $wp_rewrite, $wp_query;
 
+	/* Use query */
+	$query = ( ! empty( $custom_query ) ) ? $custom_query : $wp_query;
+
+	/* Set base url */
+	$base_url = ( !empty( $base_url ) ) ? esc_url( $base_url ) : get_pagenum_link();
+
 	/* If there's not more than one page, return nothing. */
-	if ( 1 >= $wp_query->max_num_pages )
+	if ( 1 >= $query->max_num_pages )
 		return;
 
 	/* Get the current page. */
 	$current = ( get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1 );
 
 	/* Get the max number of pages. */
-	$max_num_pages = intval( $wp_query->max_num_pages );
+	$max_num_pages = intval( $query->max_num_pages );
 
 	/* Get the pagination base. */
 	$pagination_base = $wp_rewrite->pagination_base;
 
 	/* Set up some default arguments for the paginate_links() function. */
 	$defaults = array(
-		'base'         => add_query_arg( 'paged', '%#%' ),
+		'base'         => add_query_arg( 'paged', '%#%', $base_url ),
 		'format'       => '',
 		'total'        => $max_num_pages,
 		'current'      => $current,
@@ -59,7 +65,7 @@ function chromaticfw_loop_pagination( $args = array() ) {
 		'add_fragment' => '',
 		'type'         => 'plain',
 
-		// Begin chromaticfw_loop_pagination() arguments.
+		// Begin hoot_loop_pagination() arguments.
 		'before'       => '<nav class="pagination loop-pagination">',
 		'after'        => '</nav>',
 		'echo'         => true,
@@ -67,10 +73,10 @@ function chromaticfw_loop_pagination( $args = array() ) {
 
 	/* Add the $base argument to the array if the user is using permalinks. */
 	if ( $wp_rewrite->using_permalinks() && !is_search() )
-		$defaults['base'] = user_trailingslashit( trailingslashit( get_pagenum_link() ) . "{$pagination_base}/%#%" );
+		$defaults['base'] = user_trailingslashit( trailingslashit( $base_url ) . "{$pagination_base}/%#%" );
 
 	/* Allow developers to overwrite the arguments with a filter. */
-	$args = apply_filters( 'chromaticfw_loop_pagination_args', $args );
+	$args = apply_filters( 'hoot_loop_pagination_args', $args );
 
 	/* Merge the arguments input with the defaults. */
 	$args = wp_parse_args( $args, $defaults );
@@ -98,7 +104,7 @@ function chromaticfw_loop_pagination( $args = array() ) {
 	$page_links = $args['before'] . $page_links . $args['after'];
 
 	/* Allow devs to completely overwrite the output. */
-	$page_links = apply_filters( 'chromaticfw_loop_pagination', $page_links );
+	$page_links = apply_filters( 'hoot_loop_pagination', $page_links );
 
 	/* Return the paginated links for use in themes. */
 	if ( $args['echo'] )

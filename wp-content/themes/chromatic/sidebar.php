@@ -1,12 +1,16 @@
 <?php
 // Dispay Sidebar if not a one-column layout
-$sidebar_size = chromaticfw_main_layout( 'primary-sidebar' );
+$sidebar_size = hoot_main_layout( 'primary-sidebar' );
 if ( !empty( $sidebar_size ) ) :
 ?>
 
-	<aside <?php chromaticfw_attr( 'sidebar', 'primary' ); ?>>
+	<aside <?php hoot_attr( 'sidebar', 'primary' ); ?>>
 
 		<?php
+
+		// Template modification Hook
+		do_action( 'hoot_template_sidebar_start', 'primary' );
+
 		if ( is_active_sidebar( 'primary-sidebar' ) ) : // If the sidebar has widgets.
 
 			dynamic_sidebar( 'primary-sidebar' ); // Displays the primary sidebar.
@@ -30,6 +34,10 @@ if ( !empty( $sidebar_size ) ) :
 			);
 
 		endif; // End widgets check.
+
+		// Template modification Hook
+		do_action( 'hoot_template_sidebar_end', 'primary' );
+
 		?>
 
 	</aside><!-- #sidebar-primary -->

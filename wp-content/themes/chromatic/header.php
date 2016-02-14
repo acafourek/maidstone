@@ -8,43 +8,49 @@ wp_head();
 ?>
 </head>
 
-<body <?php chromaticfw_attr( 'body' ); ?>>
+<body <?php hoot_attr( 'body' ); ?>>
 
-	<div id="page-wrapper" <?php chromaticfw_attr( 'page_wrapper' ); ?>>
+	<div id="page-wrapper" <?php hoot_attr( 'page-wrapper' ); ?>>
 
 		<div class="skip-link">
 			<a href="#content" class="screen-reader-text"><?php _e( 'Skip to content', 'chromatic' ); ?></a>
 		</div><!-- .skip-link -->
 
 		<?php
+		// Template modification Hook
+		do_action( 'hoot_template_site_start' );
+
 		// Displays a friendly note to visitors using outdated browser (Internet Explorer 8 or less)
-		chromaticfw_update_browser();
+		hoot_update_browser();
 		?>
 
 		<?php get_template_part( 'template-parts/topbar' ); ?>
 
-		<header <?php chromaticfw_attr( 'header' ); ?>>
+		<header <?php hoot_attr( 'header' ); ?>>
 			<div class="grid">
-				<div class="grid-row">
-					<div class="table grid-span-12">
+				<div class="table grid-span-12">
 
-						<div id="branding" class="table-cell-mid">
+					<div id="branding" class="table-cell-mid">
+						<div id="site-logo">
 							<?php
 							// Display the Image Logo or Site Title
-							chromaticfw_logo();
-							?>
-						</div><!-- #branding -->
-
-						<div id="header-aside" class="table-cell-mid">
-							<?php
-							// Loads the template-parts/menu-primary.php template.
-							chromaticfw_get_menu( 'primary' );
+							hoot_logo();
 							?>
 						</div>
+					</div><!-- #branding -->
 
+					<div id="header-aside" class="table-cell-mid">
+						<?php
+						// Loads the template-parts/menu-primary.php template.
+						hoot_get_menu( 'primary' );
+						?>
 					</div>
+
 				</div>
 			</div>
 		</header><!-- #header -->
 
 		<div id="main" class="main">
+			<?php
+			// Template modification Hook
+			do_action( 'hoot_template_main_wrapper_start' );

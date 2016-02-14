@@ -1,30 +1,26 @@
 <?php
 /**
- * ChromaticFw Theme hooked into the framework
+ * Hoot Theme hooked into the framework
  *
- * @package chromaticfw
+ * @package hoot
  * @subpackage chromatic
  * @since chromatic 1.0
  */
 
-/* Sets premium theme features when available */
-if ( ! defined( 'CHROMATICFW_PREMIUM' ) )
-	define( 'CHROMATICFW_PREMIUM', false );
-
 /**
- * The ChromaticFw Theme class launches the theme setup.
+ * The Hoot Theme class launches the theme setup.
  *
  * Theme setup functions are performed on the 'after_setup_theme' hook with a priority of 10.
- * Child themes can add theme setup function with a priority of 11. This allows the ChromaticFw
+ * Child themes can add theme setup function with a priority of 11. This allows the Hoot
  * framework class to load theme-supported features on the 'after_setup_theme' hook with a
  * priority of 12.
- * Also, chromaticfw constants are available at 'after_setup_theme' hook at a priority of 10 or later.
+ * Also, hoot constants are available at 'after_setup_theme' hook at a priority of 10 or later.
  * 
  * @since chromatic 1.0
  * @access public
  */
-if ( !class_exists( 'ChromaticFw_Theme' ) ) {
-	class ChromaticFw_Theme {
+if ( !class_exists( 'Hoot_Theme' ) ) {
+	class Hoot_Theme {
 
 		/**
 		 * Constructor method to controls the load order of the required files
@@ -34,10 +30,6 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 		 * @return void
 		 */
 		function __construct() {
-
-			/* Set up an empty class */
-			global $chromaticfw_theme;
-			$chromaticfw_theme = new stdClass;
 
 			/* Load theme includes. Must keep priority 10 for theme constants to be available. */
 			add_action( 'after_setup_theme', array( $this, 'includes' ), 10 );
@@ -53,7 +45,7 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 
 			/* Modify the '[...]' Read More Text */
 			add_filter( 'the_content_more_link', array( $this, 'modify_read_more_link' ) );
-			if ( apply_filters( 'chromaticfw_force_excerpt_readmore', true ) ) {
+			if ( apply_filters( 'hoot_force_excerpt_readmore', true ) ) {
 				add_filter( 'excerpt_more', array( $this, 'insert_excerpt_readmore_quicktag' ), 11 );
 				add_filter( 'wp_trim_excerpt', array( $this, 'replace_excerpt_readmore_quicktag' ), 11, 2 );
 			} else {
@@ -76,25 +68,36 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 		function includes() {
 
 			/* Load enqueue functions */
-			require_once( trailingslashit( CHROMATICFW_THEMEDIR ) . 'enqueue.php' );
+			require_once( trailingslashit( HOOT_THEMEDIR ) . 'enqueue.php' );
 
 			/* Load image sizes. */
-			require_once( trailingslashit( CHROMATICFW_THEMEDIR ) . 'media.php' );
+			require_once( trailingslashit( HOOT_THEMEDIR ) . 'media.php' );
+
+			/* Load the font functions. */
+			require_once( trailingslashit( HOOT_THEMEDIR ) . 'fonts.php' );
 
 			/* Load menus */
-			require_once( trailingslashit( CHROMATICFW_THEMEDIR ) . 'menus.php' );
+			require_once( trailingslashit( HOOT_THEMEDIR ) . 'menus.php' );
 
 			/* Load sidebars */
-			require_once( trailingslashit( CHROMATICFW_THEMEDIR ) . 'sidebars.php' );
+			require_once( trailingslashit( HOOT_THEMEDIR ) . 'sidebars.php' );
 
 			/* Load the custom css functions. */
-			require_once( trailingslashit( CHROMATICFW_THEMEDIR ) . 'css.php' );
+			require_once( trailingslashit( HOOT_THEMEDIR ) . 'css.php' );
 
 			/* Load the Theme Specific HTML attributes */
-			require_once( trailingslashit( CHROMATICFW_THEMEDIR ) . 'attr.php' );
+			require_once( trailingslashit( HOOT_THEMEDIR ) . 'attr.php' );
 
 			/* Load the misc template functions. */
-			require_once( trailingslashit( CHROMATICFW_THEMEDIR ) . 'template-helpers.php' );
+			require_once( trailingslashit( HOOT_THEMEDIR ) . 'template-helpers.php' );
+
+			/* Load Customizer Options */
+			if ( file_exists( trailingslashit( HOOT_THEMEDIR ) . 'admin/customizer-options.php' ) )
+				require_once( trailingslashit( HOOT_THEMEDIR ) . 'admin/customizer-options.php' );
+
+			/* Load the migration class if exist. */
+			if ( file_exists( trailingslashit( HOOT_THEMEDIR ) . 'admin/migration.php' ) )
+				require_once( trailingslashit( HOOT_THEMEDIR ) . 'admin/migration.php' );
 
 		}
 
@@ -113,7 +116,7 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 			add_theme_support( 'title-tag' );
 			// Backward compatibility for WP version before 4.1
 			if ( ! function_exists( '_wp_render_title_tag' ) )
-				add_action( 'wp_head', 'chromaticfw_title_tag', 1 );
+				add_action( 'wp_head', 'hoot_title_tag', 1 );
 
 			// Enable Font Icons
 			// Disable this (remove this line) if the theme doesnt use font icons,
@@ -126,7 +129,7 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 			add_theme_support( 'google-fonts' );
 
 			// Enable widgetized template (options in Admin Panel)
-			add_theme_support( 'chromaticfw-widgetized-template' );
+			add_theme_support( 'hoot-widgetized-template' );
 
 			/** WordPress **/
 
@@ -136,10 +139,10 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 			// Automatically add feed links to <head>.
 			add_theme_support( 'automatic-feed-links' );
 
-			/** ChromaticFw Extensions **/
+			/** Hoot Extensions **/
 
 			// Enable custom widgets
-			add_theme_support( 'chromaticfw-core-widgets' );
+			add_theme_support( 'hoot-core-widgets' );
 
 			// Pagination.
 			add_theme_support( 'loop-pagination' );
@@ -152,6 +155,8 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 			add_theme_support( 'cleaner-caption' );
 
 			/** WooCommerce **/
+
+			// Woocommerce support and init load theme woo functions
 			if ( class_exists( 'WooCommerce' ) ) {
 				add_theme_support( 'woocommerce' );
 				get_template_part( 'woocommerce/functions' );
@@ -188,9 +193,9 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 		 * @return void
 		 */
 		function content_width() {
-			$width = intval( chromaticfw_get_option( 'site_width' ) );
+			$width = intval( hoot_get_mod( 'site_width' ) );
 			$width = !empty( $width ) ? $width : 1260;
-			chromaticfw_set_content_width( $width );
+			hoot_set_content_width( $width );
 		}
 
 		/**
@@ -201,11 +206,11 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 		 * @return string
 		 */
 		function modify_read_more_link( $more = '[...]' ) {
-			$read_more = chromaticfw_get_option('read_more');
+			$read_more = hoot_get_mod('read_more');
 			$read_more = ( empty( $read_more ) ) ? sprintf( __( 'Read More %s', 'chromatic' ), '&rarr;' ) : $read_more;
 			global $post;
 			$read_more = '<a class="more-link" href="' . get_permalink( $post->ID ) . '">' . $read_more . '</a>';
-			return apply_filters( 'chromaticfw_readmore', $read_more ) ;
+			return apply_filters( 'hoot_readmore', $read_more ) ;
 		}
 
 		/**
@@ -217,7 +222,7 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 		 * @return string
 		 */
 		function insert_excerpt_readmore_quicktag( $more = '' ) {
-			return '<!--chromaticfw-read-more-quicktag-->';
+			return '<!--hoot-read-more-quicktag-->';
 		}
 
 		/**
@@ -230,7 +235,7 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 		 */
 		function replace_excerpt_readmore_quicktag( $text, $raw_excerpt ) {
 			$read_more = $this->modify_read_more_link();
-			$text = str_replace( '<!--chromaticfw-read-more-quicktag-->', '', $text );
+			$text = str_replace( '<!--hoot-read-more-quicktag-->', '', $text );
 			return $text . $read_more;
 		}
 
@@ -242,11 +247,11 @@ if ( !class_exists( 'ChromaticFw_Theme' ) ) {
 		 * @return void
 		 */
 		function custom_excerpt_length( $length ) {
-			$excerpt_length = intval( chromaticfw_get_option('excerpt_length') );
+			$excerpt_length = intval( hoot_get_mod('excerpt_length') );
 			if ( !empty( $excerpt_length ) )
 				return $excerpt_length;
 			return 105;
 		}
 
-	}
-}
+	} // end class
+} // end if

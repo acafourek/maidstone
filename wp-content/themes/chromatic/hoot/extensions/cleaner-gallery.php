@@ -14,9 +14,9 @@
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without 
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @package chromaticfw
+ * @package hoot
  * @subpackage framework
- * @since chromaticfw 1.0.0
+ * @since hoot 1.0.0
  */
 
 /**
@@ -24,7 +24,7 @@
  *
  * @since 1.0.0
  */
-final class ChromaticFw_Cleaner_Gallery {
+final class Hoot_Cleaner_Gallery {
 
 	/**
 	 * Holds the instance of this class.
@@ -155,7 +155,7 @@ final class ChromaticFw_Cleaner_Gallery {
 
 		/* Allow developers to overwrite the number of columns. This can be useful for reducing columns with with fewer images than number of columns. */
 		//$columns = ( ( $columns <= $attachment_count ) ? intval( $columns ) : intval( $attachment_count ) );
-		$this->args['columns'] = apply_filters( 'chromaticfw_cleaner_gallery_columns', intval( $this->args['columns'] ), $attachment_count, $this->args );
+		$this->args['columns'] = apply_filters( 'hoot_cleaner_gallery_columns', intval( $this->args['columns'] ), $attachment_count, $this->args );
 
 		/* Loop through each attachment. */
 		foreach ( $attachments as $attachment ) {
@@ -225,13 +225,13 @@ final class ChromaticFw_Cleaner_Gallery {
 		);
 
 		/* Apply filters to the default arguments. */
-		$defaults = apply_filters( 'chromaticfw_cleaner_gallery_defaults', $defaults );
+		$defaults = apply_filters( 'hoot_cleaner_gallery_defaults', $defaults );
 
 		/* Merge the defaults with user input.  */
 		$this->args = shortcode_atts( $defaults, $attr );
 
 		/* Apply filters to the arguments. */
-		$this->args = apply_filters( 'chromaticfw_cleaner_gallery_args', $this->args );
+		$this->args = apply_filters( 'hoot_cleaner_gallery_args', $this->args );
 
 		/* Make sure the post ID is a valid integer. */
 		$this->args['id'] = intval( $this->args['id'] );
@@ -335,7 +335,7 @@ final class ChromaticFw_Cleaner_Gallery {
 		}
 
 		/* Apply filters over the image itself. */
-		$output .= apply_filters( 'chromaticfw_cleaner_gallery_image', $image, $attachment->ID, $this->args, $this->gallery_instance );
+		$output .= apply_filters( 'hoot_cleaner_gallery_image', $image, $attachment->ID, $this->args, $this->gallery_instance );
 
 		/* Close the gallery icon element. */
 		$output .= "</{$this->args['icontag']}>";
@@ -355,7 +355,7 @@ final class ChromaticFw_Cleaner_Gallery {
 	public function get_gallery_caption( $attachment ) {
 
 		/* Get the caption. */
-		$caption = apply_filters( 'chromaticfw_cleaner_gallery_caption', wptexturize( $attachment->post_excerpt ), $attachment->ID, $this->args, $this->gallery_instance );
+		$caption = apply_filters( 'hoot_cleaner_gallery_caption', wptexturize( $attachment->post_excerpt ), $attachment->ID, $this->args, $this->gallery_instance );
 
 		/* If image caption is set, format and return. */
 		if ( !empty( $caption ) ) {
@@ -447,4 +447,6 @@ final class ChromaticFw_Cleaner_Gallery {
 	}
 }
 
-ChromaticFw_Cleaner_Gallery::get_instance();
+/* Initialize class */
+global $hoot_cleaner_gallery;
+$hoot_cleaner_gallery = Hoot_Cleaner_Gallery::get_instance();

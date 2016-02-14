@@ -7,8 +7,7 @@
  *    \_/\_/ | .__/|_| |_|\___/ \___/ \__|
  *           |_|                          
  * ------------------------------------------
- * ---- WP THEME BUILT ON CHROMATICFW FRAMEWORK ----
- * ------------ (a Hybrid fork) -------------
+ * ---- WP THEME BUILT ON HOOT FRAMEWORK ----
  * ------------------------------------------
  *
  * :: Theme's main functions file :::::::::::::::::::::::::::::::::::::::::::::
@@ -23,32 +22,41 @@
  * customizations without touching the main code. For more information on hooks, actions, and filters
  * @see http://codex.wordpress.org/Plugin_API
  *
- * @credit This theme is derived from 
- * * Underscores WordPress Theme, Copyright 2012 Automattic http://underscores.me/
- * * Hybrid Base WordPress Theme, Copyright 2013 - 2014, Justin Tadlock  http://themehybrid.com/
- * both of which, like WordPress, are distributed under the terms of the GNU GPL
- *
- * @package chromaticfw
+ * @package hoot
  * @subpackage chromatic
  * @since chromatic 1.0
  */
 
-/* Load minified versions of CSS and JS throughout the framework. You can set this to true for loading
-   unminified files (usefulfor development/debugging), or set it to false for loading minified files (for
-   production i.e. live site). */
-define( 'CHROMATICFW_DEBUG', true );
+/**
+ * Uncomment the line below to load unminified CSS and JS, and add other developer data to code.
+ * - You can set this to true (default) for loading unminified files (useful for development/debugging)
+ * - Or set it to false for loading minified files (for production i.e. live site)
+ * 
+ * NOTE: If you uncomment this line, HOOT_DEBUG value will override any option for minifying files (if
+ * available) set via the theme options (customizer) in WordPress Admin
+ */
+// define( 'HOOT_DEBUG', true );
 
 /* Get the template directory and make sure it has a trailing slash. */
-$chromaticfw_base_dir = trailingslashit( get_template_directory() );
+$hoot_base_dir = trailingslashit( get_template_directory() );
 
 /* Load the Core framework */
-require_once( $chromaticfw_base_dir . 'hoot/hoot.php' );
+require_once( $hoot_base_dir . 'hoot/hoot.php' );
 
 /* Load the Theme files */
-require_once( $chromaticfw_base_dir . 'hoot-theme/hoot-theme.php' );
+require_once( $hoot_base_dir . 'hoot-theme/hoot-theme.php' );
+
+/* Framework and Theme files loaded */
+do_action( 'hoot_loaded' );
 
 /* Launch the Core framework. */
-$chromaticfw_class = new ChromaticFw();
+$hoot = new Hoot();
+
+/* Core Framework Setup complete */
+do_action( 'hoot_after_setup' );
 
 /* Launch the Theme */
-$chromaticfw_theme_class = new ChromaticFw_Theme();
+$hoot_theme = new Hoot_Theme();
+
+/* Hoot Theme Setup complete */
+do_action( 'hoot_theme_after_setup' );

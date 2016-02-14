@@ -1,4 +1,4 @@
-<li <?php chromaticfw_attr( 'comment' ); ?>>
+<li <?php hoot_attr( 'comment' ); ?>>
 
 	<article>
 		<header class="comment-avatar">
@@ -11,23 +11,23 @@
 
 		<div class="comment-content-wrap">
 
-			<div <?php chromaticfw_attr( 'comment-content' ); ?>>
+			<div <?php hoot_attr( 'comment-content' ); ?>>
 				<?php comment_text(); ?>
 			</div><!-- .comment-content -->
 
 			<footer class="comment-meta">
 				<div class="comment-meta-block">
-					<cite <?php chromaticfw_attr( 'comment-author' ); ?>><?php comment_author_link(); ?></cite>
+					<cite <?php hoot_attr( 'comment-author' ); ?>><?php comment_author_link(); ?></cite>
 				</div>
 				<div class="comment-meta-block">
-					<time <?php chromaticfw_attr( 'comment-published' ); ?>><?php printf( __( '%s ago', 'chromatic' ), human_time_diff( get_comment_time( 'U' ), current_time( 'timestamp' ) ) ); ?></time>
+					<time <?php hoot_attr( 'comment-published' ); ?>><?php printf( __( '%s ago', 'chromatic' ), human_time_diff( get_comment_time( 'U' ), current_time( 'timestamp' ) ) ); ?></time>
 				</div>
 				<div class="comment-meta-block">
-					<a <?php chromaticfw_attr( 'comment-permalink' ); ?>><?php _e( 'Permalink', 'chromatic' ); ?></a>
+					<a <?php hoot_attr( 'comment-permalink' ); ?>><?php _e( 'Permalink', 'chromatic' ); ?></a>
 				</div>
 				<?php if ( comments_open() ) : ?>
 					<div class="comment-meta-block">
-						<?php chromaticfw_comment_reply_link(); ?>
+						<?php hoot_comment_reply_link(); ?>
 					</div>
 				<?php endif; ?>
 				<?php edit_comment_link(); ?>

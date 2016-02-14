@@ -30,9 +30,9 @@ Credits
 Chromatic WordPress Theme is derived from
   * Underscores WordPress Theme, Copyright 2012 Automattic http://underscores.me/
   * Hybrid Base WordPress Theme v1.0.0, Copyright 2013 - 2014, Justin Tadlock  http://themehybrid.com/
-Chromatic WordPress Theme is based on ChromaticFw Framework which incorporates code from
+Chromatic WordPress Theme is based on Hoot Framework which incorporates code from
   * Hybrid Core Framework v2.0.3, Copyright 2008 - 2014, Justin Tadlock  http://themehybrid.com/
-  * Options Framework v1.9.0, Copyright 2010 - 2014, WP Theming http://wptheming.com
+  * Customizer Library v1.3.0, Copyright 2010 - 2014, WP Theming http://wptheming.com
 all of the above, like WordPress, are distributed under the terms of the GNU GPL
 
 Chromatic WordPress Theme bundles the following third-party resources:
@@ -90,52 +90,52 @@ Change Log
 ---------------
 
 #### 1.0
-* # ChromaticFw Framework 1.0.0 #
+* # Hoot Framework 1.0.0 #
 * Initial release.
 
 ### 1.1
-* # ChromaticFw Framework 1.0.0 #
+* # Hoot Framework 1.0.0 #
 * Minor comment changes in style.css
-* Load style.dev.css if available when CHROMATICFW_DEBUG is true
+* Load style.dev.css if available when HOOT_DEBUG is true
 
 ### 1.2
-* # ChromaticFw Framework 1.1.0 #
+* # Hoot Framework 1.1.0 #
 * Removed bug with older PHP versions
 * Deprecate style.dev.css in favor of less. Removed .dev from other admin stylesheets as well.
-* Removed mobile-toggle from chromaticfw-core-scripts (incorporated in theme js)
-* Deprecated 'chromaticfw-core-styles' theme support feature
+* Removed mobile-toggle from hoot-core-scripts (incorporated in theme js)
+* Deprecated 'hoot-core-styles' theme support feature
 * Added 'Restore Defaults' option to admin panel
 
 ### 1.3
-* # ChromaticFw Framework 1.1.0 #
+* # Hoot Framework 1.1.0 #
 * Use wp_add_inline_style() to insert inline CSS
 * Contact Form 7 error styling (css)
 
 ### 2.0
-* # ChromaticFw Framework 1.1.1 #
+* # Hoot Framework 1.1.1 #
 * Several code improvements
 * Added theme support for 'title-tag'
 
 ### 2.1
-* # ChromaticFw Framework 1.1.2 #
+* # Hoot Framework 1.1.2 #
 * Improved Sanitization
 * Several code improvements and cleanup
 
 ### 2.2
-* # ChromaticFw Framework 1.1.2 #
+* # Hoot Framework 1.1.2 #
 * Minor Bug Fix for Image Slider
 
 ### 2.3
-* # ChromaticFw Framework 1.1.3 #
+* # Hoot Framework 1.1.3 #
 * Fix: Display meta links for enabling Responsive by default
 
 ### 2.4
-* # ChromaticFw Framework 1.1.3 #
+* # Hoot Framework 1.1.3 #
 * Add slide link to image slider
 * Allow Child Themes to use similar theme Slug to preserve Theme Options settings
 
 ### 2.5
-* # ChromaticFw Framework 1.1.4 #
+* # Hoot Framework 1.1.4 #
 * Do Shortcodes to WordPress Text Widget
 * Content Block Widget - Add URL field
 * Custom Menu CSS for Topbar
@@ -144,34 +144,34 @@ Change Log
 * Search Results bug fix when showing Pages in results
 
 ### 2.6
-* # ChromaticFw Framework 1.1.4 #
+* # Hoot Framework 1.1.4 #
 * Content Block Widget - Add option to use excerpts instead of full content
 
 ### 2.7
-* # ChromaticFw Framework 1.1.4 #
+* # Hoot Framework 1.1.4 #
 * Fixed table layout bug for HTML slider in Firefox and Opera
 
 ### 2.8
-* # ChromaticFw Framework 1.1.4 #
+* # Hoot Framework 1.1.4 #
 * Background color bug fix
 
 ### 2.8.1
-* # ChromaticFw Framework 1.1.4 #
+* # Hoot Framework 1.1.4 #
 * Bug fix for content-block widget for version 2.6-2.8
 
 ### 2.9
-* # ChromaticFw Framework 1.1.5 #
+* # Hoot Framework 1.1.5 #
 * Updated Light Slider plugin to latest version
 * Added widget support for SiteOrigin Page Builder plugin
 * Fix for uncollapsed margin in widgetized template (firefox only)
 
 ### 2.10
-* # ChromaticFw Framework 1.1.6 #
+* # Hoot Framework 1.1.6 #
 * Content Block Widget - Improve image display for style4
 * Improved Nested Lists CSS
 
 ### 2.10.2
-* # ChromaticFw Framework 1.1.7 #
+* # Hoot Framework 1.1.7 #
 * lightSlider Bugfix - Auto play bug when images exist in browser cache (jquery load event)
 * lightSlider Added Responsive Option
 * Add theme support for Post Thumbnail for all post types
@@ -179,46 +179,60 @@ Change Log
 * Improved Default Site Credits in post footer
 * Updated screenshot size
 
-### 2.10.3
-* # ChromaticFw Framework 1.1.7 #
+#### 2.10.3
+* # Hoot Framework 1.1.7 #
 * Added support for Jetpack Gallery and Carousel
 * Reset Query before page content on Widgetized Template
 
 ### 2.10.4
-* # ChromaticFw Framework 1.1.7 #
+* # Hoot Framework 1.1.7 #
 * Added Widget sanitization functions
 
 ### 2.11
-* # ChromaticFw Framework 1.1.7 #
+* # Hoot Framework 1.1.7 #
 * Support .screen-reader-text class instead of .assistive-text
 * Add individual slide classes to lightslider slides
 * Minor CSS updates
 * Removed do_shortcode filter for WordPress Text Widget
 * Content Block Widget - clickable icons
 
+### 2.11.1
+* # Hoot Framework 1.1.7 #
+
 ### 2.12
-* # ChromaticFw Framework 1.1.8 #
+* # Hoot Framework 1.1.8 #
 * Always show 'Read More' link for excerpt (when excerpt smaller than length)
 * Enable 'Excerpts' for pages (to be used in Content Block widget)
 * Improved structured data (microformat)
 * Bug Fix: Language folder path
-* Add filters to chromaticfw_meta_info_blocks
+* Add filters to hoot_meta_info_blocks
 * Content Block Widget improvements (custom link overrides default Read More link of excerpts)
 * Separate meta info display options for Posts and Pages
 
 ### 2.13
-* # ChromaticFw Framework 1.1.9 #
+* # Hoot Framework 1.1.9 #
 * Sanitization for css rules created dynamically
 * Removed deprecated constructor method for WP_Widget in extended class
 * Image Slider - Improved mobile view for captions/description
 * Reduce to a single text domain
 
 ### 2.14
-* # ChromaticFw Framework 1.1.10 #
+* # Hoot Framework 1.1.10 #
 * Woocommerce compatibility
 * Bug Fix - Registered image sizes array (crop/nocrop) was not sorted in increasing width size
 * lightSlider Bugfix - Images slide when only one slide available
 * lightSlider Bugfix - Remove numbers from pager (shows up in google search results)
 * Bug Fix - CSS Sanitiaztion for colors and backgrounds
 * Add current year tag for copyright text in post footer
-* Add filter for image size used in content and chromaticfw_post_thumbnail()
+* Add filter for image size used in content and hoot_post_thumbnail()
+
+#### 3.0
+* # Hoot Framework 2.0.0 #
+* Fix woocommerce-sidebar class added only on woocommerce pages
+* Theme Options replaced with customizer
+* Multiple new actions and filters
+* Multiple bug fixes and updates
+
+#### 3.1
+* # Hoot Framework 2.0.1 #
+* Fix Template Name Constant value

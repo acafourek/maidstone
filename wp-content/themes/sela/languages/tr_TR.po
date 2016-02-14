@@ -49,28 +49,28 @@ msgstr "Automattic"
 msgid "Search Results for: %s"
 msgstr "Arama sonuçları: %s"
 
-#: inc/template-tags.php:421
-msgid "Archives"
-msgstr "Arşivler"
-
 #. translators: 1: Taxonomy singular name, 2: Current taxonomy term
 #: inc/template-tags.php:419
 msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
+
+#: inc/template-tags.php:421
+msgid "Archives"
+msgstr "Arşivler"
 
 #: inc/template-tags.php:410
 msgctxt "post format archive title"
 msgid "Audio"
 msgstr "Ses"
 
-#: inc/template-tags.php:415
-msgid "Archives: %s"
-msgstr "Arşivler: %s"
-
 #: inc/template-tags.php:412
 msgctxt "post format archive title"
 msgid "Chats"
 msgstr "Sohbetler"
+
+#: inc/template-tags.php:415
+msgid "Archives: %s"
+msgstr "Arşivler: %s"
 
 #: inc/template-tags.php:406
 msgctxt "post format archive title"
@@ -87,15 +87,15 @@ msgctxt "post format archive title"
 msgid "Images"
 msgstr "Görseller"
 
-#: inc/template-tags.php:404
-msgctxt "post format archive title"
-msgid "Quotes"
-msgstr "Alıntılar"
-
 #: inc/template-tags.php:402
 msgctxt "post format archive title"
 msgid "Videos"
 msgstr "Videolar"
+
+#: inc/template-tags.php:404
+msgctxt "post format archive title"
+msgid "Quotes"
+msgstr "Alıntılar"
 
 #: inc/template-tags.php:393
 msgctxt "daily archives date format"

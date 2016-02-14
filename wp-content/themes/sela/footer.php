@@ -18,7 +18,7 @@
 		<div class="site-info"  role="contentinfo">
 			<a href="http://wordpress.org/" title="<?php esc_attr_e( 'A Semantic Personal Publishing Platform', 'sela' ); ?>" rel="generator"><?php printf( __( 'Proudly powered by %s', 'sela' ), 'WordPress' ); ?></a>
 			<span class="sep"> | </span>
-			<?php printf( __( 'Theme: %1$s by %2$s.', 'sela' ), 'sela', '<a href="https://wordpress.com/themes/sela" rel="designer">WordPress.com</a>' ); ?>
+			<?php printf( __( 'Theme: %1$s by %2$s.', 'sela' ), 'sela', '<a href="http://wordpress.com/themes/sela/" rel="designer">WordPress.com</a>' ); ?>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->

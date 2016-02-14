@@ -68,14 +68,14 @@ msgctxt "post format archive title"
 msgid "Audio"
 msgstr "Audio"
 
-#: inc/template-tags.php:415
-msgid "Archives: %s"
-msgstr "Archieven: %s"
-
 #: inc/template-tags.php:412
 msgctxt "post format archive title"
 msgid "Chats"
 msgstr "Gesprekken"
+
+#: inc/template-tags.php:415
+msgid "Archives: %s"
+msgstr "Archieven: %s"
 
 #: inc/template-tags.php:406
 msgctxt "post format archive title"
@@ -92,15 +92,15 @@ msgctxt "post format archive title"
 msgid "Images"
 msgstr "Afbeeldingen"
 
-#: inc/template-tags.php:404
-msgctxt "post format archive title"
-msgid "Quotes"
-msgstr "Citaten"
-
 #: inc/template-tags.php:402
 msgctxt "post format archive title"
 msgid "Videos"
 msgstr "Video's"
+
+#: inc/template-tags.php:404
+msgctxt "post format archive title"
+msgid "Quotes"
+msgstr "Citaten"
 
 #: inc/template-tags.php:393
 msgctxt "daily archives date format"

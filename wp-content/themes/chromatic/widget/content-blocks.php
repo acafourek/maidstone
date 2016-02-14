@@ -4,8 +4,8 @@ if ( empty( $boxes ) || !is_array( $boxes ) )
 	return;
 
 // Get border classes
-$top_class = chromaticfw_widget_border_class( $border, 0, 'topborder-');
-$bottom_class = chromaticfw_widget_border_class( $border, 1, 'bottomborder-');
+$top_class = hoot_widget_border_class( $border, 0, 'topborder-');
+$bottom_class = hoot_widget_border_class( $border, 1, 'bottomborder-');
 
 // Get total columns and set column counter
 $columns = ( intval( $columns ) >= 1 && intval( $columns ) <= 5 ) ? intval( $columns ) : 3;
@@ -28,9 +28,9 @@ if ( $image && $style == 'style3' ) $style = 'style2';
 $content_blocks_query = new WP_Query( array( 'post_type' => 'page', 'post__in' => $page_ids, 'posts_per_page' => -1 ) );
 
 // Temporarily remove read more links from excerpts
-add_filter( 'chromaticfw_readmore', 'chromaticfw_content_blocks_widget_readmore' );
-if ( !function_exists( 'chromaticfw_content_blocks_widget_readmore' ) ) {
-	function chromaticfw_content_blocks_widget_readmore(){ return ''; }
+add_filter( 'hoot_readmore', 'hoot_content_blocks_widget_readmore' );
+if ( !function_exists( 'hoot_content_blocks_widget_readmore' ) ) {
+	function hoot_content_blocks_widget_readmore(){ return ''; }
 }
 ?>
 
@@ -57,10 +57,10 @@ if ( !function_exists( 'chromaticfw_content_blocks_widget_readmore' ) ) {
 									$has_icon = true;
 
 								if ( !empty( $excerpt ) && empty( $box['url'] ) ) {
-									$linktag = '<a href="' . get_permalink() . '">';
+									$linktag = '<a href="' . get_permalink() . '" ' . hoot_get_attr( 'content-block-link', 'permalink' ) . '>';
 									$linktagend = '</a>';
 								} elseif ( !empty( $box['url'] ) ) {
-									$linktag = '<a href="' . esc_url( $box['url'] ) . ' ">';
+									$linktag = '<a href="' . esc_url( $box['url'] ) . ' " ' . hoot_get_attr( 'content-block-link', 'custom' ) . '>';
 									$linktagend = '</a>';
 								} else {
 									$linktag = $linktagend = '';
@@ -82,14 +82,14 @@ if ( !function_exists( 'chromaticfw_content_blocks_widget_readmore' ) ) {
 												} else {
 													$image_col_width = $columns;
 												}
-												chromaticfw_post_thumbnail( 'content-block-img', 'column-1-' . $image_col_width );
+												hoot_post_thumbnail( 'content-block-img', 'column-1-' . $image_col_width );
 											echo $linktagend;
 											?>
 										</div><?php
 
 									elseif ( $has_icon ):
-										$contrast_class = ( 'square' == $icon_style ) ? ' invert-typo ' : ''; ?>
-										<div class="content-block-visual content-block-icon <?php echo 'icon-style-' . esc_attr( $icon_style ); echo $contrast_class; ?>">
+										$contrast_class = ( 'square' == $icon_style ) ? ' invert-typo ' : '';
+										?><div class="content-block-visual content-block-icon <?php echo 'icon-style-' . esc_attr( $icon_style ); echo $contrast_class; ?>">
 											<?php echo $linktag; ?>
 												<i class="fa <?php echo sanitize_html_class( $box['icon'] ); ?>"></i>
 											<?php echo $linktagend; ?>
@@ -112,7 +112,7 @@ if ( !function_exists( 'chromaticfw_content_blocks_widget_readmore' ) ) {
 											else
 												the_excerpt();
 											if ( $linktag ) {
-												$linktext = ( !empty( $box['link'] ) ) ? $box['link'] : chromaticfw_get_option('read_more');
+												$linktext = ( !empty( $box['link'] ) ) ? $box['link'] : hoot_get_mod('read_more');
 												$linktext = ( empty( $linktext ) ) ? sprintf( __( 'Read More %s', 'chromatic' ), '&rarr;' ) : $linktext;
 												echo '<p class="more-link linkstyle">' . $linktag . $linktext . $linktagend . '</p>';
 											}
@@ -144,5 +144,5 @@ if ( !function_exists( 'chromaticfw_content_blocks_widget_readmore' ) ) {
 
 <?php
 // Reinstate read more links to excerpts
-remove_filter( 'chromaticfw_readmore', 'chromaticfw_content_blocks_widget_readmore' );
+remove_filter( 'hoot_readmore', 'hoot_content_blocks_widget_readmore' );
 ?>

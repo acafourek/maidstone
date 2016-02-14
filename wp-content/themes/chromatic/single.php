@@ -1,58 +1,72 @@
-<?php get_header(); // Loads the header.php template. ?>
+<?php 
+// Loads the header.php template.
+get_header();
+?>
 
-<?php get_template_part( 'template-parts/loop-meta' ); // Loads the template-parts/loop-meta.php template to display Title Area with Meta Info (of the loop) ?>
+<?php
+// Loads the template-parts/loop-meta.php template to display Title Area with Meta Info (of the loop)
+get_template_part( 'template-parts/loop-meta' );
+
+// Template modification Hook
+do_action( 'hoot_template_before_content_grid', 'single.php' );
+?>
 
 <div class="grid">
 
-	<div class="grid-row">
+	<main <?php hoot_attr( 'content' ); ?>>
 
-		<main <?php chromaticfw_attr( 'content' ); ?>>
+		<?php
+		// Template modification Hook
+		do_action( 'hoot_template_main_start', 'single.php' );
 
-			<?php
-			// Checks if any posts were found.
-			if ( have_posts() ) :
-			?>
+		// Checks if any posts were found.
+		if ( have_posts() ) :
+		?>
 
-				<div id="content-wrap">
-
-					<?php
-					// Begins the loop through found posts, and load the post data.
-					while ( have_posts() ) : the_post();
-
-						// Loads the template-parts/content-{$post_type}.php template.
-						chromaticfw_get_content_template();
-
-					// End found posts loop.
-					endwhile;
-					?>
-
-				</div><!-- #content-wrap -->
+			<div id="content-wrap">
 
 				<?php
-				// Loads the template-parts/loop-nav.php template.
-				if ( chromaticfw_get_option( 'post_prev_next_links' ) )
-					get_template_part( 'template-parts/loop-nav' );
+				// Begins the loop through found posts, and load the post data.
+				while ( have_posts() ) : the_post();
 
-				// Loads the comments.php template
-				if ( !is_attachment() ) {
-					comments_template( '', true );
-				};
+					// Loads the template-parts/content-{$post_type}.php template.
+					hoot_get_content_template();
 
-			// If no posts were found.
-			else :
+				// End found posts loop.
+				endwhile;
+				?>
 
-				// Loads the template-parts/error.php template.
-				get_template_part( 'template-parts/error' );
+			</div><!-- #content-wrap -->
 
-			// End check for posts.
-			endif;
-			?>
+			<?php
+			// Loads the template-parts/loop-nav.php template.
+			if ( hoot_get_mod( 'post_prev_next_links' ) )
+				get_template_part( 'template-parts/loop-nav' );
 
-		</main><!-- #content -->
+			// Template modification Hook
+			do_action( 'hoot_template_after_content_wrap', 'single.php' );
 
-		<?php chromaticfw_get_sidebar( 'primary' ); // Loads the template-parts/sidebar-primary.php template. ?>
+			// Loads the comments.php template
+			if ( !is_attachment() ) {
+				comments_template( '', true );
+			};
 
-	</div><!-- .grid-row -->
+		// If no posts were found.
+		else :
+
+			// Loads the template-parts/error.php template.
+			get_template_part( 'template-parts/error' );
+
+		// End check for posts.
+		endif;
+
+		// Template modification Hook
+		do_action( 'hoot_template_main_end', 'single.php' );
+		?>
+
+	</main><!-- #content -->
+
+	<?php hoot_get_sidebar( 'primary' ); // Loads the template-parts/sidebar-primary.php template. ?>
 
 </div><!-- .grid -->
 

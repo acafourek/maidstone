@@ -1,51 +1,76 @@
 <?php
-global $chromaticfw_theme;
+global $hoot_theme, $hoot_style_builder;
 
-if ( !isset( $chromaticfw_theme->slider ) || empty( $chromaticfw_theme->slider ) )
+if ( !isset( $hoot_theme->slider ) || empty( $hoot_theme->slider ) )
 	return;
 
 // Ok, so we have a slider to show. Now, lets display the slider.
 
 /* Create Data attributes for javascript settings for this slider */
-$atts = $class = '';
-if ( isset( $chromaticfw_theme->sliderSettings ) && is_array( $chromaticfw_theme->sliderSettings ) ) {
-	if ( isset( $chromaticfw_theme->sliderSettings['class'] ) )
-		$class .= ' ' . sanitize_html_class( $chromaticfw_theme->sliderSettings['class'] );
-	if ( isset( $chromaticfw_theme->sliderSettings['id'] ) )
-		$atts .= ' id="' . sanitize_html_class( $chromaticfw_theme->sliderSettings['id'] ) . '"';
-	foreach ( $chromaticfw_theme->sliderSettings as $setting => $value )
+$atts = $class = $gridstyle = '';
+if ( isset( $hoot_theme->sliderSettings ) && is_array( $hoot_theme->sliderSettings ) ) {
+
+	if ( isset( $hoot_theme->sliderSettings['class'] ) )
+		$class .= ' ' . sanitize_html_class( $hoot_theme->sliderSettings['class'] );
+
+	if ( isset( $hoot_theme->sliderSettings['id'] ) )
+		$atts .= ' id="' . sanitize_html_class( $hoot_theme->sliderSettings['id'] ) . '"';
+	foreach ( $hoot_theme->sliderSettings as $setting => $value )
 		$atts .= ' data-' . $setting . '="' . esc_attr( $value ) . '"';
+
+	if ( isset( $hoot_theme->sliderSettings['min_height'] ) ) {
+		// use height instead of min-height (firefox) http://stackoverflow.com/questions/7790222/
+		$gridstylearray = $hoot_style_builder->css_rule_sanitized_array( 'height', $hoot_theme->sliderSettings['min_height'] . 'px;' );
+		if( is_array( $gridstylearray ) ) {
+			foreach ( $gridstylearray as $property => $value ) {
+				$gridstyle .= " $property: " . $value['value'] . ';';
+			}
+		}
+	}
+
 }
 
 /* Start Slider Template */
 $slide_count = 1; ?>
 <ul class="lightSlider<?php echo $class; ?>"<?php echo $atts; ?>><?php
-	foreach ( $chromaticfw_theme->slider as $slide ) :
-		if ( !empty( $slide['content'] ) || !empty( $slide['image'] ) ) :
+	foreach ( $hoot_theme->slider as $slide ) :
+		if ( !empty( $slide['image'] ) || !empty( $slide['content'] ) ) :
 
-			$slide_bg = chromaticfw_css_background( $slide['background'] );
+			$slidestyle = '';
+			$slidestylearray = $hoot_style_builder->backgroundarray( $slide['background'] );
+			if( is_array( $slidestylearray ) ) {
+				foreach ( $slidestylearray as $property => $value ) {
+					$slidestyle .= " $property: " . $value['value'] . ';';
+				}
+			}
+
 			$is_custom_bg = ( isset( $slide['background']['type'] ) && 'custom' == $slide['background']['type'] ) ? ' is-custom-bg ' : '';
-			$column = ( !empty( $slide['image'] ) ) ? ' column-1-2 ' : ' column-1-1 ';
-			$slide['button'] = empty( $slide['button'] ) ? __('Learn More', 'chromatic') : $slide['button'];
 
-			?><li class="lightSlide hootslider-html-slide hootslider-html-slide-<?php echo $slide_count; $slide_count++; ?> <?php echo $is_custom_bg; ?>" style="<?php echo esc_attr( $slide_bg ); ?>">
-				<div class="grid">
+			$column = ( !empty( $slide['image'] ) && !empty( $slide['content'] ) ) ? ' column-1-2 ' : ' column-1-2 one-column-only ';
+			$column .= ( !empty( $slide['image'] ) ) ? ' with-featured-image ' : ' no-featured-image ';
+
+			$slide['button'] = empty( $slide['button'] ) ? __('Know More', 'chromatic') : $slide['button'];
+
+			// Start Slide
+			?><li class="lightSlide hootslider-html-slide hootslider-html-slide-<?php echo $slide_count; $slide_count++; ?> <?php echo $is_custom_bg; ?>" <?php if ( !empty( $slidestyle ) ) echo ' style="' . esc_attr( $slidestyle ) . '"'; ?>>
+
+				<div class="grid"<?php if ( !empty( $gridstyle ) ) echo ' style="' . esc_attr( $gridstyle ) . '"'; ?>>
 
 					<?php if ( !empty( $slide['content'] ) || !empty( $slide['url'] ) ) { ?>
-						<div class="<?php echo $column; ?> hootslider-html-slide-left">
+						<div class="<?php echo $column; ?> hootslider-html-slide-column hootslider-html-slide-left">
 							<?php if ( !empty( $slide['content'] ) ) { ?>
 								<div class="hootslider-html-slide-content linkstyle">
 									<?php echo wp_kses_post( wpautop( $slide['content'] ) ); ?>
 								</div>
 							<?php } ?>
 							<?php if ( !empty( $slide['url'] ) ) { ?>
-								<a class="hootslider-html-slide-button button" href="<?php echo esc_url( $slide['url'] ); ?>"><?php echo $slide['button']; ?></a>
+								<div class="hootslider-html-slide-link"><a href="<?php echo esc_url( $slide['url'] ); ?>" <?php hoot_attr( 'hootslider-html-slide-button', 'html-slider', 'button' ); ?>><?php echo $slide['button']; ?></a></div>
 							<?php } ?>
 						</div>
 					<?php } ?>
 
 					<?php if ( !empty( $slide['image'] ) ) { ?>
-						<div class="<?php echo $column; ?> hootslider-html-slide-right">
+						<div class="<?php echo $column; ?> hootslider-html-slide-column hootslider-html-slide-right">
 							<img class="hootslider-html-slide-img" src="<?php echo esc_url( $slide['image'] ); ?>">
 						</div>
 					<?php } ?>

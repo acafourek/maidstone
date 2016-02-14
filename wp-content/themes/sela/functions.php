@@ -184,7 +184,7 @@ function sela_scripts_styles() {
 	wp_enqueue_style( 'sela-fonts', sela_fonts_url(), array(), null );
 
 	// Add Genericons font.
-	wp_enqueue_style( 'genericons', get_template_directory_uri() . '/fonts/genericons.css', array(), '3.3' );
+	wp_enqueue_style( 'genericons', get_template_directory_uri() . '/fonts/genericons.css', array(), '3.4.1' );
 
 	// Load the main stylesheet.
 	wp_enqueue_style( 'sela-style', get_stylesheet_uri() );
@@ -246,3 +246,10 @@ require get_template_directory() . '/inc/custom-header.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+
+
+/**
+ * Load plugin enhancement file to display admin notices.
+ */
+require get_template_directory() . '/inc/plugin-enhancements.php';

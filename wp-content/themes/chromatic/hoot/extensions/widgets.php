@@ -7,23 +7,30 @@
  * 'init' hook is too late to load widgets since 'widgets_init' is used to initialize widgets.
  * Since this file is hooked at 'after_setup_theme' (priority 14), we can safely load widgets here.
  *
- * @package chromaticfw
+ * @package hoot
  * @subpackage framework
- * @since chromaticfw 1.0.0
+ * @since hoot 1.0.0
  */
 
 /**
- * Loads all available widgets for the theme. Since these are extended classes of 'ChromaticFw_WP_Widget', hence
- * this function should only be called 'ChromaticFw_WP_Widget' class has been defined.
+ * Loads all available widgets for the theme. Since these are extended classes of 'Hoot_WP_Widget', hence
+ * this function should only be called 'Hoot_WP_Widget' class has been defined.
  *
  * @since 1.0.0
  * @access public
  */
-function chromaticfw_load_widgets() {
+function hoot_load_widgets() {
+
+	/* Locations for widgets */
+	$locations = apply_filters( 'hoot_load_widgets', array(
+		trailingslashit( HOOT_THEMEDIR ) . 'admin/widget-*.php',
+		) );
 
 	/* Loads all available widgets for the theme. */
-	foreach ( glob( trailingslashit( CHROMATICFW_THEMEDIR ) . "admin/widget-*.php" ) as $filename ) {
-		include_once( $filename );
+	foreach ( $locations as $location ) {
+		foreach ( glob( $location ) as $filename ) {
+			include_once( $filename );
+		}
 	}
 
 }
@@ -35,28 +42,32 @@ function chromaticfw_load_widgets() {
  * @access public
  */
 if ( is_admin() ) {
-	function chromaticfw_enqueue_admin_widget_styles_scripts( $hook ) {
+	function hoot_enqueue_admin_widget_styles_scripts( $hook ) {
 
-		/* Load chromaticfw widgets for SiteOrigin Page Builder plugin on Edit screens */
+		/* Load hoot widgets for SiteOrigin Page Builder plugin on Edit screens */
 		$widgetload = ( ( 'post.php' == $hook || 'post-new.php' == $hook ) && ( defined( 'SITEORIGIN_PANELS_VERSION' ) && version_compare( SITEORIGIN_PANELS_VERSION, '2.0' ) >= 0 ) ) ? true : false;
 
 		if ( 'widgets.php' == $hook || $widgetload ):
-			/* Get the minified suffix */
-			$suffix = chromaticfw_get_min_suffix();
+
 			/* Enqueue Styles */
-			wp_enqueue_style( 'chromaticfw-font-awesome' );
-			wp_enqueue_style( 'chromaticfw-admin-widgets', trailingslashit( CHROMATICFW_CSS ) . "admin-widgets{$suffix}.css", array(),  CHROMATICFW_VERSION );
+			wp_enqueue_style( 'hoot-font-awesome' );
+			$style_uri = hoot_locate_style( trailingslashit( HOOT_CSS ) . 'admin-widgets' );
+			wp_enqueue_style( 'hoot-admin-widgets', $style_uri, array(),  HOOT_VERSION );
+
 			/* Enqueue Scripts */
-			wp_enqueue_script( 'chromaticfw-admin-widgets', trailingslashit( CHROMATICFW_JS ) . "admin-widgets{$suffix}.js", array( 'jquery' ), CHROMATICFW_VERSION, true ); // Load in footer to maintain script heirarchy
+			// Load admin-widgets in footer to maintain script heirarchy
+			$script_uri = hoot_locate_script( trailingslashit( HOOT_JS ) . 'admin-widgets' );
+			wp_enqueue_script( 'hoot-admin-widgets', $script_uri, array( 'jquery' ), HOOT_VERSION, true );
+
 		endif;
 
 	}
-	add_action( 'admin_enqueue_scripts', 'chromaticfw_enqueue_admin_widget_styles_scripts' );
+	add_action( 'admin_enqueue_scripts', 'hoot_enqueue_admin_widget_styles_scripts' );
 }
 
 /**
  * Abstract Widgets Class for creating and displaying widgets. This file is only loaded if the theme supports
- * the 'chromaticfw-core-widgets' feature.
+ * the 'hoot-core-widgets' feature.
  * 
  * @credit() Derived from Vantage theme code by Greg Priday http://SiteOrigin.com
  *           Licensed under GPL
@@ -64,7 +75,7 @@ if ( is_admin() ) {
  * @since 1.0.0
  * @access public
  */
-abstract class ChromaticFw_WP_Widget extends WP_Widget {
+abstract class Hoot_WP_Widget extends WP_Widget {
 
 	protected $form_options;
 	protected $repeater_html;
@@ -126,7 +137,7 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 	 * @param array $args
 	 */
 	function display_widget( $instance, $before_title = '', $title='', $after_title = '' ) {
-		die('function ChromaticFw_WP_Widget::display_widget() must be over-ridden in a sub-class.');
+		die('function Hoot_WP_Widget::display_widget() must be over-ridden in a sub-class.');
 	}
 
 	/**
@@ -149,13 +160,13 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 	 * @return string|void
 	 */
 	public function form( $instance ) {
-		$form_id = 'chromaticfw-widget-form-' . md5( uniqid( rand(), true ) );
+		$form_id = 'hoot-widget-form-' . md5( uniqid( rand(), true ) );
 		$class_name = str_replace( '_', '-', strtolower( get_class($this) ) ); ?>
 
-		<div class="chromaticfw-widget-form chromaticfw-widget-form-<?php echo esc_attr( $class_name ) ?>" id="<?php echo $form_id ?>" data-class="<?php echo get_class($this) ?>">
+		<div class="hoot-widget-form hoot-widget-form-<?php echo esc_attr( $class_name ) ?>" id="<?php echo $form_id ?>" data-class="<?php echo get_class($this) ?>">
 
 			<?php if ( !empty( $this->widget_options['help'] ) ) : ?>
-				<div class="chromaticfw-widget-form-help"><?php echo $this->widget_options['help']; ?></div>
+				<div class="hoot-widget-form-help"><?php echo $this->widget_options['help']; ?></div>
 			<?php endif;
 
 			foreach( $this->form_options as $key => $field ) {
@@ -178,12 +189,12 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 			} ?>
 			<script type="text/javascript">
 				( function($){
-					if (typeof window.chromaticfw_widget_helper == 'undefined')
-						window.chromaticfw_widget_helper = {};
-					<?php /*if (typeof window.chromaticfw_widget_helper["<?php echo get_class($this) ?>"] == 'undefined')*/ // This creates unexpected results as the script is first instancized in template widget __i__ ?>
-						window.chromaticfw_widget_helper["<?php echo get_class($this) ?>"] = <?php echo json_encode( $this->repeater_html ) ?>;
-					if (typeof $.fn.chromaticfwSetupWidget != 'undefined') {
-						$('#<?php echo $form_id ?>').chromaticfwSetupWidget();
+					if (typeof window.hoot_widget_helper == 'undefined')
+						window.hoot_widget_helper = {};
+					<?php /*if (typeof window.hoot_widget_helper["<?php echo get_class($this) ?>"] == 'undefined')*/ // This creates unexpected results as the script is first instancized in template widget __i__ ?>
+						window.hoot_widget_helper["<?php echo get_class($this) ?>"] = <?php echo json_encode( $this->repeater_html ) ?>;
+					if (typeof $.fn.hootSetupWidget != 'undefined') {
+						$('#<?php echo $form_id ?>').hootSetupWidget();
 					}
 				} )( jQuery );
 			</script>
@@ -201,10 +212,10 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 	function render_field( $field, $value, $repeater = array() ){
 		extract( $field, EXTR_SKIP );
 
-		?><div class="chromaticfw-widget-field chromaticfw-widget-field-type-<?php echo ( strlen( $type ) < 15 ) ? sanitize_html_class( $type ) : 'custom' ?> chromaticfw-widget-field-<?php echo sanitize_html_class( $id ) ?>"><?php
+		?><div class="hoot-widget-field hoot-widget-field-type-<?php echo ( strlen( $type ) < 15 ) ? sanitize_html_class( $type ) : 'custom' ?> hoot-widget-field-<?php echo sanitize_html_class( $id ) ?>"><?php
 
 		if ( !empty( $name ) && $type != 'checkbox' && $type != 'separator' && $type != 'group' ) { ?>
-			<label for="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) ?>"><?php echo $name ?>:</label>
+			<label for="<?php echo $this->hoot_get_field_id( $id, $repeater ) ?>"><?php echo $name ?>:</label>
 		<?php }
 
 		switch( $type ) {
@@ -216,7 +227,7 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 					$size = '';
 					$class = ' widefat';
 				}
-				?><input type="text" name="<?php echo $this->chromaticfw_get_field_name( $id, $repeater ) ?>" id="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) ?>" value="<?php echo esc_attr( $value ) ?>" class="chromaticfw-widget-input<?php echo $class; ?>" <?php echo $size; ?> /><?php
+				?><input type="text" name="<?php echo $this->hoot_get_field_name( $id, $repeater ) ?>" id="<?php echo $this->hoot_get_field_id( $id, $repeater ) ?>" value="<?php echo esc_attr( $value ) ?>" class="hoot-widget-input<?php echo $class; ?>" <?php echo $size; ?> /><?php
 				break;
 
 			case 'textarea' :
@@ -225,22 +236,22 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 				} else {
 					$rows = 4;
 				}
-				?><textarea name="<?php echo $this->chromaticfw_get_field_name( $id, $repeater ) ?>" id="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) ?>" class="widefat chromaticfw-widget-input" rows="<?php echo $rows; ?>"><?php echo esc_textarea( $value ) ?></textarea><?php
+				?><textarea name="<?php echo $this->hoot_get_field_name( $id, $repeater ) ?>" id="<?php echo $this->hoot_get_field_id( $id, $repeater ) ?>" class="widefat hoot-widget-input" rows="<?php echo $rows; ?>"><?php echo esc_textarea( $value ) ?></textarea><?php
 				break;
 
 			case 'separator' :
-				?><div class="chromaticfw-widget-field-separator"></div><?php
+				?><div class="hoot-widget-field-separator"></div><?php
 				break;
 
 			case 'checkbox':
-				?><label for="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) ?>">
-					<input type="checkbox" name="<?php echo $this->chromaticfw_get_field_name( $id, $repeater ) ?>" id="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) ?>" class="chromaticfw-widget-input" <?php checked( !empty( $value ) ) ?> />
+				?><label for="<?php echo $this->hoot_get_field_id( $id, $repeater ) ?>">
+					<input type="checkbox" name="<?php echo $this->hoot_get_field_name( $id, $repeater ) ?>" id="<?php echo $this->hoot_get_field_id( $id, $repeater ) ?>" class="hoot-widget-input" <?php checked( !empty( $value ) ) ?> />
 					<?php echo $name ?>
 				</label><?php
 				break;
 
 			case 'select':
-				?><select name="<?php echo $this->chromaticfw_get_field_name( $id, $repeater ) ?>" id="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) ?>" class="chromaticfw-widget-input widefat">
+				?><select name="<?php echo $this->hoot_get_field_name( $id, $repeater ) ?>" id="<?php echo $this->hoot_get_field_id( $id, $repeater ) ?>" class="hoot-widget-input widefat">
 					<?php foreach( $options as $k => $v ) : ?>
 						<option value="<?php echo esc_attr($k) ?>" <?php selected($k, $value) ?>><?php echo esc_html($v) ?></option>
 					<?php endforeach; ?>
@@ -248,47 +259,46 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 				break;
 
 			case 'radio': case 'images':
-				?><ul id="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) ?>-list" class="chromaticfw-widget-list chromaticfw-widget-list-<?php echo $type ?>">
+				?><ul id="<?php echo $this->hoot_get_field_id( $id, $repeater ) ?>-list" class="hoot-widget-list hoot-widget-list-<?php echo $type ?>">
 					<?php foreach( $options as $k => $v ) : ?>
-						<li class="chromaticfw-widget-list-item">
-							<input type="radio" class="chromaticfw-widget-input" name="<?php echo $this->chromaticfw_get_field_name( $id, $repeater ) ?>" id="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) . '-' . sanitize_html_class( $k ) ?>" value="<?php echo esc_attr($k) ?>" <?php checked( $k, $value ) ?>>
-							<label for="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) . '-' . sanitize_html_class( $k ) ?>"><?php echo ( 'radio' === $type ) ? $v : "<img class='chromaticfw-widget-image-picker-img' src='" . esc_url( $v ) . "'>" ?></label>
+						<li class="hoot-widget-list-item">
+							<input type="radio" class="hoot-widget-input" name="<?php echo $this->hoot_get_field_name( $id, $repeater ) ?>" id="<?php echo $this->hoot_get_field_id( $id, $repeater ) . '-' . sanitize_html_class( $k ) ?>" value="<?php echo esc_attr($k) ?>" <?php checked( $k, $value ) ?>>
+							<label for="<?php echo $this->hoot_get_field_id( $id, $repeater ) . '-' . sanitize_html_class( $k ) ?>"><?php echo ( 'radio' === $type ) ? $v : "<img class='hoot-widget-image-picker-img' src='" . esc_url( $v ) . "'>" ?></label>
 						</li>
 					<?php endforeach; ?>
 				</ul><?php
 				break;
 
 			case 'icon':
-				?><input id="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) ?>" class="chromaticfw-of-icon" name="<?php echo $this->chromaticfw_get_field_name( $id, $repeater ) ?>" type="hidden" value="<?php echo esc_attr( $value ) ?>" />
-				<div id="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) . '-icon-picked' ?>" class="chromaticfw-of-icon-picked"><i class="fa <?php echo esc_attr( $value ) ?>"></i><span><?php _e( 'Select Icon', 'chromatic' ) ?></span></div>
-				<div id="<?php echo $this->chromaticfw_get_field_id( $id, $repeater ) . '-icon-picker-box' ?>" class="chromaticfw-of-icon-picker-box">
-					<div class="chromaticfw-of-icon-picker-list"><i class="fa fa-ban chromaticfw-of-icon-none" data-value="0" data-category=""><span><?php _e( 'Remove Icon', 'chromatic' ) ?></span></i></div><?php
-					// @todo remove dependency on ChromaticFw Options fw. This will be automatically resolved once Widgets fw is transformed to ChromaticFw Options Extension in future.
-					if ( class_exists( 'ChromaticFw_Options_Helper' ) ) :
-						$section_icons = ChromaticFw_Options_Helper::icons('icons');
-						foreach ( ChromaticFw_Options_Helper::icons('sections') as $s_key => $s_title ) { ?>
-							<h4><?php echo $s_title ?></h4>
-							<div class="chromaticfw-of-icon-picker-list"><?php
-							foreach ( $section_icons[$s_key] as $i_key => $i_class ) {
-								$selected = ( $value == $i_class ) ? ' selected' : '';
-								?><i class='fa <?php echo $i_class . $selected; ?>' data-value='<?php echo $i_class; ?>' data-category='<?php echo $s_key ?>'></i><?php
-							} ?>
-							</div><?php
-						}
-					endif; ?>
+				?><input id="<?php echo $this->hoot_get_field_id( $id, $repeater ) ?>" class="hoot-of-icon" name="<?php echo $this->hoot_get_field_name( $id, $repeater ) ?>" type="hidden" value="<?php echo esc_attr( $value ) ?>" />
+				<div id="<?php echo $this->hoot_get_field_id( $id, $repeater ) . '-icon-picked' ?>" class="hoot-of-icon-picked"><i class="fa <?php echo esc_attr( $value ) ?>"></i><span><?php _e( 'Select Icon', 'chromatic' ) ?></span></div>
+				<div id="<?php echo $this->hoot_get_field_id( $id, $repeater ) . '-icon-picker-box' ?>" class="hoot-of-icon-picker-box">
+					<div class="hoot-of-icon-picker-list"><i class="fa fa-ban hoot-of-icon-none" data-value="0" data-category=""><span><?php _e( 'Remove Icon', 'chromatic' ) ?></span></i></div>
+					<?php
+					$section_icons = hoot_enum_icons('icons');
+					foreach ( hoot_enum_icons('sections') as $s_key => $s_title ) { ?>
+						<h4><?php echo $s_title ?></h4>
+						<div class="hoot-of-icon-picker-list"><?php
+						foreach ( $section_icons[$s_key] as $i_key => $i_class ) {
+							$selected = ( $value == $i_class ) ? ' selected' : '';
+							?><i class='fa <?php echo $i_class . $selected; ?>' data-value='<?php echo $i_class; ?>' data-category='<?php echo $s_key ?>'></i><?php
+						} ?>
+						</div><?php
+					}
+					?>
 				</div><?php
 				break;
 
 			case 'group':
 				$repeater[] = $id;
-				?><div class="chromaticfw-widget-field-group" data-id="<?php echo esc_attr( $id ) ?>">
+				?><div class="hoot-widget-field-group" data-id="<?php echo esc_attr( $id ) ?>">
 					<?php if ( !empty( $name ) ): ?>
-						<div class="chromaticfw-widget-field-group-top">
+						<div class="hoot-widget-field-group-top">
 							<h3><?php echo $name ?></h3>
 						</div>
 					<?php endif; ?>
 					<?php $item_name = isset( $options['item_name'] ) ? $options['item_name'] : ''; ?>
-					<div class="chromaticfw-widget-field-group-items">
+					<div class="hoot-widget-field-group-items">
 						<?php
 						if ( !empty( $value ) ) {
 							foreach( $value as $k =>$v ) {
@@ -302,21 +312,21 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 						$html = ob_get_clean();
 						$this->repeater_html[$id] = $html;
 					?>
-					<div id="add-<?php echo rand(1000, 9999); ?>" class="chromaticfw-widget-field-group-add" data-iterator="<?php echo is_array( $value ) ? max( array_keys( $value ) ) : 0; ?>"><?php _e('Add', 'chromatic') ?></div>
+					<div id="add-<?php echo rand(1000, 9999); ?>" class="hoot-widget-field-group-add" data-iterator="<?php echo is_array( $value ) ? max( array_keys( $value ) ) : 0; ?>"><?php _e('Add', 'chromatic') ?></div>
 				</div>
 				<?php
 				break;
 
 			default:
 				echo str_replace( array( '%id%', '%class%', '%name%', '%value%' ),
-								  array( $this->chromaticfw_get_field_id( $id, $repeater ), 'chromaticfw-widget-input', $this->chromaticfw_get_field_name( $id, $repeater ), $value ),
+								  array( $this->hoot_get_field_id( $id, $repeater ), 'hoot-widget-input', $this->hoot_get_field_name( $id, $repeater ), $value ),
 								  $type );
 				break;
 
 		}
 
 		if ( ! empty( $desc ) ) {
-			echo '<div class="chromaticfw-widget-field-description"><small>' . esc_html( $desc ) . '</small></div>';
+			echo '<div class="hoot-widget-field-description"><small>' . esc_html( $desc ) . '</small></div>';
 		}
 
 		?></div><?php
@@ -334,12 +344,12 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 		if ( empty( $fields ) ) return;
 
 		$repeater[] = intval( $key ); ?>
-		<div class="chromaticfw-widget-field-group-item">
-			<div class="chromaticfw-widget-field-group-item-top">
-				<div class="chromaticfw-widget-field-remove">X</div>
+		<div class="hoot-widget-field-group-item">
+			<div class="hoot-widget-field-group-item-top">
+				<div class="hoot-widget-field-remove">X</div>
 				<h4><i class="fa fa-caret-down"></i> <?php echo esc_html( $item_name ) ?></h4>
 			</div>
-			<div class="chromaticfw-widget-field-group-item-form">
+			<div class="hoot-widget-field-group-item-form">
 				<?php foreach( $fields as $field ) {
 					$field = wp_parse_args( (array) $field, array( 	'name'     => '',
 																	'desc'     => '',
@@ -366,7 +376,7 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 	 * @param array $repeater
 	 * @return mixed|string
 	 */
-	public function chromaticfw_get_field_name( $id, $repeater = array() ) {
+	public function hoot_get_field_name( $id, $repeater = array() ) {
 		if ( empty( $repeater ) ) return $this->get_field_name( $id );
 		else {
 			$repeater_extras = '';
@@ -387,7 +397,7 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 	 * @param array $repeater
 	 * @return string
 	 */
-	public function chromaticfw_get_field_id( $id, $repeater = array() ) {
+	public function hoot_get_field_id( $id, $repeater = array() ) {
 		if ( empty( $repeater ) ) return $this->get_field_id( $id );
 		else {
 			$ids = $repeater;
@@ -428,9 +438,7 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 					$instance[ $id ] = ( isset( $field['options'][ $instance[ $id ] ] ) ) ? $instance[ $id ] : '';
 					break;
 				case 'icon':
-					if ( !class_exists( 'ChromaticFw_Options_Helper' ) )
-						require_once( trailingslashit( CHROMATICFWOPTIONS_DIR ) . 'includes/helpers.php' );
-					$icons = ChromaticFw_Options_Helper::icons('list');
+					$icons = hoot_enum_icons();
 					$instance[ $id ] = ( in_array( $instance[ $id ], $icons ) ) ? $instance[ $id ] : '';
 					break;
 				case 'group':
@@ -457,6 +465,9 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 					case 'email':
 						$instance[ $id ] = is_email( $instance[ $id ] );
 						break;
+					// Allow custom sanitization functions
+					default:
+						$instance[ $id ] = apply_filters( 'widget_admin_sanitize_field', $instance[ $id ], $field['sanitize'] );
 				}
 			}
 
@@ -477,7 +488,7 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 	static function get_wp_list( $post_type = 'page', $number = false ) {
 		$number = intval( $number );
 		if ( false === $number || empty( $number ) ) {
-			$number = CHROMATICFW_ADMIN_LIST_ITEM_COUNT;
+			$number = HOOT_ADMIN_LIST_ITEM_COUNT;
 
 			if ( $post_type == 'page' ) {
 				static $options_pages = array(); // cache
@@ -538,4 +549,4 @@ abstract class ChromaticFw_WP_Widget extends WP_Widget {
 
 
 /* Loads all available widget classes for the theme. */
-chromaticfw_load_widgets();
+hoot_load_widgets();

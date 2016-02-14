@@ -63,14 +63,14 @@ msgctxt "post format archive title"
 msgid "Audio"
 msgstr "Audio"
 
-#: inc/template-tags.php:415
-msgid "Archives: %s"
-msgstr "Archivos: %s"
-
 #: inc/template-tags.php:412
 msgctxt "post format archive title"
 msgid "Chats"
 msgstr "Chats"
+
+#: inc/template-tags.php:415
+msgid "Archives: %s"
+msgstr "Archivos: %s"
 
 #: inc/template-tags.php:406
 msgctxt "post format archive title"
@@ -87,20 +87,15 @@ msgctxt "post format archive title"
 msgid "Images"
 msgstr "Imágenes"
 
-#: inc/template-tags.php:404
-msgctxt "post format archive title"
-msgid "Quotes"
-msgstr "Citas"
-
 #: inc/template-tags.php:402
 msgctxt "post format archive title"
 msgid "Videos"
 msgstr "Vídeos"
 
-#: inc/template-tags.php:398
+#: inc/template-tags.php:404
 msgctxt "post format archive title"
-msgid "Galleries"
-msgstr "Galerías"
+msgid "Quotes"
+msgstr "Citas"
 
 #: inc/template-tags.php:393
 msgctxt "daily archives date format"
@@ -111,6 +106,11 @@ msgstr "j F, Y"
 msgctxt "post format archive title"
 msgid "Asides"
 msgstr "Asides"
+
+#: inc/template-tags.php:398
+msgctxt "post format archive title"
+msgid "Galleries"
+msgstr "Galerías"
 
 #: inc/template-tags.php:393
 msgid "Day: %s"

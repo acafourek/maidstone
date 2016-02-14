@@ -9,19 +9,19 @@
 if ( is_page() ) :
 ?>
 
-	<article <?php chromaticfw_attr( 'page' ); ?>>
+	<article <?php hoot_attr( 'page' ); ?>>
 
 		<?php /* The current template displays heading outside the article. So to conform to html5 structure (document outline i.e. <header> is inside <article>) we add the Article Heading as screen-reader-text */ ?>
 		<header class="entry-header screen-reader-text">
-			<h1 <?php chromaticfw_attr( 'entry-title' ); ?>><?php single_post_title(); ?></h1>
+			<h1 <?php hoot_attr( 'entry-title' ); ?>><?php single_post_title(); ?></h1>
 		</header><!-- .entry-header -->
 
-		<div <?php chromaticfw_attr( 'entry-content' ); ?>>
+		<div <?php hoot_attr( 'entry-content' ); ?>>
 
 			<?php
-			if ( chromaticfw_get_option( 'post_featured_image' ) && !chromaticfw_is_404() ) {
-				$img_size = apply_filters( 'chromaticfw_post_image_page', '' );
-				chromaticfw_post_thumbnail( 'entry-content-featured-img', $img_size );
+			if ( hoot_get_mod( 'post_featured_image' ) && !hoot_is_404() ) {
+				$img_size = apply_filters( 'hoot_post_image_page', '' );
+				hoot_post_thumbnail( 'entry-content-featured-img', $img_size );
 			}
 			?>
 			<div class="entry-the-content">
@@ -33,13 +33,10 @@ if ( is_page() ) :
 
 		<div class="screen-reader-text" itemprop="datePublished" itemtype="https://schema.org/Date"><?php echo get_the_date('Y-m-d'); ?></div>
 
-		<?php 
-		$hide_meta_info = '';
-		$hide_meta_info = apply_filters( 'chromaticfw_hide_meta_info', $hide_meta_info, 'bottom' );
-		?>
-		<?php if ( !$hide_meta_info && 'bottom' == chromaticfw_get_option( 'post_meta_location' ) ): ?>
+		<?php $hide_meta_info = apply_filters( 'hoot_hide_meta_info', false, 'bottom' ); ?>
+		<?php if ( !$hide_meta_info && 'bottom' == hoot_get_mod( 'post_meta_location' ) ): ?>
 			<footer class="entry-footer">
-				<?php chromaticfw_meta_info_blocks( chromaticfw_get_option('page_meta') ); ?>
+				<?php hoot_meta_info_blocks( hoot_get_mod('page_meta'), 'page' ); ?>
 			</footer><!-- .entry-footer -->
 		<?php endif; ?>
 
@@ -51,13 +48,14 @@ if ( is_page() ) :
  */
 else :
 
-	global $chromaticfw_theme;
-	if ( empty( $chromaticfw_theme->searchresults_hide_pages ) ) {
+	global $hoot_theme;
+	if ( empty( $hoot_theme->searchresults_hide_pages ) ) {
 
-		$archive_type = 'big';
+		$archive_type = apply_filters( 'hoot_default_archive_type', 'big', 'content-page' );
+		$archive_template = apply_filters( 'hoot_default_archive_location', 'template-parts/content-archive', $archive_type, 'content-page' );
 
 		// Loads the template-parts/content-archive-{type}.php template.
-		get_template_part( 'template-parts/content-archive', $archive_type );
+		get_template_part( $archive_template, $archive_type );
 
 	}
 

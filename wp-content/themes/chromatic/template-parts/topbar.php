@@ -1,19 +1,17 @@
 <?php
+// Get Content
 $topbar_left = is_active_sidebar( 'topbar-left' );
 $topbar_right = is_active_sidebar( 'topbar-right' );
 
-if ( !$topbar_left && !$topbar_right )
-	return;
-
 // Display Topbar
-?>
+if ( !empty( $topbar_left ) || !empty( $topbar_right ) ) :
 
-<div id="topbar" class="grid-stretch invert-typo">
-	<div class="grid">
-		<div class="grid-row">
+	?>
+	<div id="topbar" class="grid-stretch invert-typo">
+		<div class="grid">
 			<div class="grid-span-12">
 
-				<div class="table table-fixed">
+				<div class="table">
 					<?php if ( $topbar_left ): ?>
 						<div id="topbar-left" class="table-cell-mid">
 							<?php dynamic_sidebar( 'topbar-left' ); ?>
@@ -22,7 +20,9 @@ if ( !$topbar_left && !$topbar_right )
 
 					<?php if ( $topbar_right ): ?>
 						<div id="topbar-right" class="table-cell-mid">
-							<?php dynamic_sidebar( 'topbar-right' ); ?>
+							<div class="topbar-right-inner">
+								<?php dynamic_sidebar( 'topbar-right' ); ?>
+							</div>
 						</div>
 					<?php endif; ?>
 				</div>
@@ -30,4 +30,9 @@ if ( !$topbar_left && !$topbar_right )
 			</div>
 		</div>
 	</div>
-</div>
+	<?php
+
+endif;
+
+// Template modification Hook
+do_action( 'hoot_template_after_topbar', $topbar_left, $topbar_right );

@@ -1,16 +1,15 @@
-<footer <?php chromaticfw_attr( 'footer', '', 'footer grid-stretch' ); ?>>
+<footer <?php hoot_attr( 'footer', '', 'footer grid-stretch' ); ?>>
 	<div class="grid">
-		<div class="grid-row">
-			<?php
-			$columns = chromaticfw_get_option_footer();
-			$alphas = range('a', 'e');
-			$structure = chromaticfw_footer_structure();
+		<?php
+		$columns = hoot_get_footer_columns();
+		$alphas = range('a', 'e');
+		$structure = hoot_footer_structure();
+		?>
 
-			for ( $i=0; $i < $columns; $i++ ) { ?>
-				<div class="<?php echo 'grid-span-' . $structure[ $i ] ; ?>">
-					<?php dynamic_sidebar( 'footer-' . $alphas[ $i ] ); ?>
-				</div><?php
-			} ?>
-		</div>
+		<?php for ( $i=0; $i < $columns; $i++ ) { ?>
+			<div class="<?php echo 'grid-span-' . $structure[ $i ] ; ?> footer-column">
+				<?php dynamic_sidebar( 'footer-' . $alphas[ $i ] ); ?>
+			</div>
+		<?php } ?>
 	</div>
 </footer><!-- #footer -->

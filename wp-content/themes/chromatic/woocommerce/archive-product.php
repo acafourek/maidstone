@@ -7,88 +7,99 @@
 
 <?php get_header( 'shop' ); ?>
 
-<?php get_template_part( 'template-parts/loop-meta', 'shop' ); // Loads the template-parts/loop-meta-shop.php template to display Title Area with Meta Info (of the loop) ?>
+<?php
+// Loads the template-parts/loop-meta.php template to display Title Area with Meta Info (of the loop)
+get_template_part( 'template-parts/loop-meta' );
+
+// Template modification Hook
+do_action( 'hoot_template_before_content_grid', 'archive-product.php' );
+?>
 
 <div class="grid">
 
-	<div class="grid-row">
+	<main <?php hoot_attr( 'content' ); ?>>
 
-		<main <?php chromaticfw_attr( 'content' ); ?>>
+		<?php
+		// Template modification Hook
+		do_action( 'hoot_template_main_start', 'archive-product.php' );
 
-			<?php
-			/**
-			 * woocommerce_before_main_content hook
-			 *
-			 * removed @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
-			 * @hooked woocommerce_breadcrumb - 20
-			 */
-			do_action( 'woocommerce_before_main_content' );
-			?>
+		/**
+		 * woocommerce_before_main_content hook
+		 *
+		 * removed @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
+		 * @hooked woocommerce_breadcrumb - 20
+		 */
+		do_action( 'woocommerce_before_main_content' );
+		?>
 
-			<?php if ( have_posts() ) : ?>
+		<?php if ( have_posts() ) : ?>
 
-				<div id="content-wrap">
+			<div id="content-wrap">
 
-					<?php
-					/**
-					 * woocommerce_before_shop_loop hook
-					 *
-					 * @hooked woocommerce_result_count - 20
-					 * @hooked woocommerce_catalog_ordering - 30
-					 */
-					do_action( 'woocommerce_before_shop_loop' );
-					?>
+				<?php
+				/**
+				 * woocommerce_before_shop_loop hook
+				 *
+				 * @hooked woocommerce_result_count - 20
+				 * @hooked woocommerce_catalog_ordering - 30
+				 */
+				do_action( 'woocommerce_before_shop_loop' );
+				?>
 
-					<?php woocommerce_product_loop_start(); ?>
+				<?php woocommerce_product_loop_start(); ?>
 
-						<?php woocommerce_product_subcategories(); ?>
+					<?php woocommerce_product_subcategories(); ?>
 
-						<?php while ( have_posts() ) : the_post(); ?>
+					<?php while ( have_posts() ) : the_post(); ?>
 
-							<?php wc_get_template_part( 'content', 'product' ); ?>
+						<?php wc_get_template_part( 'content', 'product' ); ?>
 
-						<?php endwhile; ?>
+					<?php endwhile; ?>
 
-					<?php woocommerce_product_loop_end(); ?>
+				<?php woocommerce_product_loop_end(); ?>
 
-					<?php
-					/**
-					 * woocommerce_after_shop_loop hook
-					 *
-					 * @hooked woocommerce_pagination - 10
-					 */
-					do_action( 'woocommerce_after_shop_loop' );
-					?>
+				<?php
+				// Template modification Hook
+				do_action( 'hoot_template_before_loop_nav', 'archive-product.php' );
 
-				</div><!-- #content-wrap -->
+				/**
+				 * woocommerce_after_shop_loop hook
+				 *
+				 * @hooked woocommerce_pagination - 10
+				 */
+				do_action( 'woocommerce_after_shop_loop' );
+				?>
 
-			<?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
+			</div><!-- #content-wrap -->
 
-				<?php wc_get_template( 'loop/no-products-found.php' ); ?>
+		<?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
 
-			<?php endif; ?>
+			<?php wc_get_template( 'loop/no-products-found.php' ); ?>
 
-			<?php
-			/**
-			 * woocommerce_after_main_content hook
-			 *
-			 * removed @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
-			 */
-			do_action( 'woocommerce_after_main_content' );
-			?>
-
-		</main><!-- #content -->
+		<?php endif; ?>
 
 		<?php
 		/**
-		 * woocommerce_sidebar hook
+		 * woocommerce_after_main_content hook
 		 *
-		 * @hooked woocommerce_get_sidebar - 10
+		 * removed @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
 		 */
-		do_action( 'woocommerce_sidebar' );
+		do_action( 'woocommerce_after_main_content' );
+
+		// Template modification Hook
+		do_action( 'hoot_template_main_end', 'archive-product.php' );
 		?>
 
-	</div><!-- .grid-row -->
+	</main><!-- #content -->
+
+	<?php
+	/**
+	 * woocommerce_sidebar hook
+	 *
+	 * @hooked woocommerce_get_sidebar - 10
+	 */
+	do_action( 'woocommerce_sidebar' );
+	?>
 
 </div><!-- .grid -->
 

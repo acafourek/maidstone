@@ -23,7 +23,7 @@ elseif ( is_home() || is_archive() || is_search() ) :
 
 	} else {
 
-		chromaticfw_loop_pagination(
+		hoot_loop_pagination(
 			array( 
 				'prev_text' => _x( '&larr; Previous', 'posts navigation', 'chromatic' ), 
 				'next_text' => _x( 'Next &rarr;',     'posts navigation', 'chromatic' )

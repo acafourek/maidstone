@@ -19,19 +19,19 @@
 if ( is_singular( get_post_type() ) ) :
 ?>
 
-	<article <?php chromaticfw_attr( 'post' ); ?>>
+	<article <?php hoot_attr( 'post' ); ?>>
 
 		<?php /* The current template displays heading outside the article. So to conform to html5 structure (document outline i.e. <header> is inside <article>) we add the Article Heading as screen-reader-text */ ?>
 		<header class="entry-header screen-reader-text">
-			<h1 <?php chromaticfw_attr( 'entry-title' ); ?>><?php single_post_title(); ?></h1>
+			<h1 <?php hoot_attr( 'entry-title' ); ?>><?php single_post_title(); ?></h1>
 		</header><!-- .entry-header -->
 
-		<div <?php chromaticfw_attr( 'entry-content' ); ?>>
+		<div <?php hoot_attr( 'entry-content' ); ?>>
 
 			<?php
-			if ( chromaticfw_get_option( 'post_featured_image' ) ) {
-				$img_size = apply_filters( 'chromaticfw_post_image_single', '' );
-				chromaticfw_post_thumbnail( 'entry-content-featured-img', $img_size );
+			if ( hoot_get_mod( 'post_featured_image' ) ) {
+				$img_size = apply_filters( 'hoot_post_image_single', '' );
+				hoot_post_thumbnail( 'entry-content-featured-img', $img_size );
 			}
 			?>
 			<div class="entry-the-content">
@@ -49,13 +49,10 @@ if ( is_singular( get_post_type() ) ) :
 
 		<div class="screen-reader-text" itemprop="datePublished" itemtype="https://schema.org/Date"><?php echo get_the_date('Y-m-d'); ?></div>
 
-		<?php 
-		$hide_meta_info = '';
-		$hide_meta_info = apply_filters( 'chromaticfw_hide_meta_info', $hide_meta_info, 'bottom' );
-		?>
-		<?php if ( !$hide_meta_info && 'bottom' == chromaticfw_get_option( 'post_meta_location' ) && !is_attachment() ): ?>
+		<?php $hide_meta_info = apply_filters( 'hoot_hide_meta_info', false, 'bottom' ); ?>
+		<?php if ( !$hide_meta_info && 'bottom' == hoot_get_mod( 'post_meta_location' ) && !is_attachment() ): ?>
 			<footer class="entry-footer">
-				<?php chromaticfw_meta_info_blocks( chromaticfw_get_option('post_meta') ); ?>
+				<?php hoot_meta_info_blocks( hoot_get_mod('post_meta'), 'post' ); ?>
 			</footer><!-- .entry-footer -->
 		<?php endif; ?>
 
@@ -67,10 +64,11 @@ if ( is_singular( get_post_type() ) ) :
  */
 else :
 
-	$archive_type = 'big';
+	$archive_type = apply_filters( 'hoot_default_archive_type', 'big', 'content' );
+	$archive_template = apply_filters( 'hoot_default_archive_location', 'template-parts/content-archive', $archive_type, 'content' );
 
 	// Loads the template-parts/content-archive-{type}.php template.
-	get_template_part( 'template-parts/content-archive', $archive_type );
+	get_template_part( $archive_template, $archive_type );
 
 endif;
 ?>

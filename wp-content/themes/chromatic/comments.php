@@ -23,8 +23,8 @@ if ( current_theme_supports( 'woocommerce' ) ) {
 				<?php wp_list_comments(
 					array(
 						'style'        => 'ol',
-						'callback'     => 'chromaticfw_comments_callback',
-						'end-callback' => 'chromaticfw_comments_end_callback'
+						'callback'     => 'hoot_comments_callback',
+						'end-callback' => 'hoot_comments_end_callback'
 					)
 				); ?>
 			</ol><!-- .comment-list -->
