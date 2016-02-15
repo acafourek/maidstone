@@ -87,6 +87,7 @@ add_filter('widget_text', 'do_shortcode'); //render shortcodes if placed into si
 		wp_enqueue_script( 'jquery' );		
 		wp_enqueue_style( 'sela', get_template_directory_uri() . '/style.css' );
 		wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+		wp_enqueue_style( 'mapglyphs', get_stylesheet_directory_uri() . '/inc/mapglyphs/2.0/mapglyphs.css');
 		
 		if(is_front_page()){
 			wp_enqueue_style( 'owl', get_stylesheet_directory_uri() . '/inc/owl-carousel/owl.carousel.css');
@@ -236,3 +237,122 @@ function da_fb_js(){
 	<?php
 }
 add_action( 'wp_print_footer_scripts', 'da_fb_js',1 );
+
+/***
+	Geo Archive Support
+***/
+	function da_register_geo_tax(){
+		$labels = array(
+			'name'              => _x( 'Locations', 'taxonomy general name' ),
+			'singular_name'     => _x( 'Location', 'taxonomy singular name' ),
+		);
+	
+		$args = array(
+			'hierarchical'      => true,
+			'labels'            => $labels,
+			'show_ui'           => true,  //change later to false
+			'show_admin_column' => true,
+			'query_var'         => true,
+			'rewrite'           => array( 'slug' => 'location' ),
+		);
+	
+		register_taxonomy( 'location', array( 'post' ), $args );
+	}
+	add_action('init','da_register_geo_tax');
+	
+	
+	function da_getGeoData($geoAddress,$levels=array('country')) {
+		/** from http://stackoverflow.com/a/15343386/2395464
+			$geoAddreess = full address, zip code, or latitude and longitude
+			$level = array of country,administrative_area_level_1,administrative_area_level_2, etc - per Google maps response
+		**/
+	    $url = 'http://maps.google.com/maps/api/geocode/json?address=' . $geoAddress .'&sensor=false'; 
+	    $get     = file_get_contents($url);
+	    $geoData = json_decode($get);
+	    if (json_last_error() !== JSON_ERROR_NONE) {
+	        throw new \InvalidArgumentException('Invalid geocoding results');
+	    }
+	
+	    if(isset($geoData->results[0])) {
+		    $data = array();
+	        foreach($geoData->results[0]->address_components as $addressComponent) {
+		        foreach($levels as $lev){
+					if(in_array($lev, $addressComponent->types)) {
+		                $data[$lev] = $addressComponent;
+		                unset($levels[$lev]);
+		            }
+		        }
+	        }
+	        return $data;
+	    }
+	    return null;
+	}
+	function da_update_post_location($post_id){
+		// Autosave, do nothing
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+		        return;
+		// AJAX? Not used here
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) 
+		        return;
+		// Check user permissions
+		if ( ! current_user_can( 'edit_post', $post_id ) )
+		        return;
+		// Return if it's a post revision
+		if ( false !== wp_is_post_revision( $post_id ) )
+		        return;
+			
+		$loc = get_post_meta($post_id,'meta_loc',true);
+		if(!$loc)
+			return;
+		
+		$areas = da_getGeoData($loc,array('country','administrative_area_level_1','locality'));		
+		
+		if(isset($areas['country'])){
+			$country = term_exists($areas['country']->long_name, 'location');
+			if($country == 0 || is_null($country)){ //country exist?
+				$country = wp_insert_term(
+					$areas['country']->long_name,
+					'location',
+					array(
+						'slug' => $areas['country']->short_name
+					)
+				);
+				update_term_meta(intval($country['term_id']), 'map_glyph', sanitize_title($areas['country']->short_name)); //wp_insert_term doesnt return slug so we fake it here
+			} //end country
+		}
+		
+		if(isset($areas['administrative_area_level_1'])){
+			$region = term_exists($areas['administrative_area_level_1']->long_name, 'location');
+			if($region == 0 || is_null($region)){ //state/region exist?				
+				//Add region
+				$region = wp_insert_term(
+					$areas['administrative_area_level_1']->long_name,
+					'location',
+					array(
+						'slug' => $areas['administrative_area_level_1']->short_name,
+						'parent' => intval($country['term_id'])
+					)
+				);
+				update_term_meta(intval($region['term_id']), 'map_glyph', sanitize_title($areas['country']->short_name.' '.$areas['administrative_area_level_1']->short_name)); //combine country+state
+			} //end region		
+		}
+		
+		//Bottom to top, add to Locations Taxonomy
+		if(isset($areas['locality'])){
+			$local = term_exists($areas['locality']->long_name, 'location');  //city exists?
+			if($local == 0 || is_null($local)){
+				//Add city
+				$local = wp_insert_term(
+					$areas['locality']->long_name,
+					'location',
+					array(
+						'parent' => intval($region['term_id'])
+					)
+				);
+			} //end local check	
+		}
+		
+		wp_set_object_terms( $post_id, array(intval($country['term_id']), intval($region['term_id']), intval($local['term_id'])), 'location', true );
+	}
+	add_action('publish_post','da_update_post_location',10,1);
+	add_action('da_provision_location_data','da_update_post_location',10,1);
