@@ -9,7 +9,7 @@
 	<div id="secondary" class="widget-area sidebar-widget-area" role="complementary">
 		<div class="sidebar_bio">
 		<?php 
-			$dakota = get_user_by('login','acafourek');
+			$dakota = get_user_by('login','dakota');
 			echo get_avatar($dakota->ID,150);
 			
 			$dakota_meta = get_user_meta($dakota->ID);
