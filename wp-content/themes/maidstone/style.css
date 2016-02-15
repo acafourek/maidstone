@@ -43,6 +43,13 @@ h1.site-title {
 .sbi_bio {
   display: none;
 }
+.sidebar_bio {
+  text-align: center;
+  margin: 0 auto;
+}
+.sidebar_bio p {
+  padding: 1em 0 0 0;
+}
 .main-navigation {
   background-color: #39CCCC;
   margin-bottom: 2em;

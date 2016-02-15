@@ -52,7 +52,9 @@ endwhile;
 							<div class="hero-container-inner">
 								<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 									<header class="entry-header">
-										<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+										<a href="<?php the_permalink();?>" alt="<?php echo get_the_title();?>">
+											<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+										</a>
 									</header><!-- .entry-header -->
 
 									<div class="entry-content">
