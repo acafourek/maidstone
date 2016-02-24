@@ -88,13 +88,16 @@ add_filter('widget_text', 'do_shortcode'); //render shortcodes if placed into si
 		wp_enqueue_style( 'sela', get_template_directory_uri() . '/style.css' );
 		wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 		wp_enqueue_style( 'mapglyphs', get_stylesheet_directory_uri() . '/inc/mapglyphs/2.0/mapglyphs.css');
+		wp_enqueue_script( 'bigfoot', get_stylesheet_directory_uri() . '/inc/bigfoot/dist/bigfoot.min.js', array( 'jquery' ),'2.1.4', true );		
+		wp_enqueue_style( 'bigfoot-style', get_stylesheet_directory_uri() . '/inc/bigfoot/dist/bigfoot-default.css');
+
+
 		
-		if(is_front_page() || is_page_template( 'tpl-shop.php' )){
 			wp_enqueue_style( 'owl', get_stylesheet_directory_uri() . '/inc/owl-carousel/owl.carousel.css');
 			wp_enqueue_style( 'owl-theme', get_stylesheet_directory_uri() . '/inc/owl-carousel/owl.theme.css'); 
 			
 			wp_enqueue_script( 'owl-carousel', get_stylesheet_directory_uri() . '/inc/owl-carousel/owl.carousel.min.js', array( 'jquery' ),'1.3.3', true );		
-		}
+
 	}
 	
 	add_action( 'wp_enqueue_scripts', 'da_scripts' );
@@ -142,6 +145,41 @@ add_filter('widget_text', 'do_shortcode'); //render shortcodes if placed into si
 			
 				register_post_type( 'Product', $product_args );
 		}
+		
+		//Embed Products shortcode
+		function da_product_embed_shortcode($atts,$content=null) {
+			$atts = shortcode_atts(array(
+		        "id" => false
+		    ), $atts);
+		    $product = get_post($atts['id']);
+		    
+		    global $post;
+			$post =  $product;
+			setup_postdata( $post );
+
+			ob_start();
+				echo '<sup id="fnref:'.$atts['id'].'"><a href="#fn:'.$atts['id'].'" rel="footnote">'.$content.'</a></sup>';									echo '<span class="embedded"> <li class="footnote" id="fn:'.$atts['id'].'">';
+					get_template_part( 'content', 'product' );	
+				echo '</li>';
+				echo '<script type="text/javascript">
+						jQuery(document).ready(function($) {
+							$(".entry-thumbnail").each(function(i, obj) {
+								$(this).owlCarousel({			
+								  navigation : false, // Show next and prev buttons
+								  slideSpeed : 300,
+								  pagination : false,
+								  singleItem:true,
+								  autoPlay: false //default to 5 sec
+								});
+							});
+							
+					 
+					});
+					</script>';
+			wp_reset_postdata();
+			return ob_get_clean();
+		}
+		add_shortcode('product', 'da_product_embed_shortcode');
 //// META BOXES
 	add_filter( 'rwmb_meta_boxes', 'mb_register_meta_boxes' );
 	function mb_register_meta_boxes( $meta_boxes ){

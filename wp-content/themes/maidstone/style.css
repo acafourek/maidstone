@@ -114,6 +114,16 @@ body.archive .hentry::after {
 .post-thumbnail {
   background: none !important;
 }
+.bigfoot-footnote__wrapper {
+  min-width: 400px;
+}
+.bigfoot-footnote__wrapper .bigfoot-footnote__content {
+  max-height: 400px;
+}
+.bigfoot-footnote__wrapper .bigfoot-footnote__content .entry-thumbnail img {
+  max-height: 250px;
+  margin: 0 auto;
+}
 .entry-content .rp4wp-related-posts {
   display: none;
 }
