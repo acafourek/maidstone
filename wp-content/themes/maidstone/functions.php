@@ -89,7 +89,7 @@ add_filter('widget_text', 'do_shortcode'); //render shortcodes if placed into si
 		wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 		wp_enqueue_style( 'mapglyphs', get_stylesheet_directory_uri() . '/inc/mapglyphs/2.0/mapglyphs.css');
 		
-		if(is_front_page()){
+		if(is_front_page() || is_page_template( 'tpl-shop.php' )){
 			wp_enqueue_style( 'owl', get_stylesheet_directory_uri() . '/inc/owl-carousel/owl.carousel.css');
 			wp_enqueue_style( 'owl-theme', get_stylesheet_directory_uri() . '/inc/owl-carousel/owl.theme.css'); 
 			
@@ -99,11 +99,54 @@ add_filter('widget_text', 'do_shortcode'); //render shortcodes if placed into si
 	
 	add_action( 'wp_enqueue_scripts', 'da_scripts' );
 
+
+	/// STORE
+		add_action( 'init', 'da_registrations' );
+	 
+		function da_registrations() {
+			
+			///POST TYPES
+				//Reg Products
+				$product_labels = array(
+					'name'               => _x( 'Products', 'post type general name', 'bid-core' ),
+					'singular_name'      => _x( 'Product', 'post type singular name', 'bid-core' ),
+					'menu_name'          => _x( 'Products', 'admin menu', 'bid-core' ),
+					'name_admin_bar'     => _x( 'Product', 'add new on admin bar', 'bid-core' ),
+					'add_new'            => _x( 'Add New', 'Product', 'bid-core' ),
+					'add_new_item'       => __( 'Add New Product', 'bid-core' ),
+					'new_item'           => __( 'New Product', 'bid-core' ),
+					'edit_item'          => __( 'Edit Product', 'bid-core' ),
+					'view_item'          => __( 'View Product', 'bid-core' ),
+					'all_items'          => __( 'All Products', 'bid-core' ),
+					'search_items'       => __( 'Search Products', 'bid-core' ),
+					'parent_item_colon'  => __( 'Parent Products:', 'bid-core' ),
+					'not_found'          => __( 'No Products found.', 'bid-core' ),
+					'not_found_in_trash' => __( 'No Products found in Trash.', 'bid-core' )
+				);
+			
+				$product_args = array(
+					'labels'             => $product_labels,
+					'public'             => true,
+					'publicly_queryable' => true,
+					'show_ui'            => true,
+					'show_in_menu'       => true,
+					'query_var'          => true,
+					'rewrite'            => array( 'slug' => 'product',  "with_front" => false ),
+					'capability_type'    => 'post',
+					'has_archive'        => true,
+					'hierarchical'       => false,
+					'menu_position'      => 4,
+					'menu_icon'			 => 'dashicons-store',
+					'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'revisions' )
+				);
+			
+				register_post_type( 'Product', $product_args );
+		}
 //// META BOXES
 	add_filter( 'rwmb_meta_boxes', 'mb_register_meta_boxes' );
 	function mb_register_meta_boxes( $meta_boxes ){
 	    $prefix = 'meta_';
-	    // 1st meta box
+
 	    $meta_boxes[] = array(
 	        'id'       => 'location',
 	        'title'    => 'Geo Data',
@@ -140,6 +183,7 @@ add_filter('widget_text', 'do_shortcode'); //render shortcodes if placed into si
 				),
 	        )
 	    );
+	    
 	    return $meta_boxes;
 	}
 	

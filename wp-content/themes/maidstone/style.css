@@ -101,9 +101,11 @@ body.archive .hentry::after {
     clear: left;
   }
 }
-body.page .child-page {
-  width: 100%;
-}
+/*
+	body.page .child-page{
+		width: 100%;
+	}
+*/
 .archive .page-header,
 .search .page-header {
   margin: 0;
