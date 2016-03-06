@@ -54,7 +54,6 @@ get_header();
 		</div><!-- #primary -->
 	</div><!-- .content-wrapper -->
 	
-<!--
 	<script type="text/javascript">
 		jQuery(document).ready(function($) {
 			$('.entry-thumbnail').each(function(i, obj) {
@@ -70,6 +69,5 @@ get_header();
 	 
 	});
 	</script>
--->
 
 <?php get_footer(); ?>
