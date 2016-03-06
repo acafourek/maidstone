@@ -88,10 +88,6 @@ add_filter('widget_text', 'do_shortcode'); //render shortcodes if placed into si
 		wp_enqueue_style( 'sela', get_template_directory_uri() . '/style.css' );
 		wp_enqueue_style( 'font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 		wp_enqueue_style( 'mapglyphs', get_stylesheet_directory_uri() . '/inc/mapglyphs/2.0/mapglyphs.css');
-		wp_enqueue_script( 'bigfoot', get_stylesheet_directory_uri() . '/inc/bigfoot/dist/bigfoot.min.js', array( 'jquery' ),'2.1.4', true );		
-		wp_enqueue_style( 'bigfoot-style', get_stylesheet_directory_uri() . '/inc/bigfoot/dist/bigfoot-default.css');
-
-
 		
 			wp_enqueue_style( 'owl', get_stylesheet_directory_uri() . '/inc/owl-carousel/owl.carousel.css');
 			wp_enqueue_style( 'owl-theme', get_stylesheet_directory_uri() . '/inc/owl-carousel/owl.theme.css'); 
