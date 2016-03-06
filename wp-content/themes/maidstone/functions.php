@@ -438,3 +438,119 @@ add_action( 'wp_print_footer_scripts', 'da_fb_js',1 );
 	}
 	add_action('publish_post','da_update_post_location',10,1);
 	add_action('da_provision_location_data','da_update_post_location',10,1);
+	
+/**
+	Add ACF Meta Fields
+**/
+add_action('init','maidstone_add_meta');
+function maidstone_add_meta(){
+	if( function_exists('acf_add_local_field_group') ):
+
+acf_add_local_field_group(array (
+	'key' => 'group_56cce2e79bbf8',
+	'title' => 'Product Info',
+	'fields' => array (
+		array (
+			'key' => 'field_56cce2eeef838',
+			'label' => 'Product Name',
+			'name' => 'product_name',
+			'type' => 'text',
+			'instructions' => 'Name of product to display on the site',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+			'readonly' => 0,
+			'disabled' => 0,
+		),
+		array (
+			'key' => 'field_56cce303ef839',
+			'label' => 'Product Link',
+			'name' => 'product_link',
+			'type' => 'url',
+			'instructions' => 'External link to this product',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+		),
+		array (
+			'key' => 'field_56cce39def83b',
+			'label' => 'Product Images',
+			'name' => 'product_images',
+			'type' => 'repeater',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'collapsed' => 'field_56cce3b8ef83c',
+			'min' => '',
+			'max' => '',
+			'layout' => 'table',
+			'button_label' => 'Add Image',
+			'sub_fields' => array (
+				array (
+					'key' => 'field_56cce3b8ef83c',
+					'label' => 'Images',
+					'name' => 'images',
+					'type' => 'image',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'return_format' => 'url',
+					'preview_size' => 'detail',
+					'library' => 'all',
+					'min_width' => '',
+					'min_height' => '',
+					'min_size' => '',
+					'max_width' => '',
+					'max_height' => '',
+					'max_size' => '',
+					'mime_types' => '',
+				),
+			),
+		),
+	),
+	'location' => array (
+		array (
+			array (
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'product',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
+endif;
+}
