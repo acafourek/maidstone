@@ -23,4 +23,23 @@
 
 <?php wp_footer(); ?>
 </body>
+	<!-- GPSMycity Track Code -->
+	<LINK rel="stylesheet" type="text/css" href="http://www.gpsmycity.com/d/smart-banner/smart-app-banner.css">
+	<SCRIPT src="http://www.gpsmycity.com/d/smart-banner/smart-app-banner.js"></SCRIPT>
+	<SCRIPT>
+		sbobj = new SmartBanner({
+		title: "Inspiring Travel Articles",
+		author: "GPSmyCity.com, Inc.",
+		button: 'View',
+		store_url: {
+		ios: 'http://www.gpsmycity.com/dlnk/?view=owner&id=2401&aff='
+		},
+		force_url: 1,
+		icon_url: "http://www.gpsmycity.com/d/apple-touch-icon.png",
+		force_icon: 1
+		});
+	
+	if (sbobj.type == "ios")
+	sbobj.display();
+	</SCRIPT>
 </html>
