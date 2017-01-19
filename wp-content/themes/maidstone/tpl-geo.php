@@ -42,7 +42,7 @@ get_header();
 							if($location->name == "United Kingdom")
 								update_term_meta($location->term_id,'map_glyph','uk');
 
-							echo '<li><a href="'.get_bloginfo('home').'/locations/'.$location->slug.'"><span class="map-icon"><i class="mg map-'.get_term_meta($location->term_id,'map_glyph',true).'"></i></span>'.$location->name.'</a></li>';
+							echo '<li><a href="'.get_bloginfo('home').'/location/'.$location->slug.'"><span class="map-icon"><i class="mg map-'.get_term_meta($location->term_id,'map_glyph',true).'"></i></span>'.$location->name.'</a></li>';
 						}
 					echo '</ul>';
 				?>
