@@ -1,10 +1,10 @@
 === Related Posts for WordPress ===
-Contributors: never5, barrykooij
+Contributors: never5, barrykooij, hchouhan
 Donate link: http://www.barrykooij.com/donate/
-Tags: related posts for wordpress, related posts for wp, simple related posts, easy related posts, related posts, related, relations, internal links, seo, bounce rate
+Tags: related posts for wordpress, related posts for wp, simple related posts, easy related posts, related posts, related post, related, relations, internal links, seo, bounce rate
 Requires at least: 3.6
-Tested up to: 4.3
-Stable tag: 1.9.1
+Tested up to: 5.7
+Stable tag: 2.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -117,6 +117,47 @@ There is one custom table created for the post cache, this table will however no
 5. Related posts are automatically added below your posts!
 
 == Changelog ==
+
+= 2.0.4: March 15, 2021 =
+* Tweak: Fixed an XSS vulnerability with WPML language GET attribute.
+
+= 2.0.3: March 2, 2018 =
+* Tweak: Removed hard removal of non a-z0-9 characters because this removes all non-latin chars causing issues for non-latin languages. Instead we're now using a specific blacklist of characters that needs to be removed. Also moved this to convert_characters so we apply this blacklist also to title,taxonomy,etc.
+* Tweak: Made case lowering of words in cache UTF-8 compatible, solving an issue with non-latin characters.
+* Tweak: We no longer cache all words but only the top 6. This greatly improves performance of the caching task.
+* Tweak: Added filter 'rp4wp_cache_word_amount' to filter amount of words added in cache (default=6).
+
+= 2.0.2: October 10, 2017 =
+* Tweak: Fixed an issue where sticky posts were always included in related posts.
+* Tweak: Removed a post type check since post type is always post.
+
+= 2.0.1: September 7, 2017 =
+* Tweak: Plugin is now checking if required mbstring PHP extension is installed.
+* Tweak: Improved handling of plugin when premium version is also activated.
+* Tweak: Updated various translations.
+
+= 2.0.0: December 16, 2016 =
+* Feature: New related post is found for parents of posts that are put back to draft or deleted.
+* Feature: Related post are now removed when a post is put back to draft or deleted.
+* Feature: Improved Content Matching Score algorithm. Better related content result. Rerun wizard for better results.
+* Tweak: Fixed issue with search queries with multiple words in manual post linking.
+* Tweak: Added post dates to manual linking screen.
+* Tweak: Fixed jQuery lib include for HTTPS websites.
+* Tweak: Added rp4wp_settings_sections filter to settings.
+* Tweak: Renamed 'Restart wizard' to 'Rebuild Linkage'.
+* Tweak: Added rp4wp_supported_post_types filter to various places.
+* Tweak: Added keys to settings to allow for more detailed filtering.
+* Tweak: Language updates for: NL, DE, FR, IT, BR, PT, RS, SE, UA.
+
+= 1.9.3: May 2, 2016 =
+* Tweak: Fixed a bug that caused the search query to reset when navigating through pages on the manual linking page.
+* Tweak: Fixed unescaped page request variable on manual linking page.
+
+= 1.9.2: April 18, 2016 =
+* Tweak: We're now ignoring all characters that are not letters or numbers from word cache.
+* Tweak: Various performance optimizations, props [Danny van Kooten](https://github.com/dannyvankooten).
+* Tweak: Fixed a nonce error in installer when user clicked 'Skip linking'.
+* Tweak: Various translations updates.
 
 = 1.9.1: September 10, 2015 =
 * Tweak: Fixed the `Woah! It looks like something else tried to run the Related Posts for WordPress` error message when resuming the wizard via the installing notice.

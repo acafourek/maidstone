@@ -160,10 +160,6 @@ class RP4WP_Post_Link_Manager {
 	 * @return array
 	 */
 	public function get_children( $parent_id, $extra_args = array() ) {
-		global $post;
-
-		// Store current post
-		$o_post = $post;
 
 		// Do WP_Query
 		$link_args = $this->create_link_args( RP4WP_Constants::PM_PARENT, $parent_id );
@@ -194,23 +190,20 @@ class RP4WP_Post_Link_Manager {
 		$link_args = apply_filters( 'rp4wp_get_children_link_args', $link_args, $parent_id );
 
 		// Create link query
-		$link_query = new WP_Query( $link_args );
+		$wp_query = new WP_Query();
+		$posts = $wp_query->query( $link_args );
 
 		// Store child ids
-		// @todo remove the usage of get_the_id()
 		$child_ids = array();
-		while ( $link_query->have_posts() ) : $link_query->the_post();
-			$child_ids[ get_the_id() ] = get_post_meta( get_the_id(), RP4WP_Constants::PM_CHILD, true );
-		endwhile;
+		foreach( $posts as $post ) {
+			$child_ids[ $post->ID ] = get_post_meta( $post->ID, RP4WP_Constants::PM_CHILD, true );
+		}
 
 		// Get children with custom args
 		if ( is_array( $extra_args ) && count( $extra_args ) > 0 ) {
 
 			if ( ! isset( $extra_args['orderby'] ) ) {
-				$this->temp_child_order = array();
-				foreach ( $child_ids as $child_id ) {
-					$this->temp_child_order[] = $child_id;
-				}
+				$this->temp_child_order = array_values( $child_ids );
 			}
 
 			// Get child again, but this time by $extra_args
@@ -218,12 +211,11 @@ class RP4WP_Post_Link_Manager {
 
 			//Child WP_Query arguments
 			if ( count( $child_ids ) > 0 ) {
-				$child_id_values = array_values( $child_ids );
-				$child_post_type = get_post_type( array_shift( $child_id_values ) );
 				$child_args      = array(
-					'post_type'      => $child_post_type,
-					'posts_per_page' => - 1,
-					'post__in'       => $child_ids,
+					'post_type'           => 'post',
+					'posts_per_page'      => -1,
+					'ignore_sticky_posts' => 1,
+					'post__in'            => $child_ids,
 				);
 
 				// Extra arguments
@@ -235,12 +227,11 @@ class RP4WP_Post_Link_Manager {
 				$child_args = apply_filters( 'rp4wp_get_children_child_args', $child_args, $parent_id );
 
 				// Child Query
-				$child_query = new WP_Query( $child_args );
-
-				while ( $child_query->have_posts() ) : $child_query->the_post();
-					// Add post to correct original sort key
-					$children[ array_search( $child_query->post->ID, $child_ids ) ] = $child_query->post;
-				endwhile;
+				$wp_query = new WP_Query;
+				$posts = $wp_query->query( $child_args );
+				foreach( $posts as $post ) {
+					$children[ $post->ID ] = $post;
+				}
 
 				// Fix sorting
 				if ( ! isset( $extra_args['orderby'] ) ) {
@@ -250,20 +241,47 @@ class RP4WP_Post_Link_Manager {
 			}
 		} else {
 			// No custom arguments found, get all objects of stored ID's
-			$children = array();
-			foreach ( $child_ids as $link_id => $child_id ) {
-				$children[ $link_id ] = get_post( $child_id );
-			}
+			$children = array_map( 'get_post', $child_ids );
 		}
-
-		// Reset global post variables
-		wp_reset_postdata();
-
-		// Restoring post
-		$post = $o_post;
 
 		// Return children
 		return $children;
+	}
+
+
+	/**
+	 * Get parents based on link_id and child_id.
+	 *
+	 * @access public
+	 *
+	 * @param int $child_id
+	 *
+	 * @return array
+	 */
+	public function get_parents( $child_id ) {
+
+		// build link args
+		$link_args = $this->create_link_args( RP4WP_Constants::PM_CHILD, $child_id );
+		$link_args['fields'] = 'ids';
+
+		/**
+		 * Filter args for link query
+		 */
+		$link_args = apply_filters( 'rp4wp_get_parents_link_args', $link_args, $child_id );
+
+		// Create link query
+		$wp_query = new WP_Query();
+		$link_post_ids = $wp_query->query( $link_args );
+
+		$parents = array();
+		if ( ! empty( $link_post_ids ) ) {
+			foreach ( $link_post_ids as $link_post_id ) {
+				// Add post to correct original sort key
+				$parents[ $link_post_id ] = get_post( get_post_meta( $link_post_id, RP4WP_Constants::PM_PARENT, true ) );
+			}
+		}
+
+		return $parents;
 	}
 
 	/**
@@ -286,7 +304,8 @@ class RP4WP_Post_Link_Manager {
 	 * @param $post_id
 	 */
 	public function delete_links_related_to( $post_id ) {
-		$involved_query = new WP_Query( array(
+		$involved_query = new WP_Query();
+		$posts = $involved_query->query( array(
 			'post_type'      => RP4WP_Constants::LINK_PT,
 			'posts_per_page' => - 1,
 			'meta_query'     => array(
@@ -303,9 +322,10 @@ class RP4WP_Post_Link_Manager {
 				)
 			)
 		) );
-		while ( $involved_query->have_posts() ) : $involved_query->the_post();
-			wp_delete_post( $involved_query->post->ID, true );
-		endwhile;
+
+		foreach( $posts as $post ) {
+			wp_delete_post( $post->ID, true );
+		}
 	}
 
 	/**

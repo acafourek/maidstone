@@ -30,7 +30,7 @@ class Jetpack_Testimonial {
 		// If called via REST API, we need to register later in lifecycle
 		add_action( 'restapi_theme_init',          array( $this, 'maybe_register_cpt' ) );
 
-		// Add to REST API post type whitelist
+		// Add to REST API post type allowed list.
 		add_filter( 'rest_api_allowed_post_types', array( $this, 'allow_cpt_rest_api_type' ) );
 
 		$this->maybe_register_cpt();
@@ -47,16 +47,15 @@ class Jetpack_Testimonial {
 		// Check on theme switch if theme supports CPT and setting is disabled
 		add_action( 'after_switch_theme', array( $this, 'activation_post_type_support' ) );
 
-		$setting = get_option( self::OPTION_NAME, '0' );
+		$setting = Jetpack_Options::get_option_and_ensure_autoload( self::OPTION_NAME, '0' );
 
 		// Bail early if Testimonial option is not set and the theme doesn't declare support
 		if ( empty( $setting ) && ! $this->site_supports_custom_post_type() ) {
 			return;
 		}
 
-		// Enable Omnisearch for CPT.
-		if ( class_exists( 'Jetpack_Omnisearch_Posts' ) ) {
-			new Jetpack_Omnisearch_Posts( self::CUSTOM_POST_TYPE );
+		if ( ( ! defined( 'IS_WPCOM' ) || ! IS_WPCOM ) && ! Jetpack::is_module_active( 'custom-content-types' ) ) {
+			return;
 		}
 
 		// CPT magic
@@ -93,6 +92,7 @@ class Jetpack_Testimonial {
 
 		// Adjust CPT archive and custom taxonomies to obey CPT reading setting
 		add_filter( 'pre_get_posts',                                             array( $this, 'query_reading_setting' ), 20 );
+		add_filter( 'infinite_scroll_settings',                                  array( $this, 'infinite_scroll_click_posts_per_page' ) );
 
 		// Register [jetpack_testimonials] always and
 		// register [testimonials] if [testimonials] isn't already set
@@ -152,13 +152,14 @@ class Jetpack_Testimonial {
 			<label for="<?php echo esc_attr( self::OPTION_NAME ); ?>">
 				<input name="<?php echo esc_attr( self::OPTION_NAME ); ?>" id="<?php echo esc_attr( self::OPTION_NAME ); ?>" <?php echo checked( get_option( self::OPTION_NAME, '0' ), true, false ); ?> type="checkbox" value="1" />
 				<?php esc_html_e( 'Enable Testimonials for this site.', 'jetpack' ); ?>
-				<a target="_blank" href="http://en.support.wordpress.com/testimonials/"><?php esc_html_e( 'Learn More', 'jetpack' ); ?></a>
+				<a target="_blank" href="https://en.support.wordpress.com/testimonials/"><?php esc_html_e( 'Learn More', 'jetpack' ); ?></a>
 			</label>
 		<?php endif;
 
 		if ( $this->site_supports_custom_post_type() ) :
 			printf( '<p><label for="%1$s">%2$s</label></p>',
 				esc_attr( self::OPTION_READING_SETTING ),
+				/* translators: %1$s is replaced with an input field for numbers */
 				sprintf( __( 'Testimonial pages display at most %1$s testimonials', 'jetpack' ),
 					sprintf( '<input name="%1$s" id="%1$s" type="number" step="1" min="1" value="%2$s" class="small-text" />',
 						esc_attr( self::OPTION_READING_SETTING ),
@@ -184,7 +185,7 @@ class Jetpack_Testimonial {
 	}
 
 	/**
-	 * Add to REST API post type whitelist
+	 * Add to REST API post type allowed list.
 	 */
 	function allow_cpt_rest_api_type( $post_types ) {
 		$post_types[] = self::CUSTOM_POST_TYPE;
@@ -312,6 +313,9 @@ class Jetpack_Testimonial {
 				'editor',
 				'thumbnail',
 				'page-attributes',
+				'revisions',
+				'excerpt',
+				'newspack_blocks',
 			),
 			'rewrite' => array(
 				'slug'       => 'testimonial',
@@ -327,6 +331,7 @@ class Jetpack_Testimonial {
 			'map_meta_cap'    => true,
 			'has_archive'     => true,
 			'query_var'       => 'testimonial',
+			'show_in_rest'    => true,
 		) );
 	}
 
@@ -348,7 +353,7 @@ class Jetpack_Testimonial {
 			7  => esc_html__( 'Testimonial saved.', 'jetpack' ),
 			8  => sprintf( __( 'Testimonial submitted. <a target="_blank" href="%s">Preview testimonial</a>', 'jetpack'), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) ) ),
 			9  => sprintf( __( 'Testimonial scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview testimonial</a>', 'jetpack' ),
-				// translators: Publish box date format, see http://php.net/date
+				// translators: Publish box date format, see https://php.net/date
 				date_i18n( __( 'M j, Y @ G:i', 'jetpack' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post->ID) ) ),
 			10 => sprintf( __( 'Testimonial draft updated. <a target="_blank" href="%s">Preview testimonial</a>', 'jetpack' ), esc_url( add_query_arg( 'preview', 'true', get_permalink( $post->ID ) ) ) ),
 		);
@@ -360,10 +365,9 @@ class Jetpack_Testimonial {
 	 * Change ‘Enter Title Here’ text for the Testimonial.
 	 */
 	function change_default_title( $title ) {
-		$screen = get_current_screen();
-
-		if ( self::CUSTOM_POST_TYPE == $screen->post_type )
+		if ( self::CUSTOM_POST_TYPE == get_post_type() ) {
 			$title = esc_html__( "Enter the customer's name here", 'jetpack' );
+		}
 
 		return $title;
 	}
@@ -387,6 +391,19 @@ class Jetpack_Testimonial {
 		) {
 			$query->set( 'posts_per_page', get_option( self::OPTION_READING_SETTING, '10' ) );
 		}
+	}
+
+	/*
+	 * If Infinite Scroll is set to 'click', use our custom reading setting instead of core's `posts_per_page`.
+	 */
+	function infinite_scroll_click_posts_per_page( $settings ) {
+		global $wp_query;
+
+		if ( ! is_admin() && true === $settings['click_handle'] && $wp_query->is_post_type_archive( self::CUSTOM_POST_TYPE ) ) {
+			$settings['posts_per_page'] = get_option( self::OPTION_READING_SETTING, $settings['posts_per_page'] );
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -454,7 +471,7 @@ class Jetpack_Testimonial {
 		) );
 		$wp_customize->add_control( 'jetpack_testimonials[page-title]', array(
 			'section' => 'jetpack_testimonials',
-			'label'   => esc_html__( 'Testimonial Page Title', 'jetpack' ),
+			'label'   => esc_html__( 'Testimonial Archive Title', 'jetpack' ),
 			'type'    => 'text',
 		) );
 
@@ -466,7 +483,7 @@ class Jetpack_Testimonial {
 		$wp_customize->add_control( new Jetpack_Testimonial_Textarea_Control( $wp_customize, 'jetpack_testimonials[page-content]', array(
 			'section'  => 'jetpack_testimonials',
 			'settings' => 'jetpack_testimonials[page-content]',
-			'label'    => esc_html__( 'Testimonial Page Content', 'jetpack' ),
+			'label'    => esc_html__( 'Testimonial Archive Content', 'jetpack' ),
 		) ) );
 
 		$wp_customize->add_setting( 'jetpack_testimonials[featured-image]', array(
@@ -477,7 +494,7 @@ class Jetpack_Testimonial {
 		) );
 		$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'jetpack_testimonials[featured-image]', array(
 			'section' => 'jetpack_testimonials',
-			'label'   => esc_html__( 'Testimonial Page Featured Image', 'jetpack' ),
+			'label'   => esc_html__( 'Testimonial Archive Featured Image', 'jetpack' ),
 		) ) );
 
 		// The featured image control doesn't display properly in the Customizer unless we coerce
@@ -515,7 +532,7 @@ class Jetpack_Testimonial {
 			'columns'         => 1,
 			'showposts'       => -1,
 			'order'           => 'asc',
-			'orderby'         => 'date',
+			'orderby'         => 'menu_order,date',
 		), $atts, 'testimonial' );
 
 		// A little sanitization
@@ -529,7 +546,7 @@ class Jetpack_Testimonial {
 
 		$atts['columns'] = absint( $atts['columns'] );
 
-		$atts['showposts'] = intval( $atts['showposts'] );
+		$atts['showposts'] = (int) $atts['showposts'];
 
 		if ( $atts['order'] ) {
 			$atts['order'] = urldecode( $atts['order'] );
@@ -542,7 +559,7 @@ class Jetpack_Testimonial {
 		if ( $atts['orderby'] ) {
 			$atts['orderby'] = urldecode( $atts['orderby'] );
 			$atts['orderby'] = strtolower( $atts['orderby'] );
-			$allowed_keys = array('author', 'date', 'title', 'rand');
+			$allowed_keys = array( 'author', 'date', 'title', 'menu_order', 'rand' );
 
 			$parsed = array();
 			foreach ( explode( ',', $atts['orderby'] ) as $testimonial_index_number => $orderby ) {
@@ -560,7 +577,9 @@ class Jetpack_Testimonial {
 		}
 
 		// enqueue shortcode styles when shortcode is used
-		wp_enqueue_style( 'jetpack-testimonial-style', plugins_url( 'css/testimonial-shortcode.css', __FILE__ ), array(), '20140326' );
+		if ( ! wp_style_is( 'jetpack-testimonial-style', 'enqueued' ) ) {
+			wp_enqueue_style( 'jetpack-testimonial-style', plugins_url( 'css/testimonial-shortcode.css', __FILE__ ), array(), '20140326' );
+		}
 
 		return self::jetpack_testimonial_shortcode_html( $atts );
 	}
@@ -598,7 +617,7 @@ class Jetpack_Testimonial {
 					$query->the_post();
 					$post_id = get_the_ID();
 					?>
-					<div class="testimonial-entry <?php echo esc_attr( self::get_testimonial_class( $testimonial_index_number, $atts['columns'] ) ); ?>">
+					<div class="testimonial-entry <?php echo esc_attr( self::get_testimonial_class( $testimonial_index_number, $atts['columns'], has_post_thumbnail( $post_id ) ) ); ?>">
 						<?php
 						// The content
 						if ( false !== $atts['display_content'] ) {
@@ -644,7 +663,7 @@ class Jetpack_Testimonial {
 	 *
 	 * @return string
 	 */
-	static function get_testimonial_class( $testimonial_index_number, $columns ) {
+	static function get_testimonial_class( $testimonial_index_number, $columns, $image ) {
 		$class = array();
 
 		$class[] = 'testimonial-entry-column-'.$columns;
@@ -664,6 +683,10 @@ class Jetpack_Testimonial {
 			$class[] = 'testimonial-entry-last-item-row';
 		}
 
+		// add class if testimonial has a featured image
+		if ( false !== $image ) {
+			$class[] = 'has-testimonial-thumbnail';
+		}
 
 		/**
 		 * Filter the class applied to testimonial div in the testimonial
@@ -675,9 +698,10 @@ class Jetpack_Testimonial {
 		 * @param string $class class name of the div.
 		 * @param int $testimonial_index_number iterator count the number of columns up starting from 0.
 		 * @param int $columns number of columns to display the content in.
+		 * @param boolean $image has a thumbnail or not.
 		 *
 		 */
-		return apply_filters( 'testimonial-entry-post-class', implode( " ", $class ) , $testimonial_index_number, $columns );
+		return apply_filters( 'testimonial-entry-post-class', implode( " ", $class ) , $testimonial_index_number, $columns, $image );
 	}
 
 	/**

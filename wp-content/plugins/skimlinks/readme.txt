@@ -2,42 +2,39 @@
 Contributors: skimlinks
 Tags: skimlinks, Affiliate, Marketing, Links, Monetization, Monetisation, Javascript, Easy, Make Money, Advertising, Affiliate Widget, Referral, Plugin, RSS, Feeds, Text Links, Earn Money, Revenue, Free, Tool
 Requires at least: 2.7.1
-Tested up to: 3.5.1
-Stable tag: 1.2.3
+Tested up to: 4.9
+Stable tag: 1.3
 
 == Description ==
 
-Not a Skimlinks publisher? [Register here](http://skimlinks.com/signup)
+Skimlinks is the leading content-to-commerce platform globally, helping more than 4 million websites monetize their editorial content.
 
-Skimlinks takes away all the effort usually associated with affiliate marketing, working behind-the-scenes and earning you commissions from the valuable links you include in your posts. Building on our years of experience of working with all types of blogs, our patent-pending technology converts existing product links in content into their equivalent affiliate link on-the-fly:
+Skimlinks works behind-the scenes to take away all the manual effort usually associated with affiliate marketing. After you install the plugin you can start earning commission from every link to merchants you include in your posts. 
 
-* **Easy to install**: Add the Skimlinks plugin and instantly monetize untapped links on your blog
+With a decade’s experience working with blogs of all shapes and sizes, we’re confident our technology can help take your content monetization efforts to the next level:
 
-* **SkimLinks and SkimWords integration**: Easily control the Skimlinks products you use from your publisher interface
+
+* **Easy to install**: Install our plugin and instantly monetize links on your Wordpress site.
 
 * **Earn from your RSS feed**: Monetize more activity on your blog when users click on an external link in your RSS feed, Skimlinks automatically turns these into affiliate links 
 
-* **Earn more from affiliate marketing with Skimlinks**: We work with over 8,000 merchants, and turn more links in your content into their equivalent affiliate link so you can earn more commission
+* **Earn more from affiliate marketing with Skimlinks**: Access to over 24,000 merchant in our network. There's no need to manually apply for each merchant. Once you are approved as a Skimlinks publisher you get instant access to all programs.
 
-* **Zero admin**: You can focus on creating great content and link to merchant products as normal and we'll do all the work to create and maintain affiliate links for you
+* **Zero admin**: You can focus on creating great content and link to merchant products as normal and we’ll do all the work to create and maintain affiliate links for you.
 
-* **Increase your click-through rates**: We only turn links into affiliate links when they are clicked, so they don't look suspicious to your users
+* **Increase your click-through rates**: We only turn links into affiliate links when they are clicked, so they don't look suspicious to your users.
 
-*"Once the code was installed on my site, I've had to do nothing apart from waiting for the checks to appear through the post"*
-
-**Skimlinks customer : Stuart Miles, Owner/Editor of Pocket-lint**
-
+To use our Plugin you’ll need to [sign up for a Skimlinks account](https://signup.skimlinks.com). Once you’re approved, all you need to do is install the plugin and our technology will get to work. 
 
 == Installation ==
 
-**N.B. If you are upgrading from an older version of the plugin to Version 1.2, the current product settings on the Installation page in your Skimlinks [Publisher Interface](https://skimlinks.com/login/settings) will take effect. You can change these settings to suit your needs in your Publisher Interface before or after upgrading.**
+**N.B.** To use Skimlinks' Wordpress Plugin you’ll need to [sign up for a Skimlinks account](https://signup.skimlinks.com).
 
-**N.B. If you have Skimlinks already added to your footer template please remove it before installing the Skimlinks WordPress Plugin.**
+1. Upload the entire Skimlinks folder to the /wp-content/plugins/ directory.
+2. Activate the Skimlinks plugin through the 'Plugins' menu in WordPress.
+3. Configure the Skimlinks plugin through the menu option 'Settings > Skimlinks'. On this step you'll need to provide your Site ID, obtained from the [Publisher Hub](https://hub.skimlinks.com/settings/sites).
 
-1. To install the plugin you need to be a Skimlinks publisher and enter your ID. You can join us at [skimlinks.com](http://skimlinks.com)
-1. Upload the `skimlinks` folder to `/wp-content/plugins/`
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Configure the plugin in the WordPress Settings > Skimlinks menu
+If you have Skimlinks already added to your footer template please remove it before installing the Skimlinks WordPress Plugin.
 
 
 == Frequently Asked Questions ==
@@ -49,18 +46,19 @@ Skimlinks is a clever technology that helps you easily monetize online content b
 
 = Q. How do I install the Skimlinks WordPress Plugin =
 
-To install the Plugin you need to be a Skimlinks publisher and get the Plugin from the [WordPress Plugin Directory](http://wordpress.org/extend/plugins/skimlinks/). If you are not a Skimlinks publisher already, you can apply [here](http://skimlinks.com/signup). 
+To install the Plugin you need to be a Skimlinks publisher and get the Plugin from the [WordPress Plugin Directory](http://wordpress.org/extend/plugins/skimlinks/). If you are not a Skimlinks publisher already, apply for an account [here](https://signup.skimlinks.com). 
 
 
 = Q. I already have Skimlinks installed in my WordPress blog template, what should I do? =
 
-We recommend you remove it from the template and replace it with the Plugin to enjoy all the new features. If you have any questions feel free to [check out our support pages](http://support.skimlinks.com)
+We recommend you remove it from the template and replace it with the Plugin to enjoy all the new features. If you have any questions feel free to [check our support pages](http://support.skimlinks.com)
+
 
 = Q. What's the advantage of signing up to Skimlinks? = 
 Of course you could spend time and money creating, tracking and maintaining your own affiliate links and signing up to thousands of merchant programs, but why not let us do all the hard work for you?  
 
 * Create content and link to merchants as normal and we'll convert your links into affiliate links on-the-fly so there is no effect on the users' experience
-* With one sign-up to Skimlinks, you get access to 8,000+ merchants' affiliate programs
+* With one sign-up to Skimlinks, you get access to 24,000+ merchants' affiliate programs
 * Use our comprehensive reporting suite to keep track of exactly which merchants your users like
 * First-class account management 
 * Free access to our powerful publisher tools
@@ -80,7 +78,7 @@ Because of our scale we can negotiate the very best commissions for our publishe
 
 
 = Q. Which Merchants do you work with? =
-When you join the Skimlinks, you can access all of the reporting capabilities in the publisher interface, including the Merchant look-up feature to see the 8,000+ retailers in the Skimlinks network.  We actively monitor where your users are clicking and approach merchants on your behalf to make sure we offer a broad and interesting range of retailer programs.
+We currently work with more than 24,000 merchants from all different verticals. Use the [Skimlinks Merchant Search](https://merchant.skimlinks.com) to browse through the list. 
 
 
 = Q. Is Skimlinks visible to my blog readers? =
@@ -90,10 +88,8 @@ Skimlinks lets the normal link appear, and turns it into an affiliate link only 
 = Q. What happens in the event that the Skimlinks' service is unavailable? =
 The Skimlinks technology is monitored 24/7, and is fully redundant. If, in the unlikely event, our technology stops working, links will not be affiliated for a temporary period but the user experience is not affected.  
 
-= Q. I've upgraded to Version 1.2+ and links have started appearing on phrases in my content. Why is this? =
-There is nothing to worry about! When you upgraded to Version 1.2, your site is now using the latest version of our technology and this means that the current product settings on the Installation page in your Skimlinks Publisher Interface have taken effect. If you have SkimWords enabled on that page, this is why links are being added to your content. You can change these settings to suit your needs in your [Publisher Interface](https://skimlinks.com/login/settings) at anytime. You can read more about SkimWords, Skimlinks� in-text monetization product, on [our website](http://skimlinks.com/skimwords).
-
-For more FAQ's and information on Skimlinks, please visit [skimlinks.com](http://skimlinks.com)
+= Q. Where can I get more help? =
+For more FAQ's and information on Skimlinks, please visit [Skimlinks support pages](https://support.skimlinks.com)
 
 
 == Screenshots ==
@@ -102,6 +98,20 @@ For more FAQ's and information on Skimlinks, please visit [skimlinks.com](http:/
 2. Skimlinks publisher dashboard
 
 == Changelog ==
+
+= 1.3 =
+* updated branding and graphics
+* new disclosure/referral button widget
+* made all plugin copy translatable
+* updated admin form descriptions
+* fixed subdomain validation bug
+
+= 1.2.5 =
+* bug fixes and improvements
+ 
+= 1.2.4 =
+* fixes url to skimlinks js library to be protocol-agnostic
+
 = 1.2.3 =
 * fixes bug with incorrectly encoded urls in rss feed
 * updated to support feeds with encoded content
@@ -121,10 +131,9 @@ For more FAQ's and information on Skimlinks, please visit [skimlinks.com](http:/
 * improved error messaging for incompatible themes
 * improved registration information
 
-= 1.1 =�
+= 1.1 =
 * Updated to add options for referral badge
 * Updated to add options for custom sub-domain
-�
+
 = 1.0 =
 * Initial version of Skimlinks Plugin
-

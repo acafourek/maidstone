@@ -1,58 +1,33 @@
-/* global jQuery, rwmb_cloneable_editors */
-
-jQuery( function ( $ )
-{
+( function ( $, rwmb ) {
 	'use strict';
 
 	// Object holds all methods related to fields' index when clone
 	var cloneIndex = {
 		/**
-		 * Reset index for fields in .rwmb-clone
-		 * Must be done when add/remove or sort clone
-		 * @param $container A div container which has all fields
-		 */
-		reset      : function ( $container )
-		{
-			var index = 0;
-			$container.find( '.rwmb-clone' ).each( function ()
-			{
-				cloneIndex.set( $( this ), index++ );
-			} );
-		},
-		/**
 		 * Set index for fields in a .rwmb-clone
-		 * @param $clone .rwmb-clone element
+		 * @param $inputs .rwmb-clone element
 		 * @param index Index value
 		 */
-		set        : function ( $clone, index )
-		{
-			$clone.find( ':input[class|="rwmb"]' ).each( function ()
-			{
+		set: function ( $inputs, index ) {
+			$inputs.each( function () {
 				var $field = $( this );
 
 				// Name attribute
-				var name = $field.attr( 'name' );
-				if ( name )
-				{
+				var name = this.name;
+				if ( name && ! $field.closest( '.rwmb-group-clone' ).length ) {
 					$field.attr( 'name', cloneIndex.replace( index, name, '[', ']', false ) );
 				}
 
 				// ID attribute
-				var id = $field.attr( 'id' );
-				if ( id )
-				{
-					$field.attr( 'id', cloneIndex.replace( index, id, '_' ) );
+				var id = this.id;
+				if ( id ) {
+					$field.attr( 'id', cloneIndex.replace( index, id, '_', '', true, true ) );
 				}
-			} );
 
-			// Address button's value attribute
-			var $address = $clone.find( '.rwmb-map-goto-address-button' );
-			if ( $address.length )
-			{
-				var value = $address.attr( 'value' );
-				$address.attr( 'value', cloneIndex.replace( index, value, '_' ) );
-			}
+				$field.trigger( 'update_index', index );
+			} );
 		},
+
 		/**
 		 * Replace an attribute of a field with updated index
 		 * @param index New index value
@@ -60,78 +35,134 @@ jQuery( function ( $ )
 		 * @param before String before returned value
 		 * @param after String after returned value
 		 * @param alternative Check if attribute does not contain any integer, will reset the attribute?
+		 * @param isEnd Check if we find string at the end?
 		 * @return string
 		 */
-		replace    : function ( index, value, before, after, alternative )
-		{
+		replace: function ( index, value, before, after, alternative, isEnd ) {
 			before = before || '';
 			after = after || '';
-			alternative = alternative || true;
 
-			var regex = new RegExp( cloneIndex.escapeRegex( before ) + '(\\d+)' + cloneIndex.escapeRegex( after ) ),
+			if ( typeof alternative === 'undefined' ) {
+				alternative = true;
+			}
+
+			var end = isEnd ? '$' : '';
+
+			var regex = new RegExp( cloneIndex.escapeRegex( before ) + '(\\d+)' + cloneIndex.escapeRegex( after ) + end ),
 				newValue = before + index + after;
 
 			return regex.test( value ) ? value.replace( regex, newValue ) : (alternative ? value + newValue : value );
 		},
+
 		/**
 		 * Helper function to escape string in regular expression
 		 * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
 		 * @param string
 		 * @return string
 		 */
-		escapeRegex: function ( string )
-		{
+		escapeRegex: function ( string ) {
 			return string.replace( /[.*+?^${}()|[\]\\]/g, "\\$&" );
+		},
+
+		/**
+		 * Helper function to create next index for clones
+		 * @param $container .rwmb-input container
+		 * @return integer
+		 */
+		nextIndex: function ( $container ) {
+			var nextIndex = $container.data( 'next-index' );
+			$container.data( 'next-index', nextIndex + 1 );
+			return nextIndex;
+		}
+	};
+
+	// Object holds all method related to fields' value when clone.
+	var cloneValue = {
+		setDefault: function() {
+			var $field = $( this );
+
+			if ( true !== $field.data( 'clone-default' ) ) {
+				return;
+			}
+
+			var type = $field.attr( 'type' ),
+				defaultValue = $field.data( 'default' );
+
+			if ( 'radio' === type ) {
+				$field.prop( 'checked', $field.val() === defaultValue );
+			} else if ( $field.hasClass( 'rwmb-checkbox' ) || $field.hasClass( 'rwmb-switch' ) ) {
+				$field.prop( 'checked', !! defaultValue );
+			} else if ( $field.hasClass( 'rwmb-checkbox_list' ) ) {
+				var value = $field.val();
+				$field.prop( 'checked', Array.isArray( defaultValue ) ? -1 !== defaultValue.indexOf( value ) : value == defaultValue );
+			} else if ( 'select' === type ) {
+				$field.find( 'option[value="' + defaultValue + '"]' ).prop( 'selected', true );
+			} else if ( ! $field.hasClass( 'rwmb-hidden' ) ) {
+				$field.val( defaultValue );
+			}
+		},
+		clear: function() {
+			var $field = $( this ),
+				type = $field.attr( 'type' );
+
+			if ( 'radio' === type || 'checkbox' === type ) {
+				$field.prop( 'checked', false );
+			} else if ( 'select' === type ) {
+				$field.prop( 'selectedIndex', - 1 );
+			} else if ( ! $field.hasClass( 'rwmb-hidden' ) ) {
+				$field.val( '' );
+			}
 		}
 	};
 
 	/**
 	 * Clone fields
 	 * @param $container A div container which has all fields
-	 * @return void
 	 */
-	function clone( $container )
-	{
-		var $last = $container.children( '.rwmb-clone:last' ),
+	function clone( $container ) {
+		var $last = $container.children( '.rwmb-clone' ).last(),
 			$clone = $last.clone(),
-			$input = $clone.find( ':input[class|="rwmb"]' );
+			nextIndex = cloneIndex.nextIndex( $container );
 
-		$input.each( function ()
-		{
-			var $field = $( this );
-			if ( $field.attr( 'type' ) === 'radio' || $field.attr( 'type' ) === 'checkbox' )
-			{
-				// Reset 'checked' attribute
-				$field.prop( 'checked', false );
-			}
-			else
-			{
-				// Reset value
-				$field.val( '' );
-			}
-		} );
+		// Clear fields' values.
+		var $inputs = $clone.find( rwmb.inputSelectors );
+		$inputs.each( cloneValue.clear );
 
+		// Insert clone.
 		$clone.insertAfter( $last );
-		cloneIndex.reset( $container );
 
-		// Toggle remove buttons
-		toggleRemoveButtons( $input );
+		// Trigger custom event for the clone instance. Required for Group extension to update sub fields.
+		$clone.trigger( 'clone_instance', nextIndex );
 
-		// Trigger custom clone event
-		$input.trigger( 'clone' );
+		// Set fields index. Must run before trigger clone event.
+		cloneIndex.set( $inputs, nextIndex );
+
+		// Set fields' default values: do after index is set to prevent previous radio fields from unchecking.
+		$inputs.each( cloneValue.setDefault );
+
+		// Trigger custom clone event.
+		$inputs.trigger( 'clone', nextIndex );
+
+		// After cloning fields.
+		$inputs.trigger( 'after_clone', nextIndex );
+
+		// Trigger custom change event for MB Blocks to update block attributes.
+		$inputs.first().trigger( 'mb_change' );
 	}
 
 	/**
 	 * Hide remove buttons when there's only 1 of them
 	 *
 	 * @param $container .rwmb-input container
-	 *
-	 * @return void
 	 */
-	function toggleRemoveButtons( $container )
-	{
-		var $button = $container.find( '.remove-clone' );
-		$button[$button.length < 2 ? 'hide' : 'show']();
+	function toggleRemoveButtons( $container ) {
+		var $clones = $container.children( '.rwmb-clone' );
+		$clones.children( '.remove-clone' ).toggle( $clones.length > 1 );
+
+		// Recursive for nested groups.
+		$container.find( '.rwmb-input' ).each( function () {
+			toggleRemoveButtons( $( this ) );
+		} );
 	}
 
 	/**
@@ -139,175 +170,89 @@ jQuery( function ( $ )
 	 * Used with [data-max-clone] attribute. When max clone is reached, the add button is hid and vice versa
 	 *
 	 * @param $container .rwmb-input container
-	 *
-	 * @return void
 	 */
-	function toggleAddButton( $container )
-	{
-		var $button = $container.find( '.add-clone' ),
+	function toggleAddButton( $container ) {
+		var $button = $container.children( '.add-clone' ),
 			maxClone = parseInt( $container.data( 'max-clone' ) ),
-			numClone = $container.find( '.rwmb-clone' ).length;
+			numClone = $container.children( '.rwmb-clone' ).length;
 
-		$button[isNaN( maxClone ) || (maxClone && numClone < maxClone) ? 'show' : 'hide']();
+		$button.toggle( isNaN( maxClone ) || ( maxClone && numClone < maxClone ) );
 	}
 
-	/**
-	 * Clone WYSIWYG field
-	 * @param $container
-	 * @return void
-	 */
-	function cloneWYSIWYG( $container )
-	{
-		var $clone_first = $container.find( '.rwmb-clone:first' ),
-			$clone_last = $container.find( '.rwmb-clone:last' ),
-			$clone = $( '<div />' ).addClass( 'rwmb-clone' ),
-			field_name = $clone_last.find( 'textarea.wp-editor-area' ).attr( 'name' ),
-			field_id = field_name.replace( /\[(\d+)]/, '' );
+	function addClone( e ) {
+		e.preventDefault();
 
-		//Create some global vars
-		var new_index = 0;
-		var new_name = field_name.replace( /\[(\d+)]/, function ( match, p1 )
-		{
-			new_index = ( parseInt( p1, 10 ) + 1 );
-			return '[' + new_index + ']';
-		} );
+		var $container = $( this ).closest( '.rwmb-input' );
+		clone( $container );
 
-		if ( typeof rwmb_cloneable_editors !== 'undefined' && typeof rwmb_cloneable_editors[field_id] !== 'undefined' )
-		{
-			//Get HTML of editor from global object
-			var cloned_editor = $( rwmb_cloneable_editors[field_id] );
+		toggleRemoveButtons( $container );
+		toggleAddButton( $container );
+		sortClones.apply( $container[0] );
+	}
 
-			//Fill new clone with html form global object
-			$clone.append( cloned_editor );
+	function removeClone( e ) {
+		e.preventDefault();
 
-			//Add remove button to clone
-			$clone.append( $clone_last.find( '.remove-clone' ).clone() );
+		var $this = $( this ),
+			$container = $this.closest( '.rwmb-input' );
 
-			//Add new clone after the last clone
-			$clone.insertAfter( $clone_last );
-
-			//Replace ID of field with new ID
-			var new_id = cloned_editor.attr( 'id' ).replace( /\[(\d+)]/, '[' + new_index + ']' );
-			cloned_editor.attr( 'id', new_id );
-
-			//Replace all IDs within cloned field
-			cloned_editor.find( '[id*="' + field_id + '"]' ).each( function ()
-			{
-				var id = $( this ).attr( 'id' ).replace( /\[(\d+)]/, '[' + new_index + ']' );
-				$( this ).attr( 'id', id );
-			} );
-
-			//Get the new textarea element
-			var textarea = $( cloned_editor ).find( 'textarea.wp-editor-area' );
-
-			// Update the "name" attribute
-			textarea.attr( 'name', new_name );
-
-			//Empty the textarea
-			textarea.html( '' );
-
-			//Update editor link, so we can add media to the new editor
-			cloned_editor.find( '#insert-media-button' ).data( 'editor', new_name );
-
-
-			//Get TinyMCE setting for our fields
-			var tmceinit = tinyMCEPreInit.mceInit[$clone_first.find( 'textarea.wp-editor-area' ).attr( 'name' )];
-			var tmceqtinit = tinyMCEPreInit.qtInit[$clone_first.find( 'textarea.wp-editor-area' ).attr( 'name' )];
-
-			//Replace id & elements with new created field names
-			tmceinit.elements = new_name;
-			tmceqtinit.id = new_name;
-
-			//Initialize TinyMCE
-			try
-			{
-				tinymce.init( tmceinit );
-			}
-			catch ( e )
-			{
-			}
-			if ( typeof(QTags) === 'function' )
-			{
-				try
-				{
-					quicktags( tmceqtinit );
-				}
-				catch ( e )
-				{
-				}
-			}
-
-			// Toggle remove buttons
-			toggleRemoveButtons( $clone );
-
-			//Trigger custom clone event
-			textarea.trigger( 'clone' );
+		// Remove clone only if there are 2 or more of them
+		if ( $container.children( '.rwmb-clone' ).length < 2 ) {
+			return;
 		}
 
-	}
-
-	$( '#poststuff' )
-		// Add clones
-		.on( 'click', '.add-clone', function ( e )
-		{
-			e.preventDefault();
-
-			var $container = $( this ).closest( '.rwmb-input' );
-
-			cloneIndex.reset( $container );
-
-			if ( $( this ).closest( '.rwmb-field' ).hasClass( 'rwmb-wysiwyg-wrapper' ) )
-			{
-				cloneWYSIWYG( $container );
-			}
-			else
-			{
-				clone( $container );
-			}
-
-			toggleRemoveButtons( $container );
-			toggleAddButton( $container );
-		} )
-		// Remove clones
-		.on( 'click', '.remove-clone', function ( e )
-		{
-			e.preventDefault();
-
-			var $this = $( this ),
-				$container = $this.closest( '.rwmb-input' );
-
-			// Remove clone only if there are 2 or more of them
-			if ( $container.find( '.rwmb-clone' ).length < 2 )
-			{
-				return;
-			}
-
-			$this.parent().trigger( 'remove' ).remove();
-			cloneIndex.reset( $container );
-			toggleRemoveButtons( $container );
-			toggleAddButton( $container )
-		} );
-
-	$( '.rwmb-input' ).each( function ()
-	{
-		var $container = $( this );
-		cloneIndex.reset( $container );
+		$this.parent().trigger( 'remove' ).remove();
 		toggleRemoveButtons( $container );
 		toggleAddButton( $container );
 
+		// Trigger custom change event for MB Blocks to update block attributes.
+		$container.find( rwmb.inputSelectors ).first().trigger( 'mb_change' );
+	}
+
+	/**
+	 * Sort clones.
+	 * Expect this = .rwmb-input element.
+	 */
+	function sortClones() {
+		var $container = $( this );
+
+		if ( undefined !== $container.sortable( 'instance' ) ) {
+			return;
+		}
+		if ( 0 === $container.children( '.rwmb-clone' ).length ) {
+			return;
+		}
+
 		$container.sortable( {
-			handle     : '.rwmb-clone-icon',
-			placeholder: ' rwmb-clone rwmb-clone-placeholder',
-			items      : '.rwmb-clone',
-			start      : function ( event, ui )
-			{
+			handle: '.rwmb-clone-icon',
+			placeholder: ' rwmb-clone rwmb-sortable-placeholder',
+			items: '> .rwmb-clone',
+			start: function ( event, ui ) {
 				// Make the placeholder has the same height as dragged item
-				ui.placeholder.height( ui.item.height() );
+				ui.placeholder.height( ui.item.outerHeight() );
 			},
-			update     : function ()
-			{
-				cloneIndex.reset( $container );
+			stop: function( event, ui ) {
+				ui.item.trigger( 'mb_init_editors' );
+				ui.item.find( rwmb.inputSelectors ).first().trigger( 'mb_change' );
 			}
 		} );
-	} );
-} );
+	}
+
+	function start() {
+		var $container = $( this );
+		toggleRemoveButtons( $container );
+		toggleAddButton( $container );
+
+		$container.data( 'next-index', $container.children( '.rwmb-clone' ).length );
+		sortClones.apply( this );
+	}
+
+	function init( e ) {
+		$( e.target ).find( '.rwmb-input' ).each( start );
+	}
+
+	rwmb.$document
+		.on( 'mb_ready', init )
+		.on( 'click', '.add-clone', addClone )
+		.on( 'click', '.remove-clone', removeClone );
+} )( jQuery, rwmb );

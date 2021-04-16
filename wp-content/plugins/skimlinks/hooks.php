@@ -23,7 +23,7 @@ function sl_rss_filtering_hooks() {
 	}
 }
 
-// hook to insert disclosure badge (if checked)
-if( sl_is_disclosure_badge_enabled() && sl_is_plugin_configured() ) {
-	add_filter( 'the_content', 'sl_add_displausre_badge_to_content' );
+// hook to append disclosure badge to content (if checked)
+if( sl_is_disclosure_badge_appended() && sl_is_plugin_configured() ) {
+	add_filter( 'the_content', 'sl_add_disclosure_badge_to_content' );
 }

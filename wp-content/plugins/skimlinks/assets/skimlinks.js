@@ -7,5 +7,13 @@ jQuery( document ).ready( function() {
 			jQuery( "#subdomain-options" ).fadeOut('fast');
 		}
 	} );
+
+	jQuery( '#sl_add_disclosure_badge' ).click( function(e) {
+		if( jQuery(this).is(":checked") ) {
+			jQuery( "#badge-options" ).fadeIn('fast');
+		} else {
+			jQuery( "#badge-options" ).fadeOut('fast');
+		}
+	} );
 	
 } );

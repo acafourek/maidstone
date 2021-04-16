@@ -24,15 +24,23 @@ function sl_validate_subdomain( $subdomain ) {
 	if( $subdomain == '' )
 		return false;
 	
-	$skimlinks_redirect_domain = 'http://redirectingat.com/check/domain_check.html';
-	
-	$subdomain_response = wp_remote_get( trailingslashit( $subdomain ) . 'check/domain_check.html' );
+	$skimlinks_redirect_domain = 'https://go.redirectingat.com/check/domain_check.html';
+
+	$subdomain_response = wp_remote_get( sl_get_protocol() . trailingslashit( $subdomain ) . 'check/domain_check.html' );
 	$subdomain_body = wp_remote_retrieve_body( $subdomain_response );
 	
 	$skimlinks_response = wp_remote_get( $skimlinks_redirect_domain );
 	$skimlinks_body = wp_remote_retrieve_body( $skimlinks_response );
 		
 	return $skimlinks_body > '' && $subdomain_body == $skimlinks_body;
+}
+
+/**
+ * Get the server protocol. The Skimlnks javascript requires that the subdomain and 
+ * main site protocols are the same.
+ */
+function sl_get_protocol() {
+	return !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443 ? "https://" : "http://";
 }
 
 /**
@@ -103,6 +111,27 @@ function sl_is_disclosure_badge_enabled() {
 }
 
 /**
+ * Checks if the "Append Disclosure Badge" option is on or off.
+ * 
+ * @return bool
+ */
+function sl_is_disclosure_badge_appended() {
+	return get_option( 'sl_add_disclosure_badge' ) && get_option( 'sl_append_disclosure_badge' );
+}
+
+/**
+ * Gets the disclosure badge colour option.
+ * 
+ * @return string
+ */
+function sl_disclosure_badge_colour() {
+	/**
+	 * @todo 
+	 */
+	return 'blue';
+}
+
+/**
  * Returns the Skimlinks Publisher ID
  * 
  * @return bool
@@ -154,8 +183,6 @@ function sl_get_subdomain() {
 	return get_option( 'sl_subdomain' );
 }
 
-
-
 /**
  * Returns the footer js code for skimlinks
  * 
@@ -163,7 +190,8 @@ function sl_get_subdomain() {
  */
 function sl_get_footer_js() {
 	
-	//strip http:// from the skimlinks sub domain
+	// Strip http:// from the skimlinks sub domain. We're doing this at validation but 
+	// this allows backwards compatibility.
 	$subdomain = (string) sl_get_subdomain();
 	$subdomain = preg_replace( "|^http(s)?://|", "", $subdomain );
 	
@@ -175,7 +203,7 @@ function sl_get_footer_js() {
 		$output .= '</script>' . "\n";	
 	}
 	
-	$output .=  '<script type="text/javascript" src="http://s.skimresources.com/js/' . sl_get_publisher_id() . '.skimlinks.js"></script>' . "\n";
+	$output .=  '<script type="text/javascript" src="//s.skimresources.com/js/' . sl_get_publisher_id() . '.skimlinks.js"></script>' . "\n";
 	
 	return $output;
 }
@@ -278,7 +306,7 @@ function sl_modify_external_link( $links ) {
  * @param string $content
  * @return string
  */
-function sl_add_displausre_badge_to_content( $content ) {
+function sl_add_disclosure_badge_to_content( $content ) {
 
 	global $post;
 	
@@ -295,12 +323,21 @@ function sl_add_displausre_badge_to_content( $content ) {
 }
 
 /**
- * Returns the html output for the disclosure badge html (inluing wrapper div)
+ * Returns the url for the disclosure badge.
  * 
  * @return string
  */
-function sl_get_disclosure_badge_html() {
-	
-	return '<div class="skimlinks-disclosure-button"><p><script class="skimlinks_ref_script" type="text/javascript" src="http://static.skimlinks.com/api/ref.js?p=' . sl_get_publisher_id_publisher_id() . '&amp;d=' . sl_get_publisher_id_domain_id() . '&amp;t=1"></script></p></div>' . "\n";
-	
+function sl_get_disclosure_badge_url($colour = false) {
+	// We can just swap this out if we decide to remotely host the images
+	$badge_root = plugin_dir_url( __FILE__ ) . 'assets/';
+	return $badge_root . 'Disclosure_' . ($colour ? $colour : sl_disclosure_badge_colour()) . '.png';
+}
+
+/**
+ * Returns the html output for the disclosure badge html (inluing wrapper div).
+ * 
+ * @return string
+ */
+function sl_get_disclosure_badge_html($colour = false) {
+	return '<div class="skimlinks-disclosure-button"><p><a href="https://skimlinks.com/" target="_blank"><img src="' . sl_get_disclosure_badge_url($colour ? $colour : false) . '" style="display:block"/></a></p></div>' . "\n";
 }

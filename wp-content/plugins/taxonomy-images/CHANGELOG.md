@@ -4,6 +4,31 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [1.0] - 2019-06-20
+
+### Fixed
+- Fixed full image size sometimes not being returned.
+
+### Changed
+- Control, blank and default images moves to `images` folder.
+- Prepare plugin structure for term meta compatibility.
+
+## [0.9.7] - 2017-02-16
+
+### Changed
+- Remove use of deprecated `image_resize` function.
+- Bump minimum WordPress version to 3.5.
+
+## [0.9.6] - 2016-05-03
+
+### Fixed
+- Fix issue where if no terms have images but 'having_images' is false, nothing would be returned (props Matt).
+
+## [0.9.5] - 2016-04-09
+
+### Fixed
+- Fix loading of admin stylesheet when editing terms in WordPress 4.5
+
 ## [0.9.4] - 2016-02-05
 
 ### Fixed
@@ -198,7 +223,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Original Release - Works with WordPress 2.9.1.
 
-[Unreleased]: https://github.com/benhuson/Taxonomy-Images/compare/0.9.4...HEAD
+[Unreleased]: https://github.com/benhuson/Taxonomy-Images/compare/1.0...HEAD
+[1.0]: https://github.com/benhuson/Taxonomy-Images/compare/0.9.7...1.0
+[0.9.7]: https://github.com/benhuson/Taxonomy-Images/compare/0.9.6...0.9.7
+[0.9.6]: https://github.com/benhuson/Taxonomy-Images/compare/0.9.5...0.9.6
+[0.9.5]: https://github.com/benhuson/Taxonomy-Images/compare/0.9.4...0.9.5
 [0.9.4]: https://github.com/benhuson/Taxonomy-Images/compare/0.9.3...0.9.4
 [0.9.3]: https://github.com/benhuson/Taxonomy-Images/compare/0.9.2...0.9.3
 [0.9.2]: https://github.com/benhuson/Taxonomy-Images/compare/0.9.1...0.9.2

@@ -1,32 +1,45 @@
-jQuery( function ( $ )
-{
+( function ( $, rwmb ) {
 	'use strict';
 
 	/**
-	 * Show color pickers
-	 * @return void
+	 * Transform an input into a color picker.
 	 */
-	function initColorPicker()
-	{
-		var $this = $( this ),
-			$container = $this.closest( '.rwmb-color-clone' );
+	function transform() {
+		var $this = $( this );
+
+		function triggerChange() {
+			$this.trigger( 'color:change' ).trigger( 'mb_change' );
+		}
+
+		var $container = $this.closest( '.wp-picker-container' ),
+			// Hack: the picker needs a small delay (learn from the Kirki plugin).
+			options = $.extend(
+				{
+					change: function () {
+						setTimeout( triggerChange, 20 );
+					},
+					clear: function () {
+						setTimeout( triggerChange, 20 );
+					}
+				},
+				$this.data( 'options' )
+			);
 
 		// Clone doesn't have input for color picker, we have to add the input and remove the color picker container
-		if ( $container.length > 0 )
-		{
-			$this.appendTo( $container ).siblings( '.wp-picker-container' ).remove();
+		if ( $container.length > 0 ) {
+			$this.insertBefore( $container );
+			$container.remove();
 		}
 
-		// Make sure the value is displayed
-		if ( !$this.val() )
-		{
-			$this.val( '#' );
-		}
-
-		// Show color picker
-		$this.wpColorPicker( $this.data( 'options' ) );
+		// Show color picker.
+		$this.wpColorPicker( options );
 	}
 
-	$( ':input.rwmb-color' ).each( initColorPicker );
-	$( '.rwmb-input' ).on( 'clone', 'input.rwmb-color', initColorPicker );
-} );
+	function init( e ) {
+		$( e.target ).find( '.rwmb-color' ).each( transform );
+	}
+
+	rwmb.$document
+		.on( 'mb_ready', init )
+		.on( 'clone', '.rwmb-color', transform );
+} )( jQuery, rwmb );
