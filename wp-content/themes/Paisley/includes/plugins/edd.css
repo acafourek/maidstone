@@ -1,0 +1,62 @@
+
+/*************************************************************************************************************************
+Screen smaller than 480px
+*************************************************************************************************************************/
+@media all and (max-width: 480px) {
+
+}
+
+/*************************************************************************************************************************
+Screen between 481px and 1199px
+*************************************************************************************************************************/
+@media all and (min-width: 481px) and (max-width: 1199px) {
+
+}
+
+/*************************************************************************************************************************
+Screen larger than 1200px
+*************************************************************************************************************************/
+@media all and (min-width: 1200px) {
+
+}
+
+.edd_download {margin-bottom: 40px;}
+
+.edd-add-to-cart,
+.edd_go_to_checkout,
+.edd-submit {border: 1px solid #000; background: #000; color: #fff; cursor: pointer; padding: 8px 15px; -webkit-box-shadow: none; box-shadow: none;}
+
+.edd-add-to-cart:hover,
+.edd_go_to_checkout:hover,
+.edd-submit:hover {border: 1px solid #aaa; background: #aaa; color: #fff;}
+
+#edd_download_pagination {clear: both; font-size: .85em; padding: 10px 0; overflow: hidden; text-align: center;}
+#edd_download_pagination a:hover,
+#edd_download_pagination .current {padding: 5px 10px; margin-right: 5px; background: #000000; color: #fff;}
+#edd_download_pagination a {padding: 5px 10px; margin-right: 5px; background: #ccc; color: #000;}
+
+ul.edd-cart {font-size: .9em;}
+ul.edd-cart li.empty {background: #eee; padding: 10px;}
+ul.edd-cart li.edd-cart-item {border-bottom: 1px solid #eee;}
+ul.edd-cart li.edd-cart-item .edd-remove-from-cart {font-size: .9em;}
+
+/* EDD */
+.single-download .edd_download_purchase_form {padding: 20px 0;}
+.nav li.menu-item-type-edd-cart {float: right;}
+.edd-add-to-cart,
+.edd-submit,
+.edd-submit.button,
+.edd-submit.button:visited,
+.edd-submit.button.gray {padding: 8px 15px; -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;}
+.edd-add-to-cart:hover,
+.edd-submit:hover,
+.edd-submit.button:hover,
+.edd-submit.button.gray:hover {}
+#edd_checkout_form_wrap input[type=text],
+#edd_checkout_form_wrap input[type=email],
+#edd_checkout_form_wrap input[type=password],
+#edd_checkout_form_wrap textarea {padding: 10px;}
+
+#edd-purchase-button,
+.edd-submit,
+input[type=submit].edd-submit {font-size: 1em;}
